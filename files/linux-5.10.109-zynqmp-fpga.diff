@@ -1,0 +1,9 @@
+On branch linux-5.10.109-zynqmp-fpga
+Your branch is ahead of 'v5.10.109' by 65 commits.
+  (use "git push" to publish your local commits)
+
+
+It took 2.34 seconds to enumerate untracked files. 'status -uno'
+may speed it up, but you have to be careful not to forget to add
+new files yourself (see 'git help status').
+nothing to commit, working tree clean

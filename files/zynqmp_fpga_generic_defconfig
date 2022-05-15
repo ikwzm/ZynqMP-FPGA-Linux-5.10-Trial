@@ -1,0 +1,6342 @@
+#
+# General setup
+#
+
+##
+## Local version - append to kernel release
+##
+CONFIG_LOCALVERSION="-zynqmp-fpga-generic"
+
+##
+## Automatically append version information to the version string
+##
+## CONFIG_LOCALVERSION_AUTO=y
+
+##
+## Support for paging of annymous memory (swap)
+##
+## CONFIG_SWAP=y
+
+##
+## SystemV IPC
+##
+CONFIG_SYSVIPC=y
+
+##
+## POSIX Message Queues
+##
+CONFIG_POSIX_MQUEUE=y
+
+##
+## General notification queue
+##
+## CONFIG_WATCH_QUEUE is not set
+
+##
+## Enable process_vm_readv/writev syscalls
+##
+## CONFIG_MEMORY_ATTACH=y
+
+##
+## uselib syscall
+##
+## CONFIG_USELIB is not set
+
+##
+## Auditing support
+##
+CONFIG_AUDIT=y
+
+##
+## IRQ subsystem
+##
+## end of IRQ subsystem
+
+##
+## Timers subsystem
+##
+CONFIG_NO_HZ=y
+CONFIG_HIGH_RES_TIMERS=y
+## end of Timers subsystem
+
+##
+## Preemption Model
+##
+
+###
+### No Forced Preemption (Server)
+###
+### CONFIG_PREEMPT_NONE=y
+
+###
+### Voluntary Kernel Preemption (Desktop)
+###
+### CONFIG_PREEMPT_VOLUNTARY is not set
+
+###
+### Preemptible Kernel (Low-Latency Desktop)
+###
+### CONFIG_PREEMPT is not set
+
+###
+### Fully Preemptible Kernel (Real-Time)
+###
+### CONFIG_PREEMPT_RT is not set
+
+## end of Preemption Model
+
+##
+## CPU/Task time and stats accounting
+##
+## CONFIG_IRQ_TIME_ACCOUNTING is not set
+CONFIG_BSD_PROCESS_ACCT=y
+## CONFIG_BSD_PROCESS_ACCT_V3 is not set
+CONFIG_TASKSTATS=y
+CONFIG_TASK_DELAY_ACCT=y
+CONFIG_TASK_XACCT=y
+CONFIG_TASK_IO_ACCOUNTING=y
+## CONFIG_PSI is not set
+## end of CPU/Task time and stats accounting
+
+##
+## CPU isolation
+##
+## CONFIG_CPU_ISOLATION=y
+
+##
+## RCU Subsystem
+##
+
+##
+## Kernel .config support
+##
+CONFIG_IKCONFIG=y
+
+##
+## Enable access to .config through /proc/config.gz
+##
+CONFIG_IKCONFIG_PROC=y
+
+##
+## Enable kernel headers through /sys/kernel/kheaders.tar.xz
+##
+## CONFIG_IKHEADERS is not set
+
+##
+## Kernel log buffer size (16 => 64KB, 17 => 128KB)
+##
+CONFIG_LOG_BUF_SHIFT=16
+
+##
+## CPU kernel log buffer size contribution (13 => 8KB, 17=>128KB)
+##
+## CONFIG_LOG_CPU_MAX_BUF_SHIFT=12
+
+##
+## Temporary per-CPU printk log buffer size (12 => 4KB, 13 => 8KB)
+##
+## CONFIG_PRINTK_SAFE_LOG_BUF_SHIFT=13
+
+##
+## Scheduler features
+##
+## end of Scheduler features
+
+##
+## Control Group support
+##
+CONFIG_CGROUPS=y
+CONFIG_MEMCG=y
+CONFIG_MEMCG_SWAP=y
+CONFIG_MEMCG_SWAP_ENABLED=y
+CONFIG_MEMCG_KMEM=y
+CONFIG_BLK_CGROUP=y
+CONFIG_CGROUP_WRITEBACK=y
+CONFIG_CGROUP_SCHED=y
+CONFIG_FAIR_GROUP_SCHED=y
+CONFIG_CFS_BANDWIDTH=y
+## CONFIG_RT_GROUP_SCHED is not set
+CONFIG_CGROUP_PIDS=y
+## CONFIG_CGROUP_RDMA is not set
+CONFIG_CGROUP_FREEZER=y
+CONFIG_CGROUP_HUGETLB=y
+CONFIG_CPUSETS=y
+CONFIG_PROC_PID_CPUSET=y
+CONFIG_CGROUP_DEVICE=y
+CONFIG_CGROUP_CPUACCT=y
+CONFIG_CGROUP_PERF=y
+CONFIG_CGROUP_BPF=y
+## CONFIG_CGROUP_DEBUG is not set
+## end of Control Group support	
+
+##
+## Namespaces support
+##
+CONFIG_NAMESPACES=y
+CONFIG_UTS_NS=y
+CONFIG_IPC_NS=y
+CONFIG_USER_NS=y
+CONFIG_PID_NS=y
+CONFIG_NET_NS=y
+## end of Namespaces support	
+
+##
+## Checkpoint/restore support
+##
+## CONFIG_CHECKPOINT_RESTORE is not set
+
+##
+## Automatic process group scheduling
+##
+## CONFIG_SCHED_AUTOGROUP is not set
+
+##
+## Enable deprecated sysfs features to support old userspace tools
+##
+## CONFIG_SYSFS_DEPRECATED is not set
+
+##
+## Kernel->user space relay support (formerly relayfs)
+##
+## CONFIG_RELAY is not set
+
+##
+## Initial RAM filesystem and RAM disk (initramfs/initrd) support
+##
+CONFIG_BLK_DEV_INITRD=y
+
+##
+## Initramfs source file(s)
+##
+## CONFIG_INITRAMFS_SOURCE is not set
+
+##
+## Support initial ramdisk/ramfs compressed using gzip/gzip2/LZMA/XZ/LZO/LZ4/ZSTD
+##
+## CONFIG_RD_GZIP=y
+## CONFIG_RD_BZIP2=y
+## CONFIG_RD_LZMA=y
+## CONFIG_RD_XZ=y
+## CONFIG_RD_LZO=y
+## CONFIG_RD_LZ4=y
+## CONFIG_RD_ZSTD=y
+
+##
+## Boot config support
+##
+## CONFIG_BOOT_CONFIG is not set
+
+##
+## Compiler optimization level
+##
+## CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE=y
+
+##
+## Configure standard kernel features (expert users)
+##
+## end of Configure standard kernel features (expert users)
+
+##
+## Enable membarrier() system call
+##
+## CONFIG_MEMBARRIER=y
+
+##
+## Load all symbols for debugging/ksymoops
+##
+## CONFIG_KALLSYMS=y
+
+##
+## Include all symbols in kallsyms
+##
+## CONFIG_KALLSYMS_ALL is not set
+
+##
+## Enable bpf() system call
+##
+CONFIG_BPF_SYSCALL=y
+
+##
+## Permanently enable BPF JIT and remove BPF interpreter
+##
+## CONFIG_BPF_JIT_ALWAYS_ON is not set
+
+##
+## Disable unprivileged BPF by default
+##
+## CONFIG_BPF_UNPRIV_DEFAULT_OFF is not set
+
+##
+## Preload BPF file system with kernel specific program and map iterators
+##
+## CONFIG_BPF_PRELOAD is not set
+
+##
+## Enable userfaultfd() system call
+##
+## CONFIG_USERFAULTFD is not set
+
+##
+## Enable kcmp() system call
+##
+## CONFIG_KCMP=y
+
+##
+## Enable rseq() system call
+##
+## CONFIG_RSEQ=y
+
+##
+## Enabled debugging of rseq() system call
+##
+## CONFIG_DEBUG_RSEQ is not set
+
+##
+## Embedded system
+##
+CONFIG_EMBEDDED=y
+
+##
+## PC/104 support
+##
+## CONFIG_PC104 is not set
+
+##
+## Kernel Performance Events And Counters
+##
+## end of Kernel Performance Events And Counters
+
+##
+## Enable VM event counters for /proc/vmstat
+##
+## CONFIG_VM_EVENT_COUNTERS=y
+
+##
+## Disable heap randomization
+##
+## CONFIG_COMPAT_BRK is not set
+
+##
+## Choose SLAB allocator
+##
+CONFIG_SLAB=y
+## CONFIG_SLUB is not set
+## CONFIG_SLOB is not set
+
+##
+## Allow slab caches to be merged
+##
+## CONFIG_SLAB_MERGE_DEFAULT=y
+
+##
+## Randomize slab freelist
+##
+## CONFIG_SLAB_FREELIST_RANDOM is not set
+
+##
+## Harden slab freelist metadata
+##
+## CONFIG_SLAB_FREELIST_HARDENED is not set
+
+##
+## Page allocator randomization
+##
+## CONFIG_SHUFFLE_PAGE_ALLOCATOR is not set
+
+##
+## Profiling support
+##
+CONFIG_PROFILING=y
+
+# end of General setup
+
+
+#
+# Support DMA zone
+#
+# CONFIG_ZONE_DMA is not set
+
+#
+# Support DMA32 zone
+#
+# CONFIG_ZONE_DMA32=y
+
+#
+# Platform selection
+#
+# CONFIG_ARCH_ACTIONS is not set
+# CONFIG_ARCH_AGILEX is not set
+# CONFIG_ARCH_SUNXI is not set
+# CONFIG_ARCH_ALPINE is not set
+# CONFIG_ARCH_BCM2835 is not set
+# CONFIG_ARCH_BCM_IPROC is not set
+# CONFIG_ARCH_BERLIN is not set
+# CONFIG_ARCH_BITMAIN is not set
+# CONFIG_ARCH_BRCMSTB is not set
+# CONFIG_ARCH_EXYNOS is not set
+# CONFIG_ARCH_SPARX5 is not set
+# CONFIG_ARCH_K3 is not set
+# CONFIG_ARCH_LAYERSCAPE is not set
+# CONFIG_ARCH_LG1K is not set
+# CONFIG_ARCH_HISI is not set
+# CONFIG_ARCH_KEEMBAY is not set
+# CONFIG_ARCH_MEDIATEK is not set
+# CONFIG_ARCH_MESON is not set
+# CONFIG_ARCH_MVEBU is not set
+# CONFIG_ARCH_MXC is not set
+# CONFIG_ARCH_QCOM is not set
+# CONFIG_ARCH_REALTEK is not set
+# CONFIG_ARCH_RENESAS is not set
+# CONFIG_ARCH_ROCKCHIP is not set
+# CONFIG_ARCH_S32 is not set
+# CONFIG_ARCH_SEATTLE is not set
+# CONFIG_ARCH_STRATIX10 is not set
+# CONFIG_ARCH_SYNQUACER is not set
+# CONFIG_ARCH_TEGRA is not set
+# CONFIG_ARCH_SPRD is not set
+# CONFIG_ARCH_THUNDER is not set
+# CONFIG_ARCH_THUNDER2 is not set
+# CONFIG_ARCH_UNIPHIER is not set
+# CONFIG_ARCH_VEXPRESS is not set
+# CONFIG_ARCH_VISCONTI is not set
+# CONFIG_ARCH_XGENE is not set
+# CONFIG_ARCH_ZX is not set
+CONFIG_ARCH_ZYNQMP=y
+# end of Platform selection
+
+#
+# Kernel Features
+#
+
+##
+## ARM errata workarounds via the alternatives framework
+##
+## end of ARM errata workarounds via the alternatives framework
+
+##
+## Page Size
+##
+## CONFIG_ARM64_4K_PAGES=y
+## CONFIG_ARM64_16K_PAGES is not set
+## CONFIG_ARM64_64K_PAGES is not set
+
+##
+## Virtual address space size
+##
+## CONFIG_ARM64_VA_BITS_36 is not set
+## CONFIG_ARM64_VA_BITS_39=y if CONFIG_ARM64_4K_PAGES=y
+## CONFIG_ARM64_VA_BITS_42=y if CONFIG_ARM64_64K_PAGES=y
+## CONFIG_ARM64_VA_BITS_47=y if CONFIG_ARM64_16K_PAGES=y
+## CONFIG_ARM64_VA_BITS_48 is not set
+## CONFIG_ARM64_VA_BITS_52 is not set
+##
+## CONFIG_ARM64_VA_BITS=39 if CONFIG_ARM64_VA_BITS_39=y
+
+##
+## Physical address space size
+##
+## CONFIG_ARM64_PA_BITS_48=y
+## CONFIG_ARM64_PA_BITS_52 is not set
+##
+## ARM64_PA_BITS=48 if CONFIG_ARM64_PA_BITS_48=y
+
+##
+## Endianness
+##
+## CONFIG_CPU_LITTLE_ENDIAN=y
+## CONFIG_CPU_BIG_ENDIAN is not set
+
+##
+## Multi-core scheduler support
+##
+## CONFIG_SCHED_MC is not set
+
+##
+## SMT scheduler support
+##
+## CONFIG_SCHED_SMT is not set
+
+##
+## Maximum number of CPUs (2-4096)
+##
+CONFIG_NR_CPUS=4
+
+##
+## Support for hot-pluggable CPUs
+##
+## CONFIG_HOTPLUG_CPU=y
+
+##
+## NUMA Memory Allocation and Scheduler Support
+##
+## CONFIG_NUMA is not set
+
+##
+## Timer freequency
+##
+## CONFIG_HZ_100 is not set
+## CONFIG_HZ_250=y
+## CONFIG_HZ_300 is not set
+## CONFIG_HZ_1000 is not set
+##
+## CONFIG_HZ=250 if CONFIG_HZ_250=y
+## CONFIG_SCHED_HRTICK=y
+
+##
+## Enable paravirtualization code
+##
+## CONFIG_PARAVIRT is not set
+
+##
+## Paravirtual steal time accounting
+##
+## CONFIG_PARAVIRT_TIME_ACCOUNTING is not set
+
+##
+## kexec system call
+##
+## CONFIG_KEXEC is not set
+
+##
+## kexec file based system call
+##
+## CONFIG_KEXEC_FILE is not set
+
+##
+## Build kdump crash kernel
+##
+## CONFIG_CRASH_DUMP is not set
+
+##
+## Xen guest support on ARM64
+##
+## CONFIG_XEN is not set
+
+##
+## Unmap kernel when running in userspace (aka "KAISER")
+##
+## CONFIG_UNMAP_KERNEL_AT_EL0=y
+
+##
+## Mitigate Spectre style attacks against branch history
+##
+## CONFIG_MITIGATE_SPECTRE_BRANCH_HISTORY=y
+
+##
+## Apply r/o permissions of VM areas also to their linear aliases
+##
+## CONFIG_RODATA_FULL_DEFAULT_ENABLED=y
+
+##
+## Emulate Privileged Access Never using TTBR0_EL1 switching
+##
+## CONFIG_ARM64_SW_TTBR0_PAN is not set
+
+##
+## Enable the tagged user addresses syscall ABI
+##
+## CONFIG_ARM64_TAGGED_ADDR_ABI=y
+
+##
+## Kernel support for 32-bit EL0
+##
+CONFIG_COMPAT=y
+
+###
+### Enable kuser helpers page for 32-bit applications
+###
+### CONFIG_KUSER_HELPERS=y
+
+###
+### Emulate deprecated/obsolete ARMv8 instructions
+###
+### CONFIG_ARMV8_DEPRECATED is not set
+
+##
+## ARMv8.1 architectural features
+##
+## end of ARMv8.1 architectural features
+
+##
+## ARMv8.2 architectural features
+##
+## end of ARMv8.2 architectural features
+
+##
+## ARMv8.3 architectural features
+##
+## end of ARMv8.3 architectural features
+
+##
+## ARMv8.4 architectural features
+##
+## end of ARMv8.4 architectural features
+
+##
+## ARMv8.5 architectural features
+##
+## end of ARMv8.5 architectural features
+
+##
+## ARM Scalable Vector Extension support
+##
+## CONFIG_ARM64_SVE=y
+
+##
+## Use PLTs to allow module memory to spill over into vmalloc area
+##
+## CONFIG_ARM64_MODULE_PLTS=y
+
+##
+## Support for NMI-like interrupts
+##
+## CONFIG_ARM64_PSEUDO_NMI is not set
+
+##
+## Build a relocatable kernel image
+##
+## CONFIG_RELOCATABLE=y
+
+##
+## Randomize the address of the kernel image
+##
+## CONFIG_RANDOMIZE_BASE is not set
+
+# end of Kernel Features
+
+#
+# Boot options
+#
+
+##
+## Default kernel command string
+##
+## CONFIG_CMDLINE=""
+
+##
+## UEFI runtime support
+##
+## CONFIG_EFI_STUB=y
+## CONFIG_EFI=y
+
+##
+## Enable support for SMBIOS (DMI) tables
+##
+## CONFIG_DMI is not set
+
+# end of Boot options
+
+#
+# Power management options
+#
+
+##
+## Suspend to RAM and standby
+##
+## CONFIG_SUSPEND=y
+## CONFIG_SUSPEND_FREEZER=y
+
+##
+## Skip kernel's sys_sync() on suspend to RAM/standby
+##
+## CONFIG_SUSPEND_SKIP_SYNC is not set
+
+##
+## Hibernation (aka 'suspend to disk')
+##
+## CONFIG_HIBERNATION is not set
+
+##
+## Opportunistic sleep
+##
+## CONFIG_PM_AUTOSLEEP is not set
+
+##
+## User space wakeup sources interface
+##
+## CONFIG_PM_WAKELOCKS is not set
+
+##
+## Device power management core functionality
+##
+## CONFIG_PM=y
+
+##
+## Power Management Debug Support
+##
+## CONFIG_PM_DEBUG is not set
+
+##
+## Enable workqueue power-efficient mode by default
+##
+## CONFIG_WQ_POWER_EFFICIENT_DEFAULT is not set
+
+##
+## Energy Model for CPUs
+##
+## CONFIG_ENERGY_MODEL is not set
+
+# end of Power management options
+
+
+#
+# CPU Power Management
+#
+
+##
+## CPU Idle 
+##
+
+###
+### CPU idle PM support
+###
+CONFIG_CPU_IDLE=y
+
+###
+### Ladder governor (for periodic timer tick)
+###
+### CONFIG_CPU_IDLE_GOV_LADDER is not set
+
+###
+### Menu governor (for tickless system)
+###
+### CONFIG_CPU_IDLE_GOV_MENU=y
+
+###
+### Timer events oriented (TEO) governor (for tickless systems)
+###
+### CONFIG_CPU_IDLE_GOV_TEO is not set
+
+###
+### ARM CPU Idle Drivers
+###
+
+####
+#### Generic ARM/ARM64 CPU idle Driver
+####
+#### CONFIG_ARM_CPUIDLE is not set
+
+####
+#### PSCI CPU idle Driver
+####
+#### CONFIG_ARM_PSCI_CPUIDLE=y
+
+####
+#### PSCI CPU idle Domain
+####
+#### CONFIG_ARM_PSCI_CPUIDLE_DOMAIN=y
+
+### end of ARM CPU Idle Drivers
+## end of CPU Idle
+
+##
+## CPU Frequency scaling
+##
+
+###
+### CPU Frequency scaling
+###
+CONFIG_CPU_FREQ=y
+
+###
+### CPU frequency transition statistics
+###
+### CONFIG_CPU_FREQ_STAT is not set
+
+###
+### Default CPUFreq governor
+###
+### CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE   if ...
+### CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL   if ...
+### CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL   if ...
+### CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE if ...
+### 
+CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE=y
+
+###
+### 'performance' governor
+###
+### CONFIG_CPU_FREQ_GOV_PERFORMANCE is not set
+
+###
+### 'powersave' governor
+###
+### CONFIG_CPU_FREQ_GOV_POWERSAVE is not set
+
+###
+### 'userspace' governor for userspace frequency scaling
+###
+### CONFIG_CPU_FREQ_GOV_USERSPACE=y
+
+###
+### 'ondemand' cpufreq policy governor
+###
+### CONFIG_CPU_FREQ_GOV_ONDEMAND is not set
+
+###
+### 'conservative' cpufreq governor
+###
+### CONFIG_CPU_FREQ_GOV_CONSERVATIVE is not set
+
+###
+### 'schedutil' cpufreq policy governor
+###
+### CONFIG_CPU_FREQ_GOV_SCHEDUTIL is not set
+
+###
+### CPU frequency scaling drivers
+###
+CONFIG_CPUFREQ_DT=y
+
+## end of CPU Frequency scaling
+# end of CPU Power Management
+
+#
+# Firmware Drivers
+#
+
+##
+## ARM System Control and Management Interface (SCMI) Message Protocol
+##
+## CONFIG_ARM_SCMI_PROTOCOL is not set
+
+##
+## SCMI power domain driver
+##
+## CONFIG_ARM_SCPI_PROTOCOL is not set
+
+##
+## ARM Software Delegated Exception Interface (SDEI)
+##
+## CONFIG_ARM_SDE_INTERFACE is not set
+
+##
+## Add firmware-provided memory map to sysfs
+##
+## CONFIG_FIRMWARE_MEMMAP is not set
+
+##
+## QEMU fw_cfg device support in sysfs
+##
+## CONFIG_FW_CFG_SYSFS is not set
+
+##
+## Google Firmware Drivers
+##
+## CONFIG_GOOGLE_FIRMWARE is not set
+
+##
+## EFI (Extensible Firmware Interface) Support
+##
+
+###
+### Enable the DTB loader
+###
+### CONFIG_EFI_ARMSTUB_DTB_LOADER=y
+
+###
+### Enable the command line initrd loader
+###
+### CONFIG_EFI_GENERIC_STUB_INITRD_CMDLINE_LOADER=y
+
+###
+### EFI Bootloader Control
+###
+### CONFIG_EFI_BOOTLOADER_CONTROL is not set
+
+###
+### EFI capsule loader
+###
+### CONFIG_EFI_CAPSULE_LOADER is not set
+
+###
+### EFI Runtime Service Tests Support
+###
+### CONFIG_EFI_TEST is not set
+
+###
+### Reset memory attack mitigation
+###
+### CONFIG_RESET_ATTACK_MITIGATION is not set
+
+###
+### Clear Busmaster bit on PCI bridges during ExitBootServices()
+###
+### CONFIG_EFI_DISABLE_PCI_DMA is not set
+
+## end of EFI (Extensible Firmware Interface) Support
+
+##
+## ARM PSCI checker
+##
+## CONFIG_ARM_PSCI_CHECKER is not set
+
+##
+## SoC bus device for the ARM SMCCC SOC_ID
+##
+## CONFIG_ARM_SMCCC_SOC_ID=y
+
+##
+## Tegra firmware driver
+##
+## end of Tegra firmware driver
+
+##
+## Zynq MPSoC Firmware Drivers
+##
+
+###
+### Enable Xilinx Zynq MPSoC firmware interface
+###
+CONFIG_ZYNQMP_FIRMWARE=y
+
+###
+### Enable Xilinx Zynq MPSoC firmware debug APIs
+###
+CONFIG_ZYNQMP_FIRMWARE_DEBUG=y
+
+###
+### Enable Xilinx Zynq MPSoC secure firmware loading APIs
+###
+CONFIG_ZYNQMP_FIRMWARE_SECURE=y
+
+## end of Zynq MPSoC Firmware Drivers
+# end of Firmware Drivers
+
+
+#
+# ACPI (Advanced Configuration and Power Interface Support
+#
+# end of ACPI (Advanced Configuration and Power Interface Support
+
+#
+# Virtualization
+#
+# CONFIG_VIRTUALIZATION is not set
+#
+# end of Virtualization
+
+#
+# ARM64 Accelerated Cryptographic Algorithms
+#
+# CONFIG_ARM64_CRYPTO is not set
+# CONFIG_CRYPTO_SHA256_ARM64 is not set
+# CONFIG_CRYPTO_SHA512_ARM64 is not set
+# CONFIG_CRYPTO_SHA1_ARM64_CE is not set
+# CONFIG_CRYPTO_SHA2_ARM64_CE is not set
+# CONFIG_CRYPTO_SHA512_ARM64_CE is not set
+# CONFIG_CRYPTO_SHA3_ARM64 is not set
+# CONFIG_CRYPTO_SM3_ARM64_CE is not set
+# CONFIG_CRYPTO_SM4_ARM64_CE is not set
+# CONFIG_CRYPTO_GHASH_ARM64_CE is not set
+# CONFIG_CRYPTO_AES_ARM64 is not set
+# CONFIG_CRYPTO_AES_ARM64_CE is not set
+# CONFIG_CRYPTO_AES_ARM64_CE_CCM is not set
+# CONFIG_CRYPTO_AES_ARM64_CE_BLK is not set
+# CONFIG_CRYPTO_AES_ARM64_NEON_BLK is not set
+# CONFIG_CRYPTO_CHACHA20_NEON is not set
+# CONFIG_CRYPTO_NHPOLY1305_NEON is not set
+# CONFIG_CRYPTO_AES_ARM64_BS is not set
+#
+# end of ARM64 Accelerated Cryptographic Algorithms
+
+#
+# General architecture-dependent options
+#
+
+##
+## Kprobes
+##
+## CONFIG_KPROBES is not set
+
+##
+## Optimize very unlikely/likely branches
+##
+## CONFIG_JUMP_LABEL is not set
+
+##
+## Enable seccomp to safely execute untrusted bytecode
+##
+## CONFIG_SECCOMP=y
+
+##
+## Stack Protector buffer overflow detection
+##
+## CONFIG_STACKPROTECTOR=y
+
+##
+## Strong Stack Protector
+##
+## CONFIG_STACKPROTECTOR_STRONG=y
+
+##
+## Number of bits to use for ASLR of mmap base address
+##
+## CONFIG_ARCH_MMAP_RND_BITS=18
+
+##
+## Number of bits to use for ASLR of mmap base address for compatible applications
+##
+## CONFIG_ARCH_MMAP_RND_COMPAT_BITS=11
+
+##
+## Provide system calls for 32-bit time_t
+##
+## CONFIG_COMPAT_32BIT_TIME=y
+
+##
+## Use a virtually-mapped stack
+##
+## CONFIG_VMAP_STACK=y
+
+##
+## Locking event counts collection
+##
+## CONFIG_LOCK_EVENT_COUNTS is not set
+
+##
+## GCOV-based kernel profiling
+##
+
+###
+### Enable gcov-based kernel profiling
+###
+### CONFIG_GCOV_KERNEL is not set
+
+## end of GCOV-based kernel profiling
+
+# end of General architecture-dependent options
+
+#
+# Enable loadable module support
+#
+CONFIG_MODULES=y
+
+##
+## Module unloading
+##
+CONFIG_MODULE_UNLOAD=y
+
+# end of Enable loadable module support
+
+#
+# Enable the block layer
+#
+# CONFIG_BLOCK=y
+
+##
+## Block layer SG support v4
+##
+## CONFIG_BLK_DEV_BSG=y
+
+##
+## Block layer SG support v4 helper lib
+##
+## CONFIG_BLK_DEV_BSGLIB is not set
+
+##
+## Block layer data integrity support
+##
+## CONFIG_BLK_DEV_INTEGRITY is not set
+
+##
+## Zoned block device support
+##
+## 
+## CONFIG_BLK_DEV_ZONED is not set
+
+##
+## Block layer bio throttling support
+##
+CONFIG_BLK_DEV_THROTTLING=y
+
+##
+## Block throttling .low limit interface support (EXPERIMENTAL)
+##
+## CONFIG_BLK_DEV_THROTTLING_LOW is not set
+
+##
+## Block device command line partition parser
+##
+## CONFIG_BLK_CMDLINE_PARSER is not set
+
+##
+## Enable support for block device writeback throttling
+##
+## CONFIG_BLK_WBT is not set
+
+##
+## Enable support for latency based cgroup IO protection
+##
+## CONFIG_BLK_CGROUP_IOLATENCY is not set
+
+##
+## Enable support for cost model based cgroup IO controller
+##
+## CONFIG_BLK_CGROUP_IOCOST is not set
+
+##
+## Block layer debugging information in debugfs
+##
+## CONFIG_BLK_DEBUG_FS=y
+
+##
+## Logic for interfacing with Opal enabled SEDs
+##
+## CONFIG_BLK_SED_OPAL is not set
+
+##
+## Enable inline encryption support in block layer
+##
+## CONFIG_BLK_INLINE_ENCRYPTION is not set
+
+##
+## Partition Types
+##
+## CONFIG_PARTITION_ADVANCED is not set
+## CONFIG_ACORN_PARTITION is not set
+## CONFIG_AIX_PARTITION is not set
+## CONFIG_OSF_PARTITION is not set
+## CONFIG_AMIGA_PARTITION is not set
+## CONFIG_ATARI_PARTITION is not set
+## CONFIG_IBM_PARTITION is not set
+## CONFIG_MAC_PARTITION is not set
+## CONFIG_MSDOS_PARTITION=y
+## CONFIG_SOLARIS_X86_PARTITION is not set
+## CONFIG_LDM_PARTITION is not set
+## CONFIG_SGI_PARTITION is not set
+## CONFIG_ULTRIX_PARTITION is not set
+## CONFIG_SUN_PARTITION is not set
+## CONFIG_KARMA_PARTITION is not set
+## CONFIG_EFI_PARTITION=y
+## CONFIG_SYSV68_PARTITION is not set
+## CONFIG_CMDLINE_PARTITION is not set
+##
+## end of Partition Types
+
+# end of Enable the block layer
+
+#
+# IO Schedulers
+#
+# end of IO Schedulers
+
+#
+# Executable file formats
+#
+# end of Executable file formats
+
+
+#
+# Memory Management options
+#
+
+##
+## Memory model
+##
+## CONFIG_SELECT_MEMORY_MODEL=y
+## CONFIG_FLATMEM_MANUAL is not set
+## CONFIG_DISCONTIGMEM_MANUAL is not set
+## CONFIG_SPARSEMEM_MANUAL=y
+
+##
+## Allow for memory hot-add
+##
+CONFIG_MEMORY_HOTPLUG=y
+
+##
+## Online the newly added memory blocks by default
+##
+##
+## CONFIG_MEMORY_HOTPLUG_DEFAULT_ONLINE is not set
+
+##
+## Allow for memory hot remove
+##
+## CONFIG_MEMORY_HOTREMOVE is not set
+
+##
+## Allow for memory compaction
+##
+## CONFIG_COMPACTION=y
+
+##
+## Free page reporting
+##
+## CONFIG_PAGE_REPORTING is not set
+
+##
+## Page migration
+##
+## CONFIG_MIGRATION=y
+
+##
+## Enable KSM for page merging
+##
+## CONFIG_KSM is not set
+
+##
+## Low address space to protect from user allocation
+##
+CONFIG_DEFAULT_MMAP_MIN_ADDR=32768
+
+##
+## Enable recovery from hardware memory errors
+##
+## CONFIG_MEMORY_FAILURE is not set
+
+##
+## Transparent Hugepage Support
+##
+CONFIG_TRANSPARENT_HUGEPAGE=y
+
+##
+## Transparent Hugepage Support sysfs defaults
+##
+CONFIG_TRANSPARENT_HUGEPAGE_MADVISE=y
+
+##
+## Enable cleancache driver to cache clean pages if tmem is present
+##
+## CONFIG_CLEANCACHE is not set
+
+##
+## Enable frontswap to cache swap pages if tmem is present
+##
+## CONFIG_FRONTSWAP is not set
+
+##
+## Contiguous Memory Allocator
+##
+CONFIG_CMA=y
+
+##
+## CMA debug messages (DEVELOPMENT)
+##
+## CONFIG_CMA_DEBUG is not set
+
+##
+## CMA debugfs interface
+##
+## CONFIG_CMA_DEBUGFS is not set
+
+##
+## Maximum count of the CMA areas
+##
+## CONFIG_CMA_AREAS=7
+
+##
+## Common API for compressed memory storage
+##
+## CONFIG_ZPOOL is not set
+
+##
+## Low (Up to 2x) density storage for compressed pages
+##
+## CONFIG_ZBUD is not set
+
+##
+## Memory allocator for compressed pages
+##
+## CONFIG_ZSMALLOC is not set
+
+##
+## Defer initialisation of struct pages to kthreads
+##
+## CONFIG_DEFERRED_STRUCT_PAGE_INIT is not set
+
+##
+## Enable idle page tracking
+##
+## CONFIG_IDLE_PAGE_TRACKING is not set
+
+##
+## Collect percpu memory statistics
+##
+## CONFIG_PERCPU_STATS is not set
+
+##
+## Enable infrastructure for get_user_pages() and related calls benchmarking
+##
+## CONFIG_GUP_BENCHMARK is not set
+
+##
+## Read-only THP for filesystems (EXPERIMENTAL)
+##
+## CONFIG_READ_ONLY_THP_FOR_FS is not set
+
+# end of Memory Management options
+
+#
+# Networking support
+#
+CONFIG_NET=y
+
+##
+## Networking options
+##
+
+###
+### Packet socket
+###
+CONFIG_PACKET=y
+
+###
+### Packet: sockets monitoring interface
+###
+### CONFIG_PACKET_DIAG is not set
+
+###
+### Unix domain sockets
+###
+CONFIG_UNIX=y
+
+###
+### UNIX: socket monitoring interface
+###
+### CONFIG_UNIX_DIAG is not set
+
+###
+### Transport Layer Security support
+###
+### CONFIG_TLS is not set
+
+###
+### Transformation user configuration interface
+###
+CONFIG_XFRM_USER=y
+
+###
+### Transformation virtual interface
+###
+### CONFIG_XFRM_INTERFACE is not set
+
+###
+### Transformation sub policy support
+###
+### CONFIG_XFRM_SUB_POLICY is not set
+
+###
+### Transformation migrate database
+###
+### CONFIG_XFRM_MIGRATE=y
+
+
+###
+### Transformation statistics
+###
+### CONFIG_XFRM_STATISTICS is not set
+
+###
+### PF_KEY sockets
+###
+CONFIG_NET_KEY=y
+
+###
+### PF_KEY MIGRATE
+###
+CONFIG_NET_KEY_MIGRATE=y
+
+###
+### XDP sockets
+###
+### CONFIG_XDP_SOCKETS is not set
+
+###
+### TCP/IP networking
+###
+CONFIG_INET=y
+
+###
+### IP: multicasting
+###
+CONFIG_IP_MULTICAST=y
+
+###
+### IP: advanced router
+###
+### CONFIG_IP_ADVANCED_ROUTER is not set
+
+###
+### IP: kernel level autoconfiguration
+###
+CONFIG_IP_PNP=y
+
+###
+### IP: DHCP support
+###
+CONFIG_IP_PNP_DHCP=y
+
+###
+### IP: BOOTP support
+###
+CONFIG_IP_PNP_BOOTP=y
+
+###
+### IP: RARP support
+###
+CONFIG_IP_PNP_RARP=y
+
+###
+### IP: tunneling
+###
+### CONFIG_NET_IPIP is not set
+
+###
+### IP: GRE demultiplexer
+###
+### CONFIG_NET_IPGRE_DEMUX is not set
+
+###
+### IP: multicast routing
+###
+### CONFIG_IP_MROUTE is not set
+
+###
+### IP: TCP syncookie support
+###
+CONFIG_SYN_COOKIES=y
+
+###
+### Virtual (secure) IP: tunneling
+###
+### CONFIG_NET_IPVTI is not set
+
+###
+### IP: Foo (IP protocols) over UDP
+###
+### CONFIG_NET_FOU is not set
+
+###
+### IP: FOU encapsulation of IP tunnels
+###
+### CONFIG_NET_FOU_IP_TUNNELS is not set
+
+###
+### IP: AH transformation
+###
+### CONFIG_INET_AH is not set
+
+###
+### IP: ESP transformation
+###
+### CONFIG_INET_ESP is not set
+
+###
+### IP: IPComp transformation
+###
+### CONFIG_INET_IPCOMP is not set
+
+###
+### INET: socket monitoring interface
+###
+### CONFIG_INET_DIAG=y
+
+###
+### UDP: socket monitoring interface
+###
+### CONFIG_INET_UDP_DIAG is not set
+
+###
+### RAW: socket monitoring interface
+###
+### CONFIG_INET_RAW_DIAG is not set
+
+###
+### INET: allow privileged process to administratively close sockets
+###
+### CONFIG_INET_DIAG_DESTROY is not set
+
+###
+### TCP: advanced congestion control
+###
+### CONFIG_TCP_CONG_ADVANCED is not set
+
+###
+### TCP: MD5 Signature Option support (RFC2385)
+###
+### CONFIG_TCP_MD5SIG is not set
+
+###
+### The IPv6 protocol
+###
+### CONFIG_IPV6=y
+
+####
+#### IPv6: Router Preference (RFC 4191) support
+####
+#### CONFIG_IPV6_ROUTER_PREF is not set
+
+####
+#### IPv6: Enable RFC 4429 Optimistic DAD
+####
+#### CONFIG_IPV6_OPTIMISTIC_DAD is not set
+
+####
+#### IPv6: AH transformation
+####
+#### CONFIG_INET6_AH is not set
+
+####
+#### IPv6: ESP transformation
+####
+#### CONFIG_INET6_ESP is not set
+
+####
+#### IPv6: IPComp transformation
+####
+#### CONFIG_INET6_IPCOMP is not set
+
+####
+#### IPv6: Mobility
+####
+#### CONFIG_IPV6_MIP6 is not set
+
+####
+#### IPv6: Identifier Locator Addressing (ILA)
+####
+#### CONFIG_IPV6_ILA is not set
+
+####
+#### Virtual (secure) IPv6: tunneling
+####
+#### CONFIG_IPV6_VTI is not set
+
+####
+#### IPv6: IPv6-in-IPv4 tunnel (SIT driver)
+####
+#### CONFIG_IPV6_SIT=y
+
+####
+#### IPv6: IPv6 Rapid Deployment (6RD)
+####
+#### CONFIG_IPV6_SIT_6RD is not set
+
+####
+#### IPv6: IP-in-IPv6 tunnel (RFC2473)
+####
+#### CONFIG_IPV6_TUNNEL is not set
+
+####
+#### IPv6: Multiple Routing Tables
+####
+#### CONFIG_IPV6_MULTIPLE_TABLES is not set
+
+####
+#### IPv6: multicast routing
+####
+#### CONFIG_IPV6_MROUTE is not set
+
+####
+#### IPv6: Segment Routing Header encapsulation support
+####
+#### CONFIG_IPV6_SEG6_LWTUNNEL is not set
+
+####
+#### IPv6: Segment Routing HMAC support
+####
+#### CONFIG_IPV6_SEG6_HMAC is not set
+
+####
+#### IPv6: RPL Source Routing Header support
+####
+#### CONFIG_IPV6_RPL_LWTUNNEL is not set
+
+### end of The IPv6 protocol
+
+###
+### MPTCP: Multipath TCP
+###
+### CONFIG_MPTCP is not set
+
+###
+### Security Marking
+###
+CONFIG_NETWORK_SECMARK=y
+
+###
+### Timestamping in PHY devices
+###
+### CONFIG_NETWORK_PHY_TIMESTAMPING is not set
+
+###
+### Network packet filtering framework (Netfilter)
+###
+CONFIG_NETFILTER=y
+
+####
+#### Advanced netfilter configuration
+####
+CONFIG_NETFILTER_ADVANCED=y
+
+####
+#### Bridged IP/ARP packets filtering
+####
+CONFIG_BRIDGE_NETFILTER=m
+
+####
+#### Core Netfilter Configuration
+####
+CONFIG_NETFILTER_INGRESS=y
+CONFIG_NETFILTER_NETLINK_ACCT=m
+CONFIG_NETFILTER_NETLINK_QUEUE=m
+CONFIG_NETFILTER_NETLINK_LOG=m
+CONFIG_NETFILTER_NETLINK_OSF=m
+CONFIG_NF_CONNTRACK=m
+CONFIG_NF_LOG_NETDEV=m
+CONFIG_NF_CONNTRACK_MARK=y
+# CONFIG_NF_CONNTRACK_SECMARK is not set
+# CONFIG_NF_CONNTRACK_ZONES is not set
+# CONFIG_NF_CONNTRACK_PROCFS=y
+# CONFIG_NF_CONNTRACK_EVENTS is not set
+# CONFIG_NF_CONNTRACK_TIMEOUT is not set
+# CONFIG_NF_CONNTRACK_TIMESTAMP is not set
+# CONFIG_NF_CONNTRACK_LABELS is not set
+CONFIG_NF_CT_PROTO_DCCP=y
+CONFIG_NF_CT_PROTO_SCTP=y
+CONFIG_NF_CT_PROTO_UDPLITE=y
+# CONFIG_NF_CONNTRACK_AMANDA is not set
+CONFIG_NF_CONNTRACK_FTP=m
+# CONFIG_NF_CONNTRACK_H323 is not set
+# CONFIG_NF_CONNTRACK_IRC is not set
+# CONFIG_NF_CONNTRACK_NETBIOS_NS is not set
+CONFIG_NF_CONNTRACK_SNMP=m
+# CONFIG_NF_CONNTRACK_PPTP is not set
+# CONFIG_NF_CONNTRACK_SANE is not set
+# CONFIG_NF_CONNTRACK_SIP is not set
+CONFIG_NF_CONNTRACK_TFTP=m
+CONFIG_NF_CT_NETLINK=m
+# CONFIG_NETFILTER_NETLINK_GLUE_CT is not set
+CONFIG_NF_NAT=m
+# CONFIG_NF_TABLES is not set
+CONFIG_NETFILTER_XTABLES=m
+
+#####
+##### Xtables combined modules
+#####
+CONFIG_NETFILTER_XT_MARK=m
+CONFIG_NETFILTER_XT_CONNMARK=m
+# CONFIG_NETFILTER_XT_SET is not set
+
+#####
+##### Xtables targets
+#####
+# CONFIG_NETFILTER_XT_TARGET_AUDIT is not set
+CONFIG_NETFILTER_XT_TARGET_CHECKSUM=m
+# CONFIG_NETFILTER_XT_TARGET_CLASSIFY is not set
+# CONFIG_NETFILTER_XT_TARGET_CONNMARK is not set
+# CONFIG_NETFILTER_XT_TARGET_DSCP is not set
+# CONFIG_NETFILTER_XT_TARGET_HL is not set
+# CONFIG_NETFILTER_XT_TARGET_HMARK is not set
+# CONFIG_NETFILTER_XT_TARGET_IDLETIMER is not set
+# CONFIG_NETFILTER_XT_TARGET_LED is not set
+CONFIG_NETFILTER_XT_TARGET_LOG=y
+# CONFIG_NETFILTER_XT_TARGET_MARK is not set
+CONFIG_NETFILTER_XT_NAT=m
+# CONFIG_NETFILTER_XT_TARGET_NETMAP is not set
+# CONFIG_NETFILTER_XT_TARGET_NFLOG is not set
+# CONFIG_NETFILTER_XT_TARGET_NFQUEUE is not set
+# CONFIG_NETFILTER_XT_TARGET_RATEEST is not set
+# CONFIG_NETFILTER_XT_TARGET_REDIRECT is not set
+CONFIG_NETFILTER_XT_TARGET_MASQUERADE=m
+# CONFIG_NETFILTER_XT_TARGET_TEE is not set
+# CONFIG_NETFILTER_XT_TARGET_TPROXY is not set
+# CONFIG_NETFILTER_XT_TARGET_SECMARK is not set
+# CONFIG_NETFILTER_XT_TARGET_TCPMSS is not set
+# CONFIG_NETFILTER_XT_TARGET_TCPOPTSTRIP is not set
+
+#####
+##### Xtables matches
+#####
+CONFIG_NETFILTER_XT_MATCH_ADDRTYPE=m
+# CONFIG_NETFILTER_XT_MATCH_BPF is not set
+CONFIG_NETFILTER_XT_MATCH_CGROUP=m
+# CONFIG_NETFILTER_XT_MATCH_CLUSTER is not set
+CONFIG_NETFILTER_XT_MATCH_COMMENT=m
+# CONFIG_NETFILTER_XT_MATCH_CONNBYTES is not set
+# CONFIG_NETFILTER_XT_MATCH_CONNLABEL is not set
+# CONFIG_NETFILTER_XT_MATCH_CONNLIMIT is not set
+CONFIG_NETFILTER_XT_MATCH_CONNMARK=m
+CONFIG_NETFILTER_XT_MATCH_CONNTRACK=m
+# CONFIG_NETFILTER_XT_MATCH_CPU is not set
+# CONFIG_NETFILTER_XT_MATCH_DCCP is not set
+# CONFIG_NETFILTER_XT_MATCH_DEVGROUP is not set
+# CONFIG_NETFILTER_XT_MATCH_DSCP is not set
+# CONFIG_NETFILTER_XT_MATCH_ECN is not set
+# CONFIG_NETFILTER_XT_MATCH_ESP is not set
+# CONFIG_NETFILTER_XT_MATCH_HASHLIMIT is not set
+# CONFIG_NETFILTER_XT_MATCH_HELPER is not set
+# CONFIG_NETFILTER_XT_MATCH_HL is not set
+# CONFIG_NETFILTER_XT_MATCH_IPCOMP is not set
+# CONFIG_NETFILTER_XT_MATCH_IPRANGE is not set
+# CONFIG_NETFILTER_XT_MATCH_L2TP is not set
+# CONFIG_NETFILTER_XT_MATCH_LENGTH is not set
+CONFIG_NETFILTER_XT_MATCH_LIMIT=y
+CONFIG_NETFILTER_XT_MATCH_MAC=y
+# CONFIG_NETFILTER_XT_MATCH_MARK is not set
+CONFIG_NETFILTER_XT_MATCH_MULTIPORT=y
+# CONFIG_NETFILTER_XT_MATCH_NFACCT is not set
+# CONFIG_NETFILTER_XT_MATCH_OSF is not set
+# CONFIG_NETFILTER_XT_MATCH_OWNER is not set
+# CONFIG_NETFILTER_XT_MATCH_POLICY is not set
+# CONFIG_NETFILTER_XT_MATCH_PHYSDEV is not set
+# CONFIG_NETFILTER_XT_MATCH_PKTTYPE is not set
+# CONFIG_NETFILTER_XT_MATCH_QUOTA is not set
+# CONFIG_NETFILTER_XT_MATCH_RATEEST is not set
+# CONFIG_NETFILTER_XT_MATCH_REALM is not set
+# CONFIG_NETFILTER_XT_MATCH_RECENT is not set
+# CONFIG_NETFILTER_XT_MATCH_SCTP is not set
+# CONFIG_NETFILTER_XT_MATCH_SOCKET is not set
+CONFIG_NETFILTER_XT_MATCH_STATE=m
+# CONFIG_NETFILTER_XT_MATCH_STATISTIC is not set
+# CONFIG_NETFILTER_XT_MATCH_STRING is not set
+# CONFIG_NETFILTER_XT_MATCH_TCPMSS is not set
+# CONFIG_NETFILTER_XT_MATCH_TIME is not set
+# CONFIG_NETFILTER_XT_MATCH_U32 is not set
+
+#### end of Core Netfilter Configuration
+
+####
+#### IP set support
+####
+CONFIG_IP_SET=m
+CONFIG_IP_SET_MAX=256
+CONFIG_IP_SET_BITMAP_IP=m
+CONFIG_IP_SET_BITMAP_IPMAC=m
+CONFIG_IP_SET_BITMAP_PORT=m
+CONFIG_IP_SET_HASH_IP=m
+CONFIG_IP_SET_HASH_IPMARK=m
+CONFIG_IP_SET_HASH_IPPORT=m
+CONFIG_IP_SET_HASH_IPPORTIP=m
+CONFIG_IP_SET_HASH_IPPORTNET=m
+CONFIG_IP_SET_HASH_IPMAC=m
+CONFIG_IP_SET_HASH_MAC=m
+CONFIG_IP_SET_HASH_NETPORTNET=m
+CONFIG_IP_SET_HASH_NET=m
+CONFIG_IP_SET_HASH_NETNET=m
+CONFIG_IP_SET_HASH_NETPORT=m
+CONFIG_IP_SET_HASH_NETIFACE=m
+CONFIG_IP_SET_LIST_SET=m
+
+#### end of IP set support
+
+####
+#### IP veitual server support
+####
+CONFIG_IP_VS=m
+
+#####
+##### IPV6 support for IPVS
+#####
+CONFIG_IP_VS_IPV6=y
+
+#####
+##### IPVS transport protocol load balancing support
+#####
+CONFIG_IP_VS_PROTO_TCP=y
+CONFIG_IP_VS_PROTO_UDP=y
+CONFIG_IP_VS_PROTO_AH_ESP=y
+CONFIG_IP_VS_PROTO_ESP=y
+CONFIG_IP_VS_PROTO_AH=y
+CONFIG_IP_VS_PROTO_SCTP=y
+
+#####
+##### IPVS scheduler
+#####
+CONFIG_IP_VS_RR=m
+CONFIG_IP_VS_WRR=m
+CONFIG_IP_VS_LC=m
+CONFIG_IP_VS_WLC=m
+CONFIG_IP_VS_FO=m
+CONFIG_IP_VS_OVF=m
+CONFIG_IP_VS_LBLC=m
+CONFIG_IP_VS_LBLCR=m
+CONFIG_IP_VS_DH=m
+CONFIG_IP_VS_SH=m
+CONFIG_IP_VS_MH=m
+CONFIG_IP_VS_SED=m
+CONFIG_IP_VS_NQ=m
+
+#####
+##### IPVS SH scheduler
+#####
+CONFIG_IP_VS_SH_TAB_BITS=8
+
+#####
+##### IPVS MH scheduler
+#####
+CONFIG_IP_VS_MH_TAB_INDEX=12
+
+#####
+##### IPVS application helper
+#####
+CONFIG_IP_VS_NFCT=y
+
+#### end of IP veitual server support
+
+####
+#### IP: Netfilter Configuration
+####
+CONFIG_NF_DEFRAG_IPV4=m
+CONFIG_NF_SOCKET_IPV4=m
+CONFIG_NF_TPROXY_IPV4=m
+CONFIG_NF_TABLES_IPV4=y
+CONFIG_NFT_REJECT_IPV4=m
+CONFIG_NFT_DUP_IPV4=m
+CONFIG_NFT_FIB_IPV4=m
+CONFIG_NF_TABLES_ARP=y
+CONFIG_NF_FLOW_TABLE_IPV4=m
+CONFIG_NF_DUP_IPV4=m
+CONFIG_NF_LOG_ARP=m
+CONFIG_NF_LOG_IPV4=m
+CONFIG_NF_REJECT_IPV4=m
+CONFIG_NF_NAT_SNMP_BASIC=m
+CONFIG_NF_NAT_PPTP=m
+CONFIG_NF_NAT_H323=m
+CONFIG_IP_NF_IPTABLES=m
+CONFIG_IP_NF_MATCH_AH=m
+CONFIG_IP_NF_MATCH_ECN=m
+CONFIG_IP_NF_MATCH_RPFILTER=m
+CONFIG_IP_NF_MATCH_TTL=m
+CONFIG_IP_NF_FILTER=m
+CONFIG_IP_NF_TARGET_REJECT=m
+CONFIG_IP_NF_TARGET_SYNPROXY=m
+CONFIG_IP_NF_NAT=m
+CONFIG_IP_NF_TARGET_MASQUERADE=m
+CONFIG_IP_NF_TARGET_NETMAP=m
+CONFIG_IP_NF_TARGET_REDIRECT=m
+CONFIG_IP_NF_MANGLE=m
+CONFIG_IP_NF_TARGET_CLUSTERIP=m
+CONFIG_IP_NF_TARGET_ECN=m
+CONFIG_IP_NF_TARGET_TTL=m
+CONFIG_IP_NF_RAW=m
+CONFIG_IP_NF_SECURITY=m
+CONFIG_IP_NF_ARPTABLES=m
+CONFIG_IP_NF_ARPFILTER=m
+CONFIG_IP_NF_ARP_MANGLE=m
+
+#### end of IP: Netfilter Configuration
+
+####
+#### IPv6: Netfilter Configuration
+####
+CONFIG_NF_DEFRAG_IPV6=m
+CONFIG_NF_SOCKET_IPV6=m
+CONFIG_NF_TPROXY_IPV6=m
+CONFIG_NF_TABLES_IPV6=y
+CONFIG_NFT_REJECT_IPV6=m
+CONFIG_NFT_DUP_IPV6=m
+CONFIG_NFT_FIB_IPV6=m
+CONFIG_NF_FLOW_TABLE_IPV6=m
+CONFIG_NF_DUP_IPV6=m
+CONFIG_NF_REJECT_IPV6=m
+CONFIG_NF_LOG_IPV6=m
+CONFIG_IP6_NF_IPTABLES=m
+CONFIG_IP6_NF_MATCH_AH=m
+CONFIG_IP6_NF_MATCH_EUI64=m
+CONFIG_IP6_NF_MATCH_FRAG=m
+CONFIG_IP6_NF_MATCH_OPTS=m
+CONFIG_IP6_NF_MATCH_HL=m
+CONFIG_IP6_NF_MATCH_IPV6HEADER=m
+CONFIG_IP6_NF_MATCH_MH=m
+CONFIG_IP6_NF_MATCH_RPFILTER=m
+CONFIG_IP6_NF_MATCH_RT=m
+CONFIG_IP6_NF_MATCH_SRH=m
+CONFIG_IP6_NF_TARGET_HL=m
+CONFIG_IP6_NF_FILTER=m
+CONFIG_IP6_NF_TARGET_REJECT=m
+CONFIG_IP6_NF_TARGET_SYNPROXY=m
+CONFIG_IP6_NF_MANGLE=m
+CONFIG_IP6_NF_RAW=m
+CONFIG_IP6_NF_SECURITY=m
+CONFIG_IP6_NF_NAT=m
+CONFIG_IP6_NF_TARGET_MASQUERADE=m
+CONFIG_IP6_NF_TARGET_NPT=m
+
+#### end of IPv6: Netfilter Configuration
+
+####
+#### Bridge netfilter configuration
+####
+
+#####
+##### Ethernet Bridge nf_tables support
+#####
+CONFIG_NF_TABLES_BRIDGE=m
+CONFIG_NFT_BRIDGE_META=m
+CONFIG_NFT_BRIDGE_REJECT=m
+
+#####
+##### Bridge packet logging
+#####
+CONFIG_NF_LOG_BRIDGE=m
+
+#####
+##### IPv4/IPV6 bridge connection tracking support
+#####
+CONFIG_NF_CONNTRACK_BRIDGE=m
+
+#####
+##### Ethernet Bridge tables (ebtables) support
+#####
+CONFIG_BRIDGE_NF_EBTABLES=m
+CONFIG_BRIDGE_EBT_BROUTE=m
+CONFIG_BRIDGE_EBT_T_FILTER=m
+CONFIG_BRIDGE_EBT_T_NAT=m
+CONFIG_BRIDGE_EBT_802_3=m
+CONFIG_BRIDGE_EBT_AMONG=m
+CONFIG_BRIDGE_EBT_ARP=m
+CONFIG_BRIDGE_EBT_IP=m
+CONFIG_BRIDGE_EBT_IP6=m
+CONFIG_BRIDGE_EBT_LIMIT=m
+CONFIG_BRIDGE_EBT_MARK=m
+CONFIG_BRIDGE_EBT_PKTTYPE=m
+CONFIG_BRIDGE_EBT_STP=m
+CONFIG_BRIDGE_EBT_VLAN=m
+CONFIG_BRIDGE_EBT_ARPREPLY=m
+CONFIG_BRIDGE_EBT_DNAT=m
+CONFIG_BRIDGE_EBT_MARK_T=m
+CONFIG_BRIDGE_EBT_REDIRECT=m
+CONFIG_BRIDGE_EBT_SNAT=m
+CONFIG_BRIDGE_EBT_LOG=m
+CONFIG_BRIDGE_EBT_NFLOG=m
+##### Ethernet Bridge tables (ebtables) support
+
+#### end of Bridge netfilter configuration
+
+### end of Network packet filtering framework (Netfilter)
+
+###
+### BPF based packet filtering framework (BPFILTER)
+###
+CONFIG_BPFILTER=y
+CONFIG_BPFILTER_UMH=m
+### end of BPF based packet filtering framework (BPFILTER)
+
+
+###
+### The DCCP Protocol
+###
+CONFIG_IP_DCCP=m
+CONFIG_INET_DCCP_DIAG=m
+
+####
+#### DCCP CCIDs Configuration
+####
+#### CONFIG_IP_DCCP_CCID2_DEBUG is not set
+#### CONFIG_IP_DCCP_CCID3 is not set
+#### end of DCCP CCIDs Configuration
+
+####
+#### DCCP Kernel Hacking
+####
+#### CONFIG_IP_DCCP_DEBUG is not set
+#### end of DCCP Kernel Hacking
+
+### end of The DCCP Protocol
+
+###
+### 802.1d Ethernet Bridging
+###
+CONFIG_BRIDGE=m
+
+###
+### IGMP/MLD snooping
+###
+CONFIG_BRIDGE_IGMP_SNOOPING=y
+
+###
+### VLAN filtering
+###
+CONFIG_BRIDGE_VLAN_FILTERING=y
+
+###
+### MRP protocol
+###
+### CONFIG_BRIDGE_MRP is not set
+
+###
+### QoS and/or fair queing
+###
+CONFIG_NET_SCHED=y
+
+####
+#### Queueing/Scheduling
+####
+CONFIG_NET_SCH_CBQ=m
+CONFIG_NET_SCH_HTB=m
+CONFIG_NET_SCH_HFSC=m
+CONFIG_NET_SCH_ATM=m
+CONFIG_NET_SCH_PRIO=m
+CONFIG_NET_SCH_MULTIQ=m
+CONFIG_NET_SCH_RED=m
+CONFIG_NET_SCH_SFB=m
+CONFIG_NET_SCH_SFQ=m
+CONFIG_NET_SCH_TEQL=m
+CONFIG_NET_SCH_TBF=m
+CONFIG_NET_SCH_CBS=m
+CONFIG_NET_SCH_ETF=m
+CONFIG_NET_SCH_TAPRIO=m
+CONFIG_NET_SCH_GRED=m
+CONFIG_NET_SCH_DSMARK=m
+CONFIG_NET_SCH_NETEM=m
+CONFIG_NET_SCH_DRR=m
+CONFIG_NET_SCH_MQPRIO=m
+CONFIG_NET_SCH_SKBPRIO=m
+CONFIG_NET_SCH_CHOKE=m
+CONFIG_NET_SCH_QFQ=m
+CONFIG_NET_SCH_CODEL=m
+CONFIG_NET_SCH_FQ_CODEL=m
+CONFIG_NET_SCH_CAKE=m
+CONFIG_NET_SCH_FQ=m
+CONFIG_NET_SCH_HHF=m
+CONFIG_NET_SCH_PIE=m
+CONFIG_NET_SCH_INGRESS=m
+CONFIG_NET_SCH_PLUG=m
+# CONFIG_NET_SCH_DEFAULT is not set
+
+####
+#### Classification
+####
+CONFIG_NET_CLS=y
+CONFIG_NET_CLS_BASIC=m
+CONFIG_NET_CLS_TCINDEX=m
+CONFIG_NET_CLS_ROUTE4=m
+CONFIG_NET_CLS_FW=m
+CONFIG_NET_CLS_U32=m
+# CONFIG_CLS_U32_PERF is not set
+CONFIG_CLS_U32_MARK=y
+CONFIG_NET_CLS_RSVP=m
+CONFIG_NET_CLS_RSVP6=m
+CONFIG_NET_CLS_FLOW=m
+CONFIG_NET_CLS_CGROUP=m
+CONFIG_NET_CLS_BPF=m
+CONFIG_NET_CLS_FLOWER=m
+CONFIG_NET_CLS_MATCHALL=m
+
+####
+#### Extended Matches
+####
+CONFIG_NET_EMATCH=y
+CONFIG_NET_EMATCH_STACK=32
+CONFIG_NET_EMATCH_CMP=m
+CONFIG_NET_EMATCH_NBYTE=m
+CONFIG_NET_EMATCH_U32=m
+CONFIG_NET_EMATCH_META=m
+CONFIG_NET_EMATCH_TEXT=m
+CONFIG_NET_EMATCH_CANID=m
+CONFIG_NET_EMATCH_IPSET=m
+CONFIG_NET_EMATCH_IPT=m
+
+####
+#### Actions
+####
+CONFIG_NET_CLS_ACT=y
+CONFIG_NET_ACT_POLICE=m
+CONFIG_NET_ACT_GACT=m
+CONFIG_GACT_PROB=y
+CONFIG_NET_ACT_MIRRED=m
+CONFIG_NET_ACT_SAMPLE=m
+CONFIG_NET_ACT_IPT=m
+CONFIG_NET_ACT_NAT=m
+CONFIG_NET_ACT_PEDIT=m
+CONFIG_NET_ACT_SIMP=m
+CONFIG_NET_ACT_SKBEDIT=m
+CONFIG_NET_ACT_CSUM=m
+CONFIG_NET_ACT_MPLS=m
+CONFIG_NET_ACT_VLAN=m
+CONFIG_NET_ACT_BPF=m
+CONFIG_NET_ACT_CONNMARK=m
+CONFIG_NET_ACT_CTINFO=m
+CONFIG_NET_ACT_SKBMOD=m
+#### CONFIG_NET_ACT_IFE is not set
+CONFIG_NET_ACT_TUNNEL_KEY=m
+CONFIG_NET_ACT_CT=m
+CONFIG_NET_ACT_GATE=m
+
+####
+#### TC recirculation support
+####
+CONFIG_NET_TC_SKB_EXT=y
+
+### end of QoS and/or fair queing
+
+###
+### Data Center Bridging support
+###
+CONFIG_DCB=y
+
+###
+### DNS Resolver support
+###
+CONFIG_DNS_RESOLVER=y
+
+###
+### B.A.T.M.A.N. Advanced Meshing Protocol
+###
+CONFIG_BATMAN_ADV=m
+
+####
+#### B.A.T.M.A.N. V Protocol
+####
+#### CONFIG_BATMAN_ADV_BATMAN_V is not set
+
+####
+#### Bridge Loop Avoidance
+####
+CONFIG_BATMAN_ADV_BLA=y
+
+####
+#### Distributed ARP Table
+####
+CONFIG_BATMAN_ADV_DAT=y
+
+####
+#### Network Coding
+####
+CONFIG_BATMAN_ADV_NC=y
+
+####
+#### Multicast optimisation
+####
+CONFIG_BATMAN_ADV_MCAST=y
+
+####
+#### batman-adv debugfs entries
+####
+#### CONFIG_BATMAN_ADV_DEBUGFS is not set
+
+####
+#### B.A.T.M.A.N. debugging
+####
+#### CONFIG_BATMAN_ADV_DEBUG is not set
+
+####
+#### batman-adv sysfs entries
+####
+CONFIG_BATMAN_ADV_SYSFS=y
+
+####
+#### B.A.T.M.A.N. tracing support
+####
+#### CONFIG_BATMAN_ADV_TRACING is not set
+
+### end of B.A.T.M.A.N. Advanced Meshing Protocol
+
+###
+### Open vSwitch
+###
+CONFIG_OPENVSWITCH=m
+
+####
+#### Open vSwitch GRE tunneling support
+####
+CONFIG_OPENVSWITCH_GRE=m
+
+####
+#### Open vSwitch VXLAN tunneling support
+####
+CONFIG_OPENVSWITCH_VXLAN=m
+
+####
+#### Open vSwitch Geneve tunneling support
+####
+CONFIG_OPENVSWITCH_GENEVE=m
+
+### end of Open vSwitch
+
+###
+### Virtual Socket protocol
+###
+CONFIG_VSOCKETS=m
+
+####
+#### Virtual Sockets monitoring interface
+####
+CONFIG_VSOCKETS_DIAG=m
+
+####
+#### Virtual Sockets loopback transport
+####
+CONFIG_VSOCKETS_LOOPBACK=m
+
+####
+#### VMware VMCI transport for Virtual Sockets
+####
+CONFIG_VMWARE_VMCI_VSOCKETS=m
+
+####
+#### virtio transport for Virtual Sockets
+####
+CONFIG_VIRTIO_VSOCKETS=m
+CONFIG_VIRTIO_VSOCKETS_COMMON=m
+
+####
+#### Hyper-V transport for Virtual Sockets
+####
+CONFIG_HYPERV_VSOCKETS=m
+
+### end of Virtual Socket protocol
+
+###
+### NETLINK: socket monitoring interface
+###
+CONFIG_NETLINK_DIAG=m
+
+###
+### MultiProtocol Label Switching
+###
+CONFIG_MPLS=y
+
+####
+#### MPLS: GSO support
+####
+CONFIG_NET_MPLS_GSO=m
+
+####
+#### MPLS: routing support
+####
+CONFIG_MPLS_ROUTING=m
+
+####
+#### MPLS_IPTUNNEL
+####
+CONFIG_MPLS_IPTUNNEL=m
+
+### end of MultiProtocol Label Switching
+
+###
+### Network Service Header (NSH) protocol
+###
+CONFIG_NET_NSH=m
+
+###
+### High-availability Seamless Redundancy (HSR & PRP)
+###
+CONFIG_HSR=m
+
+###
+### Switch (and switch-ish) device support
+###
+CONFIG_NET_SWITCHDEV=y
+
+###
+### L3 Master device support
+###
+CONFIG_NET_L3_MASTER_DEV=y
+
+###
+### Qualcomm IPC Router support
+###
+### CONFIG_QRTR is not set
+
+###
+### NCSI interface support
+###
+CONFIG_NET_NCSI=y
+
+####
+#### Get NCSI OEM MAC Address
+####
+CONFIG_NCSI_OEM_CMD_GET_MAC=y
+
+### end of NCSI interface support
+
+###
+### Network priority cgroup
+###
+CONFIG_CGROUP_NET_PRIO=y
+
+###
+### Network classid cgroup
+###
+CONFIG_CGROUP_NET_CLASSID=y
+
+###
+### enable BPF Just In Time compiler
+###
+CONFIG_BPF_JIT=y
+
+###
+### enable BPF STREAM_PARSER
+###
+CONFIG_BPF_STREAM_PARSER=y
+
+###
+
+###
+### Network testing
+###
+CONFIG_NET_PKTGEN=m
+CONFIG_NET_DROP_MONITOR=y
+### end of Network testing
+
+## end of Networking options
+
+##
+## CAN bus subsystem support
+##
+CONFIG_CAN=y
+
+###
+### Raw CAN Protocol (raw access with CAN-ID filtering)
+###
+CONFIG_CAN_RAW=y
+
+###
+### Broadcast Manager CAN Protocol (with content filtering)
+###
+CONFIG_CAN_BCM=y
+
+###
+### CAN Gateway/Router (with netlink configuration)
+###
+CONFIG_CAN_GW=y
+
+###
+### SAE J1939
+###
+### CONFIG_CAN_J1939 is not set
+
+###
+### CAN Device Drivers
+###
+### CONFIG_CAN_VCAN is not set
+### CONFIG_CAN_VXCAN is not set
+### CONFIG_CAN_SLCAN is not set
+CONFIG_CAN_DEV=m
+CONFIG_CAN_CALC_BITTIMING=y
+### CONFIG_CAN_LEDS is not set
+### CONFIG_CAN_AT91 is not set
+### CONFIG_CAN_FLEXCAN is not set
+### CONFIG_CAN_GRCAN is not set
+### CONFIG_CAN_JANZ_ICAN3 is not set
+### CONFIG_CAN_KVASER_PCIEFD is not set
+### CONFIG_CAN_SUN4I is not set
+### CONFIG_CAN_TI_HECC is not set
+CONFIG_CAN_XILINXCAN=m
+### CONFIG_PCH_CAN is not set
+### CONFIG_CAN_C_CAN is not set
+### CONFIG_CAN_C_CAN_PLATFORM is not set
+### CONFIG_CAN_C_CAN_PCI is not set
+### CONFIG_CAN_CC770 is not set
+### CONFIG_CAN_CC770_ISA is not set
+### CONFIG_CAN_CC770_PLATFORM is not set
+### CONFIG_CAN_IFI_CANFD is not set
+### CONFIG_CAN_M_CAN is not set
+### CONFIG_CAN_M_CAN_PLATFORM is not set
+### CONFIG_CAN_M_CAN_TCAN4X5X is not set
+### CONFIG_CAN_PEAK_PCIEFD is not set
+### CONFIG_CAN_SJA1000 is not set
+### CONFIG_CAN_EMS_PCI is not set
+### CONFIG_CAN_EMS_PCMCIA is not set
+### CONFIG_CAN_F81601 is not set
+### CONFIG_CAN_KVASER_PCI is not set
+### CONFIG_CAN_PEAK_PCI is not set
+### CONFIG_CAN_PEAK_PCIEC is not set
+### CONFIG_CAN_PEAK_PCMCIA is not set
+### CONFIG_CAN_PLX_PCI is not set
+### CONFIG_CAN_SJA1000_ISA is not set
+### CONFIG_CAN_SJA1000_PLATFORM is not set
+### CONFIG_CAN_SOFTING is not set
+### CONFIG_CAN_SOFTING_CS is notset
+
+###
+### CAN SPI interfaces
+###
+CONFIG_CAN_HI311X=m
+CONFIG_CAN_MCP251X=m
+### end of CAN SPI interfaces
+
+###
+### CAN USB interface
+###
+CONFIG_CAN_8DEV_USB=m
+CONFIG_CAN_EMS_USB=m
+CONFIG_CAN_ESD_USB2=m
+CONFIG_CAN_GS_USB=m
+CONFIG_CAN_KVASER_USB=m
+CONFIG_CAN_MCBA_USB=m
+CONFIG_CAN_PEAK_USB=m
+CONFIG_CAN_UCAN=m
+### end of CAN USB interfaces
+
+## end of CAN bus subsystem support
+
+##
+## Bluetooth subsystem support
+##
+CONFIG_BT=y
+
+###
+### Bluetooth Classic (BR/EDR) features
+###
+### CONFIG_BT_BREDR=y
+
+###
+### RFCOMM protocol support
+###
+CONFIG_BT_RFCOMM=y
+
+###
+### RFCOMM TTY support
+###
+CONFIG_BT_RFCOMM_TTY=y
+
+###
+### BNEP protocol support
+###
+CONFIG_BT_BNEP=y
+
+###
+### Multicast filter support
+###
+CONFIG_BT_BNEP_MC_FILTER=y
+
+###
+### Protocol filter support
+###
+CONFIG_BT_BNEP_PROTO_FILTER=y
+
+###
+### CMTP protocol support
+###
+### CONFIG_BT_CMTP is not set
+
+###
+### HIDP protocol support
+###
+CONFIG_BT_HIDP=y
+
+###
+### Bluetooth High Speed (HS) features
+###
+CONFIG_BT_HS=y
+
+###
+### Bluetooth Low Energy (LE) features
+###
+CONFIG_BT_LE=y
+
+###
+### Bluetooth 6LoWPAN support
+###
+### CONFIG_BT_6LOWPAN is not set
+
+###
+### Enable LED triggers
+###
+CONFIG_BT_LEDS=y
+
+###
+### Enable Microsoft extensions
+###
+### CONFIG_BT_MSFTEXT is not set
+
+###
+### Export Bluetooth internals in debugfs
+###
+CONFIG_BT_DEBUGFS=y
+
+###
+### Bluetooth self testing support
+###
+### CONFIG_BT_SELFTEST is not set
+### CONFIG_BT_SELFTEST_ECDH is not set
+### CONFIG_BT_SELFTEST_SMP is not set
+
+###
+### Bluetooth device drivers
+###
+
+####
+#### HCI USB driver
+####
+CONFIG_BT_HCIBTUSB=y
+
+####
+#### Enable USB autosuspend for Bluetooth USB devices by default
+####
+#### CONFIG_BT_HCIBTUSB_AUTOSUSPEND is not set
+
+####
+#### Broadcom protocol support
+####
+CONFIG_BT_HCIBTUSB_BCM=y
+
+####
+#### MediaTek protocol support
+####
+CONFIG_BT_HCIBTUSB_MTK=y
+
+####
+#### Realtek protocol support
+####
+CONFIG_BT_HCIBTUSB_RTL=y
+
+####
+#### HCI SDIO driver
+####
+CONFIG_BT_HCIBTSDIO=y
+
+####
+#### HCI UART driver
+####
+CONFIG_BT_HCIUART=y
+
+####
+#### UART (H4) protocol support
+####
+CONFIG_BT_HCIUART_H4=y
+
+####
+#### UART Nokia H4+ protocol support
+####
+#### CONFIG_BT_HCIUART_NOKIA is not set
+
+####
+#### BCSP protocol support
+####
+CONFIG_BT_HCIUART_BCSP=y
+
+####
+#### Atheros AR300x serial support
+####
+CONFIG_BT_HCIUART_ATH3K=y
+
+####
+#### HCILL protocol support
+####
+CONFIG_BT_HCIUART_LL=y
+
+####
+#### Three-wire UART (H5) protocol support
+####
+CONFIG_BT_HCIUART_3WIRE=y
+
+####
+#### Intel protocol support
+####
+CONFIG_BT_HCIUART_INTEL=y
+
+####
+#### Broadcom protocol support
+####
+CONFIG_BT_HCIUART_BCM=y
+
+####
+#### Realtek protocol support
+####
+CONFIG_BT_HCIUART_RTL=y
+
+####
+#### Qualcomm Atheros protocol support
+####
+CONFIG_BT_HCIUART_QCA=y
+
+####
+#### Intel AG6XX protocol support
+####
+#### CONFIG_BT_HCIUART_AG6XX is not set
+
+####
+#### Marvell protocol support
+####
+#### CONFIG_BT_HCIUART_MRVL is not set
+
+####
+#### HCI BCM203x USB driver
+####
+CONFIG_BT_HCIBCM203X=y
+
+####
+#### HCI BPA10x USB driver
+####
+CONFIG_BT_HCIBPA10X=y
+
+####
+#### HCI BlueFRITZ! USB driver
+####
+CONFIG_BT_HCIBFUSB=y
+
+####
+#### HCI DTL1 (PC Card) driver
+####
+#### CONFIG_BT_HCIDTL1 is not set
+
+####
+#### HCI BT3C (PC Card) driver
+####
+#### CONFIG_BT_HCIBT3C is not set
+
+####
+#### HCI BlueCard (PC Card) driver
+####
+#### CONFIG_BT_HCIBLUECARD is not set
+
+####
+#### HCI VHCI (Virtual HCI device) driver
+####
+CONFIG_BT_HCIVHCI=y
+
+####
+#### Marvell Bluetooth driver support
+####
+CONFIG_BT_MRVL=y
+
+####
+#### Marvell BT-over-SDIO driver
+####
+CONFIG_BT_MRVL_SDIO=y
+
+####
+#### Atheros firmware download driver
+####
+CONFIG_BT_ATH3K=y
+
+####
+#### MediaTek HCI SDIO driver
+####
+#### CONFIG_BT_MTKSDIO is not set
+
+####
+#### MediaTek HCI UART driver
+####
+#### CONFIG_BT_MTKUART is not set
+
+####
+#### Qualcomm SMD based HCI support
+####
+#### CONFIG_BT_QCOMSMD is not set
+
+### end of Bluetooth device drivers
+
+## end of Bluetooth subsystem support
+
+##
+## RxRPC session sockets
+##
+## CONFIG_AF_RXRPC is not set
+
+##
+## KCM sockets
+##
+## CONFIG_AF_KCM is not set
+
+##
+## Wireless
+##
+
+###
+### cfg80211 - wireless configuration API
+###
+CONFIG_CFG80211=y
+
+###
+### nl80211 testmode command
+###
+CONFIG_NL80211_TESTMODE=y
+
+###
+### enable developer warnings
+###
+### CONFIG_CFG80211_DEVELOPER_WARNINGS is not set
+
+###
+### cfg80211 certification onus
+###
+CONFIG_CFG80211_CERTIFICATION_ONUS=y
+
+####
+#### require regdb signature
+####
+CONFIG_CFG80211_REQUIRE_SIGNED_REGDB=y
+
+####
+#### allow regdb keys shipped with the kernel
+####
+CONFIG_CFG80211_USE_KERNEL_REGDB_KEYS=y
+
+####
+#### additional regdb key directory
+####
+CONFIG_CFG80211_EXTRA_REGDB_KEYDIR=""
+
+###
+### cfg80211 regulatory support for cellular base station hints
+###
+CONFIG_CFG80211_REG_CELLULAR_HINTS=y
+
+###
+### cfg80211 support for NO_IR relaxation
+###
+CONFIG_CFG80211_REG_RELAX_NO_IR=y
+
+###
+### enable powersave by default
+###
+CONFIG_CFG80211_DEFAULT_PS=y
+
+###
+### cfg80211 DebugFS entries
+###
+### CONFIG_CFG80211_DEBUGFS is not set
+
+###
+### support CRDA
+###
+CONFIG_CFG80211_CRDA_SUPPORT=y
+
+###
+### cfg80211 wireless extensions compatibility
+###
+CONFIG_CFG80211_WEXT=y
+
+###
+### Generic IEEE 802.11 Networking Stack (mac80211)
+###
+CONFIG_MAC80211=y
+
+###
+### Enable mac80211 mesh networking support
+###
+### CONFIG_MAC80211_MESH is not set
+
+###
+### Enable LED triggers
+###
+CONFIG_MAC80211_LEDS=y
+
+###
+### Export mac80211 internals in DebugFS
+###
+### CONFIG_MAC80211_DEBUGFS is not set
+
+###
+### Trace all mac80211 debug messages
+###
+CONFIG_MAC80211_MESSAGE_TRACING=y
+
+###
+### Select mac80211 debugging features
+###
+CONFIG_MAC80211_DEBUG_MENU=y
+### CONFIG_MAC80211_NOINLINE is not set
+### CONFIG_MAC80211_VERBOSE_DEBUG is not set
+### CONFIG_MAC80211_MLME_DEBUG is not set
+### CONFIG_MAC80211_STA_DEBUG is not set
+### CONFIG_MAC80211_HT_DEBUG is not set
+### CONFIG_MAC80211_OCB_DEBUG is not set
+### CONFIG_MAC80211_IBSS_DEBUG is not set
+### CONFIG_MAC80211_PS_DEBUG is not set
+### CONFIG_MAC80211_TDLS_DEBUG is not set
+CONFIG_MAC80211_STA_HASH_MAX_SIZE=0
+
+## end of Wireless
+
+##
+## WiMAX Wireless Broadband support
+##
+## CONFIG_WIMAX is not set
+
+##
+## RF switch subsystem support
+##
+CONFIG_RFKILL=y
+
+###
+### RF switch input support
+###
+CONFIG_RFKILL_INPUT=y
+
+###
+### GPIO RFKILL driver
+###
+CONFIG_RFKILL_GPIO=y
+
+## end of RF switch subsystem support
+
+##
+## Plan 9 Resource Sharing Support (9P2000)
+##
+CONFIG_NET_9P=y
+
+###
+### 9P Virtio Transport
+###
+### CONFIG_NET_9P_VIRTIO is not set
+
+###
+### 9P Xen Transport
+### 
+### CONFIG_NET_9P_XEN is not set
+
+###
+### 9P RDMA Transport (Experimental)
+###
+### CONFIG_NET_9P_RDMA is not set
+
+###
+### Debug information
+###
+### CONFIG_NET_9P_DEBUG is not set
+
+## end Plan 9 Resource Sharing Support (9P2000)
+
+##
+## CAIF support
+##
+## CONFIG_CAIF is not set
+
+##
+## Ceph core library
+##
+## CONFIG_CEPH_LIB is not set
+
+##
+## NFC subsystem support
+##
+## CONFIG_NFC is not set
+
+##
+## Packet-sampling netlink channel
+##
+## CONFIG_PSAMPLE is not set
+
+##
+## Inter-FE based on IETF ForCES InterFE LFB
+##
+## CONFIG_NET_IFE is not set
+
+##
+## Network light weight tunnels
+##
+## CONFIG_LWTUNNEL is not set
+
+##
+## Execute BPF program as route nexthop action
+##
+## CONFIG_LWTUNNEL_BPF is not set
+
+##
+## Generic failover module
+##
+## CONFIG_FAILOVER is not set
+
+##
+## Netlink interface for ethtool
+##
+CONFIG_ETHTOOL_NETLINK=y
+
+# end of Networking support
+
+#
+# Device Drivers
+#
+
+##
+## PCI support
+##
+CONFIG_PCI=y
+
+###
+### PCI Express Port Bus support
+###
+### CONFIG_PCIEPORTBUS is not set
+
+###
+### PCI Express ASPM control
+###
+### CONFIG_PCIEASPM=y
+### 
+
+###
+### PCI Express Precision Time Measurement support
+###
+### CONFIG_PCIE_PTM is not set
+
+###
+### Message Signaled Interrupts (MSI and MSI-X)
+###
+CONFIG_PCI_MSI=y
+
+###
+### Enable PCI quirk workarounds
+###
+CONFIG_PCI_QUIRKS=y
+
+###
+### PCI Debugging
+###
+### CONFIG_PCI_DEBUG is not set
+
+###
+### PCI Stub driver
+###
+### CONFIG_PCI_STUB is not set
+
+###
+### PCI IOV support
+###
+### CONFIG_PCI_IOV is not set
+
+###
+### PCI PRI support
+###
+### CONFIG_PCI_PRI is not set
+
+###
+### PCI PASID support
+###
+### CONFIG_PCI_PASID is not set
+
+###
+### PCI Express hierarchy optimization setting
+###
+### CONFIG_PCIE_BUS_TUNE_OFF is not set
+### CONFIG_PCIE_BUS_DEFAULT is not set
+### CONFIG_PCIE_BUS_SAFE is not set
+### CONFIG_PCIE_BUS_PERFORMANCE is not set
+### CONFIG_PCIE_BUS_PEER2PEER is not set
+
+###
+### Support for PCI Hotplug
+###
+### CONFIG_HOTPLUG_PCI is not set
+
+###
+### PCI controller drivers
+###
+### CONFIG_PCI_MVEBU is not set
+### CONFIG_PCI_AARDVARK is not set
+### CONFIG_PCI_FTPCI100 is not set
+### CONFIG_PCI_TEGRA is not set
+### CONFIG_PCI_RCAR_GEN2 is not set
+### CONFIG_PCIE_RCAR is not set
+### CONFIG_PCIE_RCAR_HOST is not set
+### CONFIG_PCIE_RCAR_EP is not set
+### CONFIG_PCI_HOST_GENERIC is not set
+### CONFIG_PCI_XGENE is not set
+### CONFIG_PCI_XGENE_MSI is not set
+### CONFIG_PCI_V3_SEMI is not set
+### CONFIG_PCI_VERSATILE is not set
+### CONFIG_PCIE_IPROC_PLATFORM is not set
+### CONFIG_PCIE_IPROC_BCMA is not set
+### CONFIG_PCIE_IPROC_MSI is not set
+### CONFIG_PCIE_ALTERA is not set
+### CONFIG_PCIE_ALTERA_MSI is not set
+### CONFIG_PCI_HOST_THUNDER_PEM is not set
+### CONFIG_PCI_HOST_THUNDER_ECAM is not set
+### CONFIG_PCIE_ROCKCHIP_HOST is not set
+### CONFIG_PCIE_ROCKCHIP_EP is not set
+### CONFIG_PCIE_MEDIATEK is not set
+### CONFIG_PCIE_TANGO_SMP8759 is not set
+### CONFIG_PCIE_BRCMSTB is not set
+### CONFIG_PCI_HYPERV_INTERFACE is not set
+### CONFIG_PCI_LOONGSON is not set
+### CONFIG_PCIE_DW_PLAT_HOST is not set
+### CONFIG_PCI_HISI is not set
+### CONFIG_PCIE_KIRIN is not set
+### CONFIG_PCI_MESON is not set
+### CONFIG_PCIE_AL is not set
+### CONFIG_PCIE_MOBIVEIL_PLAT is not set
+### CONFIG_PCIE_LAYERSCAPE_GEN4 is not set
+### CONFIG_PCIE_CADENCE_PLAT_HOST is not set
+### CONFIG_PCI_J721E_HOST is not set
+CONFIG_PCIE_XILINX=y
+CONFIG_PCIE_XILINX_CPM=y
+CONFIG_PCIE_XILINX_NWL=y
+CONFIG_PCIE_XDMA_PL=y
+
+### end of PCI controller drivers
+
+###
+### PCI Endpoint
+###
+### CONFIG_PCI_ENDPOINT is not set
+### end of PCI Endpoint
+
+###
+### PCI switch controller drivers
+###
+### CONFIG_PCI_SW_SWITCHTEC is not set
+### end of PCI switch controller drivers
+
+## end of PCI support
+
+##
+## PCCard (PCMCIA/CardBus) support
+##
+## CONFIG_PCCARD is not set
+
+##
+## RapidIO support
+##
+## CONFIG_RAPIDIO is not set
+
+##
+## Generic Driver Options
+##
+
+###
+### Support for uevent helper
+###
+### CONFIG_UEVENT_HELPER is not set
+
+###
+### Maintain a devtmpfs filesystem to mount at /dev
+###
+CONFIG_DEVTMPFS=y
+
+###
+### Automount devtmpfs at /dev, after the kernel mounted the rootfs
+###
+CONFIG_DEVTMPFS_MOUNT=y
+
+###
+### Select only drivers that don't need compile-time external firmware
+###
+### CONFIG_STANDALONE=y
+
+###
+### Disable drivers features which enable custom firmware building
+###
+### CONFIG_PREVENT_FIRMWARE_BUILD=y
+
+###
+### Firmware loader
+###
+
+####
+#### Firmware loading facility
+####
+CONFIG_FW_LOADER=y
+
+####
+#### Build named firmware blobs into the kernel binary
+####
+#### CONFIG_EXTRA_FIRMWARE=""
+
+####
+#### Enable the firmware sysfs fallback mechanism
+####
+#### CONFIG_FW_LOADER_USER_HELPER is not set
+
+####
+#### Enable compressed firmware support
+####
+#### CONFIG_FW_LOADER_COMPRESS is not set
+
+####
+#### Enable firmware caching during suspend
+####
+#### CONFIG_FW_CACHE=y
+
+### end of Firmware loader
+
+###
+### Allow device coredump
+###
+### CONFIG_ALLOW_DEV_COREDUMP=y
+
+###
+### Driver Core verbose debug messages
+###
+### CONFIG_DEBUG_DRIVER is not set
+
+###
+### Managed device resources verbose debug messages
+###
+### CONFIG_DEBUG_DEVRES is not set
+
+###
+### Test driver remove calls during probe (UNSTABLE)
+###
+### CONFIG_DEBUG_TEST_DRIVER_REMOVE is not set
+
+###
+### Build kernel module to test asynchronous driver probing
+###
+### CONFIG_TEST_ASYNC_DRIVER_PROBE is not set
+
+###
+### Enable verbose DMA_FENCE_TRACE messages
+###
+### CONFIG_DMA_FENCE_TRACE is not set
+
+## end of Generic Driver Options
+
+##
+## Bus devices
+##
+
+###
+### Broadcom STB GISB bus arbiter
+###
+### CONFIG_BRCMSTB_GISB_ARB is not set
+
+###
+### CZ.NIC Turris Mox module configuration bus
+###
+### CONFIG_MOXTET is not set
+
+###
+### Simple Power-Managed Bus Driver
+###
+### CONFIG_SIMPLE_PM_BUS is not set
+
+###
+### Versatile Express configuration bus
+###
+### CONFIG_VEXPRESS_CONFIG is not set
+
+###
+### Modem Host Interface (MHI) bus
+###
+### CONFIG_MHI_BUS is not set
+
+## end of Bus sevices
+
+##
+## Connector - unified userspace <-> kernelspace linker
+##
+CONFIG_CONNECTOR=y
+
+###
+### Report process events to userspace
+###
+### CONFIG_PROC_EVENTS=y
+
+## end of Connector - unified userspace <-> kernelspace linker
+
+##
+## GNSS receiver support
+##
+## CONFIG_GNSS is not set
+
+##
+## Memory Technology Device (MTD) support
+##
+CONFIG_MTD=y
+
+###
+### MTD tests support (DANGEROUS)
+###
+CONFIG_MTD_TESTS=m
+
+###
+### Partition parsers
+###
+
+####
+#### TI AR7 partitioning parser
+####
+#### CONFIG_MTD_AR7_PARTS is not set
+
+####
+#### Command line partition table parsing
+####
+CONFIG_MTD_CMDLINE_PARTS=y
+
+####
+#### OpenFirmware (device tree) partitioning parser
+####
+#### CONFIG_MTD_OF_PARTS=y
+
+####
+#### ARM Firmware Suite partition parsing
+####
+#### CONFIG_MTD_AFS_PARTS is not set
+
+####
+#### RedBoot partition table parsing
+####
+#### CONFIG_MTD_REDBOOT_PARTS is not set
+
+### end of Partition parsers
+
+###
+### Caching block device access to MTD devices
+###
+CONFIG_MTD_BLOCK=y
+
+###
+### FTL (Flash Translation Layer) support
+###
+### CONFIG_FTL is not set
+
+###
+### NFTL (NAND Flash Translation Layer) support
+###
+### CONFIG_NFTL is not set
+
+###
+### INFTL (Inverse NAND Flash Translation Layer) support
+###
+### CONFIG_INFTL is not set
+
+###
+### Resident Flash Disk (Flash Translation Layer) support
+###
+### CONFIG_RFD_FTL is not set
+
+###
+### NAND SSFDC (SmartMedia) read only translation layer
+###
+### CONFIG_SSFDC is not set
+
+###
+### SmartMedia/xD new translation layer
+###
+### CONFIG_SM_FTL is not set
+
+###
+### Log panic/oops to an MTD buffer
+###
+CONFIG_MTD_OOPS=y
+
+###
+### Swap on MTD device support
+###
+### CONFIG_MTD_SWAP is not set
+
+###
+### Retain master device when partitioned
+###
+### CONFIG_MTD_PARTITIONED_MASTER is not set
+
+###
+### RAM/ROM/Flash chip drivers
+###
+
+####
+#### Detect flash chips by Common Flash Interface (CFI) probe
+####
+CONFIG_MTD_CFI=y
+
+####
+#### Detect non-CFI AMD/JEDEC-compatible flash chips
+####
+#### CONFIG_MTD_JEDECPROBE is not set
+
+####
+#### Flash chip driver advanced configuration options
+####
+#### CONFIG_MTD_CFI_ADV_OPTIONS is not set
+#### CONFIG_MTD_CFI_NOSWAP is not set
+#### CONFIG_MTD_CFI_BE_BYTE_SWAP is not set
+#### CONFIG_MTD_CFI_LE_BYTE_SWAP is not set
+#### CONFIG_MTD_CFI_GEOMETRY is not set
+#### CONFIG_MTD_MAP_BANK_WIDTH_1 is not set
+#### CONFIG_MTD_MAP_BANK_WIDTH_2 is not set
+#### CONFIG_MTD_MAP_BANK_WIDTH_4 is not set
+#### CONFIG_MTD_MAP_BANK_WIDTH_8 is not set
+#### CONFIG_MTD_MAP_BANK_WIDTH_16 is not set
+#### CONFIG_MTD_MAP_BANK_WIDTH_32 is not set
+#### CONFIG_MTD_CFI_I1 is not set
+#### CONFIG_MTD_CFI_I2 is not set
+#### CONFIG_MTD_CFI_I4 is not set
+#### CONFIG_MTD_CFI_I8 is not set
+#### CONFIG_MTD_OTP is not set
+
+####
+#### Support for CFI command set 0001 (Intel/Sharp chips)
+####
+CONFIG_MTD_CFI_INTELEXT=y
+
+####
+#### Support for CFI command set 0002 (AMD/Fujitsu/Spansion chips)
+####
+#### CONFIG_MTD_CFI_AMDSTD is not set
+
+####
+#### Support for CFI command set 0020 (ST (Advanced Architecture) chips)
+####
+#### CONFIG_MTD_CFI_STAA is not set
+
+####
+#### Support for RAM chips in bus mapping
+####
+#### CONFIG_MTD_RAM is not set
+
+####
+#### Support for ROM chips in bus mapping
+####
+#### CONFIG_MTD_ROM is not set
+
+####
+#### Support for absent chips in bus mapping
+####
+#### CONFIG_MTD_ABSENT is not set
+
+### end of RAM/ROM/Flash chip drivers
+
+###
+### Mapping drivers for chip access
+###
+
+####
+#### Support non-linear mappings of flash chips
+####
+#### CONFIG_MTD_COMPLEX_MAPPINGS is not set
+
+####
+#### Flash device in physical memory map
+####
+#### CONFIG_MTD_PHYSMAP is not set
+
+####
+#### NOR flash on Intel Vermilion Range Expansion Bus CS0
+####
+#### CONFIG_MTD_INTEL_VR_NOR is not set
+
+####
+#### Map driver for platform device RAM (mtd-ram)
+####
+#### CONFIG_MTD_PLATRAM is not set
+
+### end of Mapping drivers for chip access
+
+###
+### Self-contained MTD device drivers
+###
+
+####
+#### Ramix PMC551 PCI Mezzanine RAM card support
+####
+#### CONFIG_MTD_PMC551 is not set
+#### CONFIG_MTD_PMC551_BUGFIX is not set
+#### CONFIG_MTD_PMC551_DEBUG is not set
+
+####
+#### Support for AT45xxx DataFlash
+####
+CONFIG_MTD_DATAFLASH=y
+#### CONFIG_MTD_DATAFLASH_WRITE_VERIFY is not set
+#### CONFIG_MTD_DATAFLASH_OTP is not set
+
+####
+#### Microchip 23K256 SRAM
+####
+#### CONFIG_MTD_MCHP23K256 is not set
+
+####
+#### Support SST25L (non JEDEC) SPI Flash chips
+####
+#### CONFIG_MTD_SST25L is not set
+
+####
+#### Uncached system RAM
+####
+#### CONFIG_MTD_SLRAM is not set
+
+####
+#### Physical system RAM
+####
+#### CONFIG_MTD_PHRAM is not set
+
+####
+#### Test driver using RAM
+####
+#### CONFIG_MTD_MTDRAM is not set
+#### CONFIG_MTDRAM_TOTAL_SIZE=4096
+#### COFNIG_MTDRAM_ERASE_SIZE=128
+
+####
+#### MTD using block device
+####
+#### CONFIG_MTD_BLOCK2MTD is not set
+
+####
+#### Disk-On-Chip Device Drivers
+####
+
+#####
+##### M-Systems Disk-On-Chip G3
+#####
+##### CONFIG_MTD_DOCG3 is not set
+
+### end of Self-contained MTD device drivers
+
+###
+### NAND
+###
+
+####
+#### OneNAND Device Support
+####
+#### CONFIG_MTD_ONENAND is not set
+#### CONFIG_MTD_ONENAND_VERIFY_WRITE is not set
+#### CONFIG_MTD_ONENAND_GENERIC is not set
+#### CONFIG_MTD_ONENAND_OMAP2 is not set
+#### CONFIG_MTD_ONENAND_SAMSUNG is not set
+#### CONFIG_MTD_ONENAND_OTP is not set
+#### CONFIG_MTD_ONENAND_2X_PROGRAM is not set
+
+####
+#### NAND ECC Smart Media byte order
+####
+#### CONFIG_MTD_NAND_ECC_SW_HAMMING_SMC is not set
+
+####
+#### Raw/Parallel NAND Device Support
+####
+CONFIG_MTD_RAW_NAND=y
+
+#####
+##### Support software BCH ECC
+#####
+CONFIG_MTD_NAND_ECC_SW_BCH=y
+
+#####
+##### Raw/parallel NAND flash controllers
+#####
+
+#####
+##### Denali NAND controller on Intel Moorestown
+#####
+##### CONFIG_MTD_NAND_DENALI_PCI is not set
+
+#####
+##### Denali NAND controller as a DT device
+#####
+##### CONFIG_MTD_NAND_DENALI_DT is not set
+
+#####
+##### OLPC CAFÉ NAND controller
+#####
+##### CONFIG_MTD_NAND_CAFE is not set
+
+#####
+##### Broadcom STB NAND controller
+#####
+##### CONFIG_MTD_NAND_BRCMNAND is not set
+
+#####
+##### Macronix raw NAND controller
+#####
+##### CONFIG_MTD_NAND_MXIC is not set
+
+#####
+##### GPIO assisted NAND controller
+#####
+##### CONFIG_MTD_NAND_GPIO is not set
+
+#####
+##### Generic NAND controller
+#####
+##### CONFIG_MTD_NAND_PLATFORM is not set
+
+#####
+##### Support Cadence NAND (HPNFC) controller
+#####
+##### CONFIG_MTD_NAND_CADENCE is not set
+
+#####
+##### Support for Arasan NAND flash controller
+#####
+CONFIG_MTD_NAND_ARASAN=y
+
+#####
+##### Misc
+#####
+
+#####
+##### Support for NAND Flash Simulator
+#####
+##### CONFIG_MTD_NAND_NANDSIM is not set
+
+#####
+##### Ricoh xD card reader
+#####
+##### CONFIG_MTD_NAND_RICOH is not set
+
+#####
+##### DiskOnChip 2000, Millennium and Millennium Plus (NAND reimplementation)
+#####
+##### CONFIG_MTD_NAND_DISKONCHIP is not set
+
+#### end of Raw/Parallel NAND Device Support
+
+####
+#### SPI NAND device Support
+####
+#### CONFIG_MTD_SPI_NAND is not set
+
+####
+#### ECC engine support
+####
+
+### end of NAND
+
+###
+### LPDDR & LPDDR2 PCM memory drivers
+###
+
+####
+#### Support for LPDDR flash chips
+####
+#### CONFIG_MTD_LPDDR is not set
+
+### end of LPDDR & LPDDR2 PCM memory drivers
+
+###
+### SPI NOR device support
+###
+CONFIG_MTD_SPI_NOR=y
+
+####
+#### Use small 4096 B erase sectors
+####
+#### CONFIG_MTD_SPI_NOR_USE_4K_SECTORS is not set
+
+### end of SPI NOR device support
+
+###
+### Enable UBI - Unsorted block images
+###
+CONFIG_MTD_UBI=y
+
+####
+#### UBI wear-leveling threshold
+####
+#### CONFIG_MTD_UBI_WL_THRESHOLD=4096
+
+####
+#### Maximum expected bad eraseblock count per 1024 eraseblocks
+####
+#### CONFIG_MTD_UBI_BEB_LIMIT=20
+
+####
+#### UBI Fastmap (Experimental feature)
+####
+#### CONFIG_MTD_UBI_FASTMAP is not set
+
+####
+#### MTD devices emulation driver (gluebi)
+####
+#### CONFIG_MTD_UBI_GLUEBI is not set
+
+####
+#### Read-only block devices on top of UBI volumes
+####
+#### CONFIG_MTD_UBI_BLOCK is not set
+
+### end of Enable UBI - Unsorted block images
+
+###
+### HyperBus support
+###
+### CONFIG_MTD_HYPERBUS is not set
+### CONFIG_HBMC_AM654 is not set
+### CONFIG_RPCIF_HYPERBUS is not set
+
+## end of Memory Technology Device (MTD) support
+
+##
+## Device Tree and Open Firmware support
+##
+## CONFIG_DTC=y
+## CONFIG_OF=y
+
+###
+### Device Tree runtime unit tests
+###
+### CONFIG_OF_UNITTEST is not set
+
+###
+### Device Tree overlays
+###
+CONFIG_OF_OVERLAY=y
+
+###
+### Device Tree Overlay ConfigFS interface
+###
+CONFIG_OF_CONFIGFS=y
+
+## end of Device Tree and Open Firmware support
+
+##
+## Parallel port support
+##
+## CONFIG_PARPORT is not set
+
+##
+## Block devices
+##
+## CONFIG_BLK_DEV=y
+
+###
+### Null test block driver
+###
+### CONFIG_BLK_DEV_NULL_BLK is not set
+
+###
+### Loopback device support
+###
+CONFIG_BLK_DEV_LOOP=y
+
+###
+### Number of loop devices to pre-create at init time
+###
+### CONFIG_BLK_DEV_LOOP_MIN_COUNT is not set
+
+###
+### Cryptoloop Support (DEPRECATED)
+###
+### CONFIG_BLK_DEV_CRYPTOLOOP is not set
+
+###
+### DRBD Distributed Replicated Block Device support
+###
+### CONFIG_BLK_DEV_DRBD is not set
+
+###
+### Network block device support
+###
+### CONFIG_BLK_DEV_NBD is not set
+
+###
+### STEC S1120 Block Driver
+###
+### CONFIG_BLK_DEV_SKD is not set
+
+###
+### Promise SATA SX8 support
+###
+### CONFIG_BLK_DEV_SX8 is not set
+
+###
+### RAM block device support
+###
+CONFIG_BLK_DEV_RAM=y
+
+###
+### Default number of RAM disks
+###
+### CONFIG_BLK_DEV_RAM_COUNT=16
+
+###
+### Default RAM disk size (kbytes)
+###
+CONFIG_BLK_DEV_RAM_SIZE=65536
+
+###
+### Packet writing on CD/DVD media (DEPRECATED)
+###
+### CONFIG_CDROM_PKTCDVD is not set
+### CONFIG_CDROM_PKTCDVD_BUFFERS is not set
+### CONFIG_CDROM_PKTCDVD_WCACHE is not set
+
+###
+### ATA over Ethernet support
+###
+### CONFIG_ATA_OVER_ETH is not set
+
+###
+### Virtio block driver
+###
+### CONFIG_VIRTIO_BLK is not set
+
+###
+### Rados block device (RBD)
+###
+### CONFIG_BLK_DEV_RBD is not set
+
+###
+### IBM Flash Adapter 900GB Full Height PCIe Device Driver
+###
+### CONFIG_BLK_DEV_RSXX is not set
+
+## end of Block devices
+
+##
+## NVME Support
+##
+
+###
+### NVM Express block device
+###
+### CONFIG_BLK_DEV_NVME
+
+###
+### NVM Express over Fabrics FC host driver
+###
+### CONFIG_NVME_FC is not set
+
+###
+### NVM Express over Fabrics TCP host driver
+###
+### CONFIG_NVME_TCP is not set
+
+###
+### NVMe Target support
+###
+### CONFIG_NVME_TARGET is not set
+
+## end of NVME Support
+
+##
+## Misc devices
+##
+
+###
+### Analog Devices Digital Potentiometers
+###
+### CONFIG_AD525X_DPOT is not set
+
+###
+### Dummy IRQ handler
+###
+### CONFIG_DUMMY_IRQ is not set
+
+###
+### Sensable PHANToM (PCI)
+###
+### CONFIG_PHANTOM is not set
+
+###
+### TI Flash Media interface support
+###
+### CONFIG_TIFM_CORE is not set
+
+###
+### Integrated Circuits ICS932S401
+###
+### CONFIG_ICS932S401 is not set
+
+###
+### Enclosure Services
+###
+### CONFIG_ENCLOSURE_SERVICES is not set
+
+###
+### Channel interface driver for the HP iLO processor
+###
+### CONFIG_HP_ILO is not set
+
+###
+### Medfield Avago APDS9802 ALS Sensor module
+###
+### CONFIG_APDS9802ALS is not set
+
+###
+### Intersil ISL29003 ambient light sensor
+###
+### CONFIG_ISL29003 is not set
+
+###
+### Intersil ISL29020 ambient light sensor
+###
+### CONFIG_ISL29020 is not set
+
+###
+### Taos TSL2550 ambient light sensor
+###
+### CONFIG_SENSORS_TSL2550 is not set
+
+###
+### BH1770GLC / SFH7770 combined ALS - Proximity sensor
+###
+### CONFIG_SENSORS_BH1770 is not set
+
+###
+### APDS990X combined als and proximity sensors
+###
+### CONFIG_SENSORS_APDS990X is not set
+
+###
+### Honeywell HMC6352 compass
+###
+### CONFIG_HMC6352 is not set
+
+###
+### Dallas DS1682 Total Elapsed Time Recorder with Alarm
+###
+### CONFIG_DS1682 is not set
+
+###
+### Lattice ECP3 FPGA bitstream configuration via SPI
+###
+### CONFIG_LATTICE_ECP3_CONFIG is not set
+
+###
+### Generic on-chip SRAM driver
+###
+### CONFIG_SRAM is not set
+
+###
+### PCI Endpoint Test driver
+###
+### CONFIG_PCI_ENDPOINT_TEST is not set
+
+###
+### Xilinx SDFEC 16
+###
+CONFIG_XILINX_SDFEC=m
+
+###
+### Xilinx Flexnoc Performance Monitor
+###
+CONFIG_XILINX_FLEX_PM=m
+
+###
+### Xilinx Traffic Generator
+###
+CONFIG_XILINX_TRAFGEN=m
+
+###
+### Xilinx AI engine
+###
+CONFIG_XILINX_AIE=m
+
+###
+### pvpanic device support
+###
+### CONFIG_PVPANIC is not set
+
+###
+### USB GPIO Hub on HiSilicon Hikey 960/970 Platform
+###
+### CONFIG_HISI_HIKEY_USB is not set
+
+###
+### Xilinx JESD204B
+###
+CONFIG_XILINX_JESD204B=m
+CONFIG_XILINX_JESD204B_PHY=m
+
+###
+### Silicon Labs C2 port support
+###
+### CONFIG_C2PORT is not set
+
+###
+### EEPROM support
+###
+
+####
+#### I2C EEPROMs / RAMs / ROMs from most vendors
+####
+CONFIG_EEPROM_AT24=y
+
+####
+#### SPI EEPROMs from most vendors
+####
+CONFIG_EEPROM_AT25=y
+
+####
+#### Old I2C EEPROM reader (DEPRECATED)
+####
+#### CONFIG_EEPROM_LEGACY is not set
+
+####
+#### Maxim MAX6874/5 power supply supervisor
+####
+#### CONFIG_EEPROM_MAX6875 is not set
+
+####
+#### EEPROM 93CX6 support
+####
+#### CONFIG_EEPROM_93CX6 is not set
+
+####
+#### Microwire EEPROM 93XX46 support
+####
+#### CONFIG_EEPROM_93XX46 is not set
+
+####
+#### IDT 89HPESx PCIe-swtiches EEPROM / CSR support
+####
+#### CONFIG_EEPROM_IDT_89HPESX is not set
+
+####
+#### SPD EEPROMs on DDR4 memory modules
+####
+#### CONFIG_EEPROM_EE1004 is not set
+
+### end of EEPROM support
+
+###
+### ENE CB710/720 Flash memory card reader support
+###
+### CONFIG_CB710_CORE is not set
+
+###
+### Texas Instruments shared transport line discipline
+###
+CONFIG_TI_ST=y
+
+###
+### STMicroeletronics LIS3LV02Dx three-axis digital accelerometer (SPI)
+###
+### CONFIG_SENSORS_LIS3_SPI is not set
+
+###
+### STMicroeletronics LIS3LV02Dx three-axis digital accelerometer (I2C)
+###
+### CONFIG_SENSORS_LIS3_I2C is not set
+
+###
+### Altera FPGA firmware download module
+###
+### CONFIG_ALTERA_STAPL is not set
+
+###
+### GenWQE PCIe Accelerator
+###
+### CONFIG_GENWQE is not set
+
+###
+### Line Echo Canceller support
+###
+### CONFIG_ECHO is not set
+
+###
+### Alcor Micro/Alcor Link PCI-E card reader
+###
+### CONFIG_MISC_ALCOR_PCI is not set
+
+###
+### Realtek PCI-E card reader
+###
+### CONFIG_MISC_RTSX_PCI is not set
+
+###
+### Realtek USB card reader
+###
+CONFIG_MISC_RTSX_USB=m
+
+###
+### HabanaAI accelerators (habanalabs)
+###
+### CONFIG_HABANA_AI is not set
+
+###
+### Accelerator Framework for User Land
+###
+### CONFIG_UACCE is not set
+
+## end of Misc devices
+
+##
+## SCSI device support
+##
+
+###
+### RAID Transport Class
+###
+### CONFIG_RAID_ATTRS is not set
+
+###
+### SCSI device support
+###
+### CONFIG_SCSI=y
+
+###
+### legacy /proc/scsi/ support
+###
+### CONFIG_SCSI_PROC_FS=y
+
+###
+### SCSI disk support
+###
+CONFIG_BLK_DEV_SD=y
+
+###
+### SCSI tape support
+###
+### CONFIG_CHR_DEV_ST is not set
+
+###
+### SCSI CDROM support
+###
+### CONFIG_BLK_DEV_SR is not set
+
+###
+### SCSI generic support
+###
+### CONFIG_CHR_DEV_SG is not set
+
+###
+### SCSI media changer support
+###
+### CONFIG_CHR_DEV_SCH is not set
+
+###
+### Verbose SCSI error reporting (kernel size += 36K)
+###
+### CONFIG_SCSI_CONSTANTS is not set
+
+###
+### SCSI logging facility
+###
+### CONFIG_SCSI_LOGGING is not set
+
+###
+### Asynchronous SCSI scanning
+###
+### CONFIG_SCSI_SCAN_ASYNC is not set
+
+###
+### SCSI Transports
+###
+### CONFIG_SCSI_SPI_ATTRS is not set
+### CONFIG_SCSI_FC_ATTRS is not set
+### CONFIG_SCSI_ISCSI_ATTRS is not set
+### CONFIG_SCSI_SAS_ATTRS is not set
+### CONFIG_SCSI_SAS_LIBSAS is not set
+### CONFIG_SCSI_SRP_ATTRS is not set
+### end of SCSI Transports
+
+###
+### SCSI low-level drivers
+###
+### CONFIG_SCSI_LOWLEVEL=y
+### CONFIG_ISCSI_TCP is not set
+### CONFIG_ISCSI_BOOT_SYSFS is not set
+### CONFIG_SCSI_CXGB3_ISCSI is not set
+### CONFIG_SCSI_CXGB4_ISCSI is not set
+### CONFIG_SCSI_BNX2_ISCSI is not set
+### CONFIG_BE2ISCSI is not set
+### CONFIG_BLK_DEV_3W_XXXX_RAID is not set
+### CONFIG_SCSI_HPSA is not set
+### CONFIG_SCSI_3W_9XXX is not set
+### CONFIG_SCSI_3W_SAS is not set
+### CONFIG_SCSI_ACARD is not set
+### CONFIG_SCSI_AACRAID is not set
+### CONFIG_SCSI_AIC7XXX is not set
+### CONFIG_SCSI_AIC79XX is not set
+### CONFIG_SCSI_AIC94XX is not set
+### CONFIG_SCSI_HISI_SAS is not set
+### CONFIG_SCSI_MVSAS is not set
+### CONFIG_SCSI_MVUMI is not set
+### CONFIG_SCSI_ADVANSYS is not set
+### CONFIG_SCSI_ARCMSR is not set
+### CONFIG_SCSI_ESAS2R is not set
+### CONFIG_MEGARAID_NEWGEN is not set
+### CONFIG_MEGARAID_LEGACY is not set
+### CONFIG_MEGARAID_SAS is not set
+### CONFIG_SCSI_MPT3SAS is not set
+### CONFIG_SCSI_MPT2SAS is not set
+### CONFIG_SCSI_SMARTPQI is not set
+### CONFIG_SCSI_UFSHCD is not set
+### CONFIG_SCSI_HPTIOP is not set
+### CONFIG_SCSI_MYRB is not set
+### CONFIG_SCSI_MYRS is not set
+### CONFIG_XEN_SCSI_FRONTEND is not set
+### CONFIG_SCSI_SNIC is not set
+### CONFIG_SCSI_DMX3191D is not set
+### CONFIG_SCSI_FDOMAIN_PCI is not set
+### CONFIG_SCSI_GDTH is not set
+### CONFIG_SCSI_IPS is not set
+### CONFIG_SCSI_INITIO is not set
+### CONFIG_SCSI_INIA100 is not set
+### CONFIG_SCSI_STEX is not set
+### CONFIG_SCSI_SYM53C8XX_2 is not set
+### CONFIG_SCSI_IPR is not set
+### CONFIG_SCSI_QLOGIC_1280 is not set
+### CONFIG_SCSI_QLA_ISCSI is not set
+### CONFIG_SCSI_DC395x is not set
+### CONFIG_SCSI_AM53C974 is not set
+### CONFIG_SCSI_WD719X is not set
+### CONFIG_SCSI_DEBUG is not set
+### CONFIG_SCSI_PMCRAID is not set
+### CONFIG_SCSI_PM8001 is not set
+### CONFIG_SCSI_VIRTIO is not set
+### end of SCSI low-level drivers
+
+###
+### SCSI Device Handlers
+###
+### CONFIG_SCSI_DH is not set
+
+## end of SCSI device support
+
+##
+## Serial ATA and Parallel ATA drivers (libata)
+##
+CONFIG_ATA=y
+
+###
+### Verbose ATA error reporting
+###
+### CONFIG_ATA_VERBOSE_ERROR=y
+
+###
+### "libata.force=" kernel parameter support
+###
+### CONFIG_ATA_FORCE=y
+
+###
+### SATA Port Multiplier support
+###
+### CONFIG_SATA_PMP=y
+
+###
+### AHCI SATA support
+###
+### CONFIG_SATA_AHCI is not set
+
+###
+### Platform AHCI SATA support
+###
+CONFIG_SATA_AHCI_PLATFORM=y
+
+###
+### CEVA AHCI SATA support
+###
+CONFIG_AHCI_CEVA=y
+
+###
+### Freescale QorIQ AHCI SATA support
+###
+### CONFIG_AHCI_QORIQ is not set
+
+###
+### Initio 162x SATA support (Very Experimental)
+###
+### CONFIG_SATA_INIC162X is not set
+
+###
+### ACard AHCI variant (ATP 8620)
+###
+### CONFIG_SATA_ACARD_AHCI is not set
+
+###
+### Silicon Image 3124/3132 SATA support
+###
+### CONFIG_SATA_SIL24 is not set 
+
+###
+### ATA SFF support (for legacy IDE and PATA)
+###
+### CONFIG_ATA_SFF is not set
+
+## end of Serial ATA and Parallel ATA drivers (libata)
+
+##
+## Multiple devices driver support (RAID and LVM)
+##
+## CONFIG_MD is not set
+
+###
+### RAID support
+###
+### CONFIG_BLK_DEV_MD is not set
+
+###
+### Block device as cache
+###
+### CONFIG_BCACHE is not set
+
+###
+### Device mapper support
+###
+### CONFIG_BLK_DEV_DM is not set
+
+## end of Multiple devices driver support (RAID and LVM)
+
+##
+## Generic Target Core Mod (TCM) and ConfigFS Infrastructure
+##
+## CONFIG_TARGET_CORE is not set
+
+## end of Generic Target Core Mod (TCM) and ConfigFS Infrastructure
+
+##
+## Fusion MPT device support
+##
+## CONFIG_FUSION is not set
+
+## end of Fusion MPT device support
+
+##
+## IEEE 1394 (FireWire) support
+##
+
+###
+### FireWire driver stack
+###
+### CONFIG_FIREWIRE is not set
+### CONFIG_FIREWIRE_OHCI is not set
+### CONFIG_FIREWIRE_SBP2 is not set
+### CONFIG_FIREWIRE_NET  is not set
+### CONFIG_FIREWIRE_NOSY is not set
+
+## end of IEEE 1394 (FireWire) support
+
+##
+## Network device support
+##
+CONFIG_NETDEVICES=y
+
+###
+### Network core driver support
+###
+CONFIG_NET_CORE=y
+
+###
+### Bonding driver support
+###
+### CONFIG_BONDING is not set
+
+###
+### Dummy net driver support
+###
+CONFIG_DUMMY=m
+
+###
+### WireGuard secure network tunnel
+###
+### CONFIG_WIREGUARD is not set
+
+###
+### EQL (serial line load balancing) support
+###
+### CONFIG_EQUALIZER is not set
+
+###
+### Fibre Channel driver support
+###
+### CONFIG_NET_FC is not set
+
+###
+### Intermediate Functional Block support
+###
+### CONFIG_IFB is not set
+
+###
+### Ethernet team driver support
+###
+### CONFIG_NET_TEAM is not set
+### CONFIG_NET_TEAM_MODE_BROADCAST is not set
+### CONFIG_NET_TEAM_MODE_ROUNDROBIN is not set
+### CONFIG_NET_TEAM_MODE_RANDOM is not set
+### CONFIG_NET_TEAM_MODE_ACTIVEBACKUP is not set
+### CONFIG_NET_TEAM_MODE_LOADBALANCE is not set
+
+###
+### MAC-VLAN support
+###
+CONFIG_MACVLAN=m
+
+###
+### MAC-VLAN based tap driver
+###
+### CONFIG_MACVTAP is not set
+
+###
+### IP-VLAN support
+###
+CONFIG_IPVLAN=m
+
+###
+### IP-VLAN based tap driver
+###
+### CONFIG_IPVTAP is not set
+
+###
+### Virtual eXtensible Local Area Network (VXLAN)
+###
+CONFIG_VXLAN=m
+
+###
+### Generic Network Virtualization Encapsulation
+###
+### CONFIG_GENEVE is not set
+
+###
+### Bare UDP Encapsulation
+###
+### CONFIG_BAREUDP is not set
+
+###
+### GPRS Tunneling Protocol datapath (GTP-U)
+###
+### CONFIG_GTP is not set
+
+###
+### IEEE 802.1AE MAC-level encryption (MACsec)
+###
+### CONFIG_MACSEC is not set
+
+###
+### Network console logging support
+###
+### CONFIG_NETCONSOLE is not set
+
+###
+### Universal TUN/TAP device driver support
+###
+CONFIG_TUN=y
+
+###
+### Support for cross-endian vnet headers on little-endian kernels
+###
+### CONFIG_TUN_VNET_CROSS_LE is not set
+
+###
+### Virtual ethernet pair device
+###
+CONFIG_VETH=m
+
+###
+### Virtio network driver
+###
+### CONFIG_VIRTIO_NET is not set
+
+###
+### Virtual netlink monitoring device
+###
+### CONFIG_NLMON is not set
+
+###
+### ARCnet support
+###
+### CONFIG_ARCNET is not set
+
+###
+### CAIF transport drivers
+###
+### CONFIG_CAIF_DRIVERS is not set
+
+###
+### Distributed Switch Architecture drivers
+###
+
+###
+### Ethernet driver support
+###
+### CONFIG_ETHERNET=y
+
+####
+#### 3Com devices
+####
+#### CONFIG_NET_VENDOR_3COM=y
+#### CONFIG_VORTEX is not set
+#### CONFIG_TYPHOON is not set
+
+####
+#### Adaptec devices
+####
+#### CONFIG_NET_VENDOR_ADAPTEC=y
+#### CONFIG_ADAPTEC_STARFIRE is not set
+
+####
+#### Agere devices
+####
+#### CONFIG_NET_VENDOR_AGERE=y
+#### CONFIG_ET131X is not set
+
+####
+#### Alacritech devices
+####
+#### CONFIG_NET_VENDOR_ALACRITECH=y
+#### CONFIG_SLICOSS is not set
+
+####
+#### Alteon devices
+####
+#### CONFIG_NET_VENDOR_ALTEON=y
+#### CONFIG_ACENIC is not set
+
+####
+#### Altera Triple-Speed Ethernet MAC support
+####
+#### CONFIG_ALTERA_TSE is not set
+
+####
+#### Amazon Devices
+####
+#### CONFIG_NET_VENDOR_AMAZON=y
+#### CONFIG_ENA_ETHERNET is not set
+
+####
+#### AMD devices
+####
+#### CONFIG_NET_VENDOR_AMD=y
+#### CONFIG_AMD8111_ETH is not set
+#### CONFIG_PCNET32 is not set
+#### CONFIG_AMD_XGBE is not set
+
+####
+#### aQuantia devices
+####
+#### CONFIG_NET_VENDOR_AQUANTIA=y
+#### CONFIG_AQTION is not set
+
+####
+#### ARC devices
+####
+#### CONFIG_NET_VENDOR_ARC=y
+
+####
+#### Atheros devices
+####
+#### CONFIG_NET_VENDOR_ATHEROS=y
+#### CONFIG_ATL2 is not set
+#### CONFIG_ATL1 is not set
+#### CONFIG_ATL1E is not set
+#### CONFIG_ATL1C is not set
+#### CONFIG_ALX is not set
+
+####
+#### Aurora VLSI devices
+####
+#### CONFIG_NET_VENDOR_AURORA=y
+#### CONFIG_AURORA_NB8800 is not set
+
+####
+#### Broadcom devices
+####
+#### CONFIG_NET_VENDOR_BROADCOM=y
+#### CONFIG_B44 is not set
+#### CONFIG_BCMGENET is not set
+#### CONFIG_BNX2 is not set
+#### CONFIG_CNIC is not set
+#### CONFIG_TIGON3 is not set
+#### CONFIG_BNX2X is not set
+#### CONFIG_SYSTEMPORT is not et
+#### CONFIG_BNXT is not set
+
+####
+#### QLogic BR-series devices
+####
+#### CONFIG_NET_VENDOR_BROCADE=y
+#### CONFIG_BNA is not set
+
+####
+#### Cadence devices
+####
+#### CONFIG_NET_VENDOR_CADENCE=y
+
+####
+#### Cadence MACB/GEM support
+####
+CONFIG_MACB=y
+
+####
+#### Cadence PCI MACB/GEM support
+####
+#### CONFIG_MACB_PCI is not set
+
+####
+#### Cavium ethernet drivers
+####
+#### CONFIG_NET_VENDOR_CAVIUM=y
+#### CONFIG_THUNDER_NIC_PF is not set
+#### CONFIG_THUNDER_NIC_VF is not set
+#### CONFIG_THUNDER_NIC_BGX is not set
+#### CONFIG_THUNDER_NIC_RGX is not set
+#### CONFIG_LIQUIDIO is not set
+#### CONFIG_LIQUIDIO_VF is not set
+
+####
+#### Chelsio devices
+####
+#### CONFIG_NET_VENDOR_CHELSIO=y
+#### CONFIG_CHELSIO_T1 is not set
+#### CONFIG_CHELSIO_T3 is not set
+#### CONFIG_CHELSIO_T4 is not set
+#### CONFIG_CHELSIO_T4VF is not set
+
+####
+#### Cisco devices
+####
+#### CONFIG_NET_VENDOR_CISCO=y
+#### CONFIG_ENIC is not set
+
+####
+#### Cortina Gemini devices
+####
+#### CONFIG_NET_VENDOR_CORTINA=y
+#### CONFIG_GEMINI_ETHERNET is not set
+
+####
+#### Dave ethernet support (DNET)
+####
+#### CONFIG_DNET is not set
+
+####
+#### Digital Equipment devices
+####
+#### CONFIG_NET_VENDOR_DEC=y
+#### CONFIG_NET_TULIP is not set
+
+####
+#### D-Link devices
+####
+#### CONFIG_NET_VENDOR_DLINK=y
+#### CONFIG_DL2K is not set
+#### CONFIG_SUNDANCE is not set
+
+####
+#### Emulex devices
+####
+#### CONFIG_NET_VENDOR_EMULEX=y
+#### CONFIG_BE2NET is not set
+
+####
+#### EZchip devices
+####
+#### CONFIG_NET_VENDOR_EZCHIP=y
+#### CONFIG_EZCHIP_NPS_MANAGEMENT_ENET is not set
+
+####
+#### Google Devices
+####
+#### CONFIG_NET_VENDOR_GOOGLE=y
+#### CONFIG_GVE is not set
+
+####
+#### Hisilicon devices
+####
+#### CONFIG_NET_VENDOR_HISILICON=y
+#### CONFIG_HIX5HD2_GMAC is not set
+#### CONFIG_HISI_FEMAC is not set
+#### CONFIG_HIP04_ETH is not set
+#### CONFIG_HNS_DSAF is not set
+#### CONIFG_HNS_ENET is not set
+#### CONFIG_HNS3 is not set
+
+####
+#### Huawei devices
+####
+#### CONFIG_NET_VENDOR_HUAWEI=y
+#### CONFIG_HINIC is not set
+
+####
+#### Intel (82586/82593/82596) devices
+####
+#### CONFIG_NET_VENDOR_I825XX=y
+
+####
+#### Intel devices
+####
+#### CONFIG_NET_VENDOR_INTEL=y
+#### CONFIG_E100 is not set
+#### CONFIG_E1000 is not set
+#### CONFIG_E1000E is not set
+#### CONFIG_IGB is not set
+#### CONFIG_IGBVF is not set
+#### CONFIG_IXGB is not set
+#### CONFIG_IXGBEVF is not set
+#### CONFIG_I40E is not set
+#### CONFIG_I40EVF is not set
+#### CONFIG_ICE is not set
+#### CONFIG_FM10K is not set
+#### CONFIG_IGC is not set
+
+####
+#### JMicron(R) PCI-Express Gigabit Ethernet support
+####
+#### CONFIG_JME is not set
+
+####
+#### Marvell devices
+####
+#### CONFIG_NET_VENDOR_MARVELL=y
+#### CONFIG_MVMDIO is not set
+#### CONFIG_SKGE is not set
+#### CONFIG_SKY2 is not set
+#### CONFIG_OCTEONTX2_AF is not set
+#### CONFIG_OCTEONTX2_PF is not set
+
+####
+#### Mellanox devices
+####
+#### CONFIG_NET_VENDOR_MELLANOX=y
+#### CONFIG_MLX4_EN is not set
+#### CONFIG_MLX5_CORE is not set
+#### CONFIG_MLXSW_CORE is not set
+#### CONFIG_MLXFW is not set
+
+####
+#### Micrel devices
+####
+#### CONFIG_NET_VENDOR_MICREL=y
+#### CONFIG_KS8842 is not set
+#### CONFIG_KS8851 is not set
+#### CONFIG_KS8851_MLL is not set
+#### CONFIG_KSZ884X_PCI is not set
+
+####
+#### Microchip devices
+####
+#### CONFIG_NET_VENDOR_MICROCHIP=y
+#### CONFIG_ENC28J60 is not set
+#### CONFIG_ENCX24J600 is not set
+#### CONFIG_LAN743X is not set
+
+####
+#### Microsemi devices
+####
+#### CONFIG_NET_VENDOR_MICROSEMI=y
+#### CONFIG_MSCC_OCELOT_SWITCH is not set
+
+####
+#### Myricom devices
+####
+#### CONFIG_NET_VENDOR_MYRI=y
+#### CONFIG_MYRI10GE is not set
+
+####
+#### Myson MTD-8xx PCI Ethernet support
+####
+#### CONFIG_FEALNX is not set
+
+####
+#### National Semiconductor devices
+####
+#### CONFIG_NET_VENDOR_NATSEMI=y
+#### CONFIG_NATSEMI is not set
+#### CONFIG_NS83820 is not set
+
+####
+#### Neterion (Exar) devices
+####
+#### CONFIG_NET_VENDOR_NETERION=y
+#### CONFIG_S2IO is not set
+#### CONFIG_VXGE is not set
+
+####
+#### Netronome(R) devices
+####
+#### CONFIG_NET_VENDOR_NETRONOME=y
+#### CONFIG_NFP is not set
+
+####
+#### National Instruments Devices
+####
+#### CONFIG_NET_VENDOR_NI=y
+#### CONFIG_NI_XGE_MANAGEMENT_ENET is not set
+
+####
+#### National Semiconductor 8390 devices
+####
+#### CONFIG_NET_VENDOR_8390=y
+#### CONFIG_NE2K_PCI is not set
+
+####
+#### NVIDIA devices
+####
+#### CONFIG_NET_VENDOR_NVIDIA=y
+#### CONFIG_FORCEDETH is not set
+
+####
+#### OKI Semiconductor devices
+####
+#### CONFIG_NET_VENDOR_OKI=y
+
+####
+#### OpenCores 10/100 Mbps Ethernet MAC support
+####
+#### CONFIG_ETHOC is not set
+
+####
+#### Packet Engines devices
+####
+#### CONFIG_NET_VENDOR_PACKET_ENGINES=y
+#### CONFIG_HAMACHI is not set
+#### CONFIG_YELLOWFIN is not set
+
+####
+#### Pensando devices
+####
+#### CONFIG_NET_VENDOR_PENSANDO=y
+#### CONFIG_IONIC is not set
+
+####
+#### QLogic devices
+####
+#### CONFIG_NET_VENDOR_QLOGIC=y
+#### CONFIG_QLA3XXX is not set
+#### CONFIG_QLCNIC is not set
+#### CONFIG_NETXEN_NIC is not set
+#### CONFIG_QED is not set
+
+####
+#### Qualcomm devices
+####
+#### CONFIG_NET_VENDOR_QUALCOMM=y
+#### CONFIG_QCA7000_SPI is not set
+#### CONFIG_QCA7000_UART is not set
+#### CONFIG_QCOM_EMAC is not set
+
+####
+#### RDC devices
+####
+#### CONFIG_NET_VENDOR_RDC=y
+#### CONFIG_R6040 is not set
+
+####
+#### Realtek devices
+####
+#### CONFIG_NET_VENDOR_REALTEK=y
+#### CONFIG_8139CP is not set
+#### CONFIG_8139TOO is not set
+#### CONFIG_R8169 is not set
+
+####
+#### Renesas devices
+####
+#### CONFIG_NET_VENDOR_RENESAS=y
+
+####
+#### Rocker devices
+####
+#### CONFIG_NET_VENDOR_ROCKER=y
+#### CONFIG_ROCKER is not set
+
+####
+#### Samsung Ethernet devices
+####
+#### CONFIG_NET_VENDOR_SAMSUNG=y
+#### CONFIG_SXGBE_ETH is not set
+
+####
+#### SEEQ devices
+####
+#### CONFIG_NET_VENDOR_SEEQ=y
+
+####
+#### Solarflare devices
+####
+#### CONFIG_NET_VENDOR_SOLARFLARE=y
+#### CONFIG_SFC is not set
+#### CONFIG_SFC_FALCON is not set
+
+####
+#### Silan devices
+####
+#### CONFIG_NET_VENDOR_SILAN=y
+#### CONFIG_SC92031 is not set
+
+####
+#### Silicon Integrated Systems (SiS) devices
+####
+#### CONFIG_NET_VENDOR_SIS=y
+#### CONFIG_SIS900 is not set
+#### CONFIG_SIS190 is not set
+
+####
+#### SMC (SMSC)/Western Digital devices
+####
+#### CONFIG_NET_VENDOR_SMSC=y
+#### CONFIG_SMC91X is not set
+#### CONFIG_EPIC100 is not set
+#### CONFIG_SMSC911X is not set
+#### CONFIG_SMSC9420 is not set
+
+####
+#### Socionext ethernet drivers
+####
+#### CONFIG_NET_VENDOR_SOCIONEXT=y
+
+####
+#### STMicroelectronics devices
+####
+#### CONFIG_NET_VENDOR_STMICRO=y
+#### CONFIG_STMMAC_ETH is not set
+
+####
+#### Sun devices
+####
+#### CONFIG_NET_VENDOR_SUN=y
+#### CONFIG_HAPPYMEAL is not set
+#### CONFIG_SUNGEM is not set
+#### CONFIG_CASSINI is not set
+#### CONFIG_NIU is not set
+
+####
+#### Synopsys devices
+####
+#### CONFIG_NET_VENDOR_SYNOPSYS=y
+#### CONFIG_DWC_XLGMAC is not set
+
+####
+#### Tehuti devices
+####
+#### CONFIG_NET_VENDOR_TEHUTI=y
+#### CONFIG_TEHUTI is not set
+
+####
+#### Texas Instruments (TI) devices
+####
+#### CONFIG_NET_VENDOR_TI=y
+#### CONFIG_TI_CPSW_PHY_SEL is not set
+#### CONFIG_TLAN is not set
+
+####
+#### VIA devices
+####
+#### CONFIG_NET_VENDOR_VIA=y
+#### CONFIG_VIA_RHINE is not set
+#### CONFIG_VIA_VELOCITY is not set
+
+####
+#### WIZnet devices
+####
+#### CONFIG_NET_VENDOR_WIZNET=y
+#### CONFIG_WIZNET_W5100 is not set
+#### CONFIG_WIZNET_W5300 is not set
+
+####
+#### Xilinx devices
+####
+#### CONFIG_NET_VENDOR_XILINX=y
+CONFIG_XILINX_EMACLITE=y
+CONFIG_XILINX_AXI_EMAC=y
+#### CONFIG_XILINX_AXI_EMAC_HWTSTAMP is not set
+#### CONFIG_AXIENET_HAS_MCDMA is not set
+#### CONFIG_XILINX_TSN is not set
+
+### end of Ethernet driver support
+
+###
+### FDDI driver support
+###
+### CONFIG_FDDI is not set
+
+###
+### HIPPI driver support
+###
+### CONFIG_HIPPI is not set
+
+###
+### PHY Device support and infrastructure
+###
+### CONFIG_PHYLIB=y
+### CONFIG_MDIO_DEVICE=y
+### CONFIG_MDIO_DEVRES=y
+
+####
+#### Support LED triggers for tracking link state
+####
+#### CONFIG_LED_TRIGGER_PHY is not set
+
+####
+#### MDIO Bus/PHY emulation with fixed speed/link PHYs
+####
+#### CONFIG_FIXED_PHY=y
+
+####
+#### SFP cage support
+####
+#### CONFIG_SFP is not set
+
+####
+#### MII PHY device drivers
+####
+
+####
+#### AMD PHYs
+####
+CONFIG_AMD_PHY=y
+
+####
+#### Analog Devices Industrial Ethernet PHYs
+####
+#### CONFIG_ADIN_PHY is not set
+
+####
+#### Aquantia PHYs
+####
+#### CONFIG_AQUANTIA_PHY is not set
+
+####
+#### Asix PHYs
+####
+#### CONFIG_AX88796B_PHY is not set
+
+####
+#### Broadcom 54XX PHYs
+####
+CONFIG_BROADCOM_PHY=y
+
+####
+#### Broadcom BCM54140 PHY
+####
+#### CONFIG_BCM54140_PHY is not set
+
+####
+#### Broadcom 7xxx SOCs internal PHYs
+####
+CONFIG_BCM7XXX_PHY=y
+
+####
+#### Broadcom BCM84881 PHY
+####
+#### CONFIG_BCM84881_PHY is not set
+
+####
+#### Broadcom BCM8706 and BCM8727 PHYs
+####
+CONFIG_BCM87XX_PHY=y
+
+####
+#### Cicada PHYs
+####
+CONFIG_CICADA_PHY=y
+
+####
+#### Cortina EDC CDR 10G Ethernet PHY
+####
+#### CONFIG_CORTINA_PHY is not set
+
+####
+#### Davicom PHYs
+####
+CONFIG_DAVICOM_PHY=y
+
+####
+#### ICPlus PHYs
+####
+CONFIG_ICPLUS_PHY=y
+
+####
+#### Intel LXT PHYs
+####
+CONFIG_LXT_PHY=y
+
+####
+#### Intel XWAY PHYs
+####
+#### CONFIG_INTEL_XWAY_PHY is not set
+
+####
+#### LSI ET1011C PHY
+####
+CONFIG_LSI_ET1011C_PHY=y
+
+####
+#### Marvell Alaska PHYs
+####
+CONFIG_MARVELL_PHY=y
+
+####
+#### Marvell Alaska 10Gbit PHYs
+####
+#### CONFIG_MARVELL_10G_PHY is not set
+
+####
+#### Micrel PHYs
+####
+CONFIG_MICREL_PHY=y
+
+####
+#### Microchip PHYs
+####
+#### CONFIG_MICROCHIP_PHY is not set
+
+####
+#### Microchip T1 PHYs
+####
+#### CONFIG_MICROCHIP_T1_PHY is not set
+
+####
+#### Microsemi PHYs
+####
+#### CONFIG_MICROSEMI_PHY is not set
+
+####
+#### National Semiconductor PHYs
+####
+CONFIG_NATIONAL_PHY=y
+
+####
+#### NXP TJA11xx PHYs support
+####
+#### CONFIG_NXP_TJA11XX_PHY is not set
+
+####
+#### Qualcomm Atheros AR803X PHYs
+####
+CONFIG_AT803X_PHY=y
+
+####
+#### Quality Semiconductor PHYs
+####
+CONFIG_QSEMI_PHY=y
+
+####
+#### Realtek PHYs
+####
+CONFIG_REALTEK_PHY=y
+
+####
+#### Renesas PHYs
+####
+#### CONFIG_RENESAS_PHY is not set
+
+####
+#### Rockchip Ethernet PHYs
+####
+#### CONFIG_ROCKCHIP_PHY is not set
+
+####
+#### SMSC PHYs
+####
+CONFIG_SMSC_PHY=y
+
+####
+#### STMicroelectronics STe10Xp PHYs
+####
+CONFIG_STE10XP=y
+
+####
+#### Teranetics PHYs
+####
+#### CONFIG_TERANETICS_PHY is not set
+
+####
+#### Texas Instruments DP83822/825/826 PHYs
+####
+#### CONFIG_DP83822_PHY is not set
+
+####
+#### Texas Instruments DP83TC811 PHY
+####
+#### CONFIG_DP83TC811_PHY is not set
+
+####
+#### Texas Instruments DP83848 PHY
+####
+#### CONFIG_DP83848_PHY is not set
+
+####
+#### Texas Instruments DP83867 Gigabit PHY
+####
+CONFIG_DP83867_PHY=y
+
+####
+#### Texas Instruments DP83869 Gigabit PHY
+####
+#### CONFIG_DP83869_PHY is not set
+
+####
+#### Vitesse PHYs
+####
+CONFIG_VITESSE_PHY=y
+
+####
+#### Drivers for xilinx PHYs
+####
+CONFIG_XILINX_PHY=y
+
+####
+#### Xilinx GMII2RGMII converter driver
+####
+CONFIG_XILINX_GMII2RGMII=y
+
+###
+### Micrel KS8995MA 5-ports 10/100 managed Ethernet switch
+###
+### CONFIG_MICREL_KS8995MA is not set
+
+### end PHY Device support and infrastructure
+
+###
+### MDIO bus device drivers
+###
+### CONFIG_MDIO_DEVICE=y
+
+### end of MDIO bus device drivers
+
+###
+### PCS device drivers
+###
+
+### end of PCS device drivers
+
+###
+### PPP (point-to-point protocol) support
+###
+### CONFIG_PPP is not set
+
+###
+### SLIP (serial line) support
+###
+### CONFIG_SLIP is not set
+
+###
+### USB Network Adapters
+###
+### CONFIG_USB_NET_DRIVERS=y
+
+####
+#### USB CATC NetMate-based Ethernet device support
+####
+#### CONFIG_USB_CATC is not set
+
+####
+#### USB KLSI KL5USB101-based ethernet device support
+####
+#### CONFIG_USB_KAWETH is not set
+
+####
+#### USB Pegasus/Pegasus-II based ethernet device support
+####
+#### CONFIG_USB_PEGASUS is not set
+
+####
+#### USB RTL8150 based ethernet device support
+####
+#### CONFIG_USB_RTL8150 is not set
+
+####
+#### Realtek RTL8152/RTL8153 Based USB Ethernet Adapters
+####
+#### CONFIG_USB_RTL8152 is not set
+
+####
+#### Microchip LAN78XX Based USB Ethernet Adapters
+####
+#### CONFIG_USB_LAN78XX is not set
+
+####
+#### Multi-purpose USB Networking Framework
+####
+CONFIG_USB_USBNET=y
+
+####
+#### ASIX AX88xxx Based USB 2.0 Ethernet Adapters
+####
+#### CONFIG_USB_NET_AX8817X=y
+
+####
+#### ASIX AX88179/178A USB 3.0/2.0 to Gigabit Ethernet
+####
+#### CONFIG_USB_NET_AX88179_178A=y
+
+####
+#### CDC Ethernet support (smart devices such as cable modems)
+####
+#### CONFIG_USB_NET_CDCETHER=y
+
+####
+#### CDC EEM support
+####
+#### CONFIG_USB_NET_CDC_EEM is not set
+
+####
+#### CDC NCM support
+####
+#### CONFIG_USB_NET_CDC_NCM=y
+
+####
+#### Huawei NCM embedded AT channel support
+####
+#### CONFIG_USB_NET_HUAWEI_CDC_NCM is not set
+
+####
+#### CDC MBIM support
+####
+#### CONFIG_USB_NET_CDC_MBIM is not set
+
+####
+#### Davicom DM96xx based USB 10/100 ethernet devices
+####
+#### CONFIG_USB_NET_DM9601 is not set
+
+####
+#### CoreChip-sz SR9700 based USB 1.1 10/100 ethernet devices
+####
+#### CONFIG_USB_NET_SR9700 is not set
+
+####
+#### CoreChip-sz SR9800 based USB 2.0 10/100 ethernet devices
+####
+#### CONFIG_USB_NET_SR9800 is not set
+
+####
+#### SMSC LAN75XX based USB 2.0 gigabit ethernet devices
+####
+#### CONFIG_USB_NET_SMSC75XX is not set
+
+####
+#### SMSC LAN95XX based USB 2.0 10/100 ethernet devices
+####
+#### CONFIG_USB_NET_SMSC95XX is not set
+
+####
+#### GeneSys GL620USB-A based cables
+####
+#### CONFIG_USB_NET_GL620A is not set
+
+####
+#### NetChip 1080 based cables (Laplink, ...)
+####
+#### CONFIG_USB_NET_NET1080=y
+
+####
+#### Prolific PL-2301/2302/25A1/27A1 based cables
+####
+#### CONFIG_USB_NET_PLUSB is not set
+
+####
+#### MosChip MCS7830 based Ethernet adapters
+####
+#### CONFIG_USB_NET_MCS7830 is not set
+
+####
+#### Host for RNDIS and ActiveSync devices
+####
+#### CONFIG_USB_NET_RNDIS_HOST is not set
+
+####
+#### Simple USB Network Links (CDC Ethernet subset)
+####
+#### CONFIG_USB_NET_CDC_SUBSET=y
+
+####
+#### ALi M5632 based 'USB 2.0 Data Link' cables
+####
+#### CONFIG_USB_ALI_M5632 is not set
+
+####
+#### AnchorChips 2720 based cables (Xircom PGUNET, ...)
+####
+#### CONFIG_USB_AN2720 is not set
+
+####
+#### eTEK based host-to-host cables (Advance, Belkin, ...)
+####
+#### CONFIG_USB_BELKIN=y
+
+####
+#### Embedded ARM Linux links (iPaq, ...)
+####
+#### CONFIG_USB_ARMLINUX=y
+
+####
+#### Epson 2888 based firmware (DEVELOPMENT)
+####
+#### CONFIG_USB_EPSON2888 is not set
+
+####
+#### KT Technology KC2190 based cables (InstaNet)
+####
+#### CONFIG_USB_KC2190 is not set
+
+####
+#### Sharp Zaurus (stock ROMs) and compatible
+####
+#### CONFIG_USB_NET_ZAURUS=y
+
+####
+#### Conexant CX82310 USB ethernet port
+####
+#### CONFIG_USB_NET_CX82310_ETH is not set
+
+####
+#### Samsung Kalmia based LTE USB modem
+####
+#### CONFIG_USB_NET_KALMIA is not set
+
+####
+#### QMI WWAN driver for Qualcomm MSM based 3G and LTE modems
+####
+#### CONFIG_USB_NET_QMI_WWAN is not set
+
+####
+#### Option USB High Speed Mobile Devices
+####
+#### CONFIG_USB_HSO is not set
+
+####
+#### Intellon PLC based usb adapter
+####
+#### CONFIG_USB_NET_INT51X1 is not set
+
+####
+#### CDC Phonet support
+####
+#### CONFIG_USB_CDC_PHONET is not set
+
+####
+#### Apple iPhone USB Ethernet driver
+####
+#### CONFIG_USB_IPHETH is not set
+
+####
+#### USB-to-WWAN Driver for Sierra Wireless modems
+####
+#### CONFIG_USB_SIERRA_NET is not set
+
+####
+#### LG VL600 modem dongle
+####
+#### CONFIG_USB_VL600 is not set
+
+####
+#### QingHeng CH9200 USB ethernet support
+####
+#### CONFIG_USB_NET_CH9200 is not set
+
+####
+#### Aquantia AQtion USB to 5/2.5GbE Controllers support
+####
+#### CONFIG_USB_NET_AQC111 is not set
+
+### end of USB Network Adapters
+
+###
+### Wireless LAN
+###
+
+####
+#### mac80211-based legacy WDS support
+####
+#### CONFIG_WIRELESS_WDS is not set
+
+####
+#### ADMtek devices
+####
+#### CONFIG_WLAN_VENDOR_ADMTEK=y
+#### CONFIG_ADM8211 is not set
+
+####
+#### Atheros/Qualcomm devices
+####
+#### CONFIG_WLAN_VENDOR_ATH=y
+#### CONFIG_ATH_DEBUG is not set
+#### CONFIG_ATH_REG_DYNAMIC_USER_REG_HINTS is not set
+#### CONFIG_ATH5K is not set
+#### CONFIG_ATH5K_PCI is not set
+#### CONFIG_ATH9K is not set
+#### CONFIG_ATH9K_HTC is not set
+#### CONFIG_CARL9170 is not set
+#### CONFIG_ATH6KL is not set
+#### CONFIG_AR5523 is not set
+#### CONFIG_WIL6210 is not set
+#### CONFIG_ATH10K is not set
+#### CONFIG_WCN36XX is not set
+
+####
+#### Atmel devices
+####
+#### CONFIG_WLAN_VENDOR_ATMEL=y
+#### CONFIG_ATMEL is not set
+#### CONFIG_AT76C50X_USB is not set
+
+####
+#### Broadcom devices
+####
+#### CONFIG_WLAN_VENDOR_BROADCOM=y
+#### CONFIG_B43 is not set
+#### CONFIG_B43LEGACY is not set
+#### CONFIG_BRCMSMAC is not set
+#### CONFIG_BRCMFMAC is not set
+
+####
+#### Cisco devices
+####
+#### CONFIG_WLAN_VENDOR_CISCO=y
+
+####
+#### Intel devices
+####
+#### CONFIG_WLAN_VENDOR_INTEL=y
+#### CONFIG_IPW2100 is not set
+#### CONFIG_IPW2200 is not set
+#### CONFIG_IWL4965 is not set
+#### CONFIG_IWL3945 is not set
+#### CONFIG_IWLWIFI is not set
+
+####
+#### Intersil devices
+####
+#### CONFIG_WLAN_VENDOR_INTERSIL=y
+#### CONFIG_HOSTAP is not set
+#### CONFIG_HERMES is not set
+#### CONFIG_P54_COMMON is not set
+#### CONFIG_PRISM54 is not set
+
+####
+#### Marvell devices
+####
+#### CONFIG_WLAN_VENDOR_MARVELL=y
+#### CONFIG_LIBERTAS is not set
+#### CONFIG_LIBERTAS_THINFIRM is not set
+#### CONFIG_MWIFIEX is not set
+#### CONFIG_MWL8K is not set
+
+####
+#### MediaTek devices
+####
+#### CONFIG_WLAN_VENDOR_MEDIATEK=y
+#### CONFIG_MT7601U is not set
+#### CONFIG_MT76x0U is not set
+#### CONFIG_MT76x0E is not set
+#### CONFIG_MT76x2E is not set
+#### CONFIG_MT76x2U is not set
+#### CONFIG_MT7603E is not set
+#### CONFIG_MT7615E is not set
+
+####
+#### Microchip devices
+####
+#### CONFIG_WLAN_VENDOR_MICROCHIP=y
+#### CONFIG_WILC1000_SDIO is not set
+#### CONFIG_WILC1000_SPI is not set
+#### 
+CONFIG_PWRSEQ_WILC=y
+CONFIG_WILC_SDIO=y
+
+####
+#### Ralink devices
+####
+#### CONFIG_WLAN_VENDOR_RALINK=y
+#### CONFIG_RT2X00 is not set
+
+####
+#### Realtek devices
+####
+#### CONFIG_WLAN_VENDOR_REALTEK=y
+#### CONFIG_RTL8180 is not set
+#### CONFIG_RTL8187 is not set
+####
+#### CONFIG_RTL_CARDS=y
+#### CONFIG_RTL8192CE is not set
+#### CONFIG_RTL8192SE is not set
+#### CONFIG_RTL8192DE is not set
+#### CONFIG_RTL8723AE is not set
+#### CONFIG_RTL8723BE is not set
+#### CONFIG_RTL8188EE is not set
+#### CONFIG_RTL8192EE is not set
+#### CONFIG_RTL8821AE is not set
+#### CONFIG_RTL8192CU is not set
+#### CONFIG_RTL8XXXU is not set
+#### CONFIG_RTW88 is not set
+
+####
+#### Redpine Signals Inc devices
+####
+#### CONFIG_WLAN_VENDOR_RSI=y
+#### CONFIG_RSI_91X is not set
+
+####
+#### STMicroelectronics devices
+####
+#### CONFIG_WLAN_VENDOR_ST
+#### CONFIG_CW1200 is not set
+
+####
+#### Texas Instrument devices
+####
+#### CONFIG_WLAN_VENDOR_TI=y
+#### CONFIG_WL1251 is not set
+#### CONFIG_WL12XX is not set
+CONFIG_WL18XX=y
+CONFIG_WLCORE_SPI=y
+CONFIG_WLCORE_SDIO=y
+
+####
+#### ZyDAS devices
+####
+#### CONFIG_WLAN_VENDOR_ZYDAS=y
+#### CONFIG_USB_ZD1201 is not set
+#### CONFIG_ZD1211RW is not set
+
+####
+#### Quantenna wireless cards support
+####
+#### CONFIG_WLAN_VENDOR_QUANTENNA=y
+#### CONFIG_QTNFMAC_PCIE is not set
+
+####
+#### Simulated radio testing tool for mac80211
+####
+#### CONFIG_MAC80211_HWSIM is not set
+
+####
+#### Wireless RNDIS USB support
+####
+#### CONFIG_USB_NET_RNDIS_WLAN is not set
+
+####
+#### Wifi wrapper for ethernet drivers
+####
+#### CONFIG_VIRT_WIFI is not set
+
+### end of Wireless LAN
+
+###
+### Wan interfaces support
+###
+### CONFIG_WAN is not set
+
+###
+### Xen network device frontend driver
+###
+### CONFIG_XEN_NETDEV_FRONTEND=y
+
+###
+### Xen backend network device
+###
+### CONFIG_XEN_NETDEV_BACKEND is not set
+
+###
+### VMware VMXNET3 ethernet driver
+###
+### CONFIG_VMXNET3 is not set
+
+###
+### Simulated networking device
+###
+### CONFIG_NETDEVSIM is not set
+
+###
+### Failover driver
+###
+### CONFIG_NET_FAILOVER is not set
+
+## end of Network device support
+
+##
+## ISDN support
+##
+## CONFIG_ISDN is not set
+
+##
+## Open-Channel SSD target support
+##
+## CONFIG_NVM is not set
+
+##
+## Input device support
+##
+
+###
+### Generic input layer (needed for keyboard, mouse, ...)
+###
+### CONFIG_INPUT=y
+
+###
+### Export input device LEDs in sysfs
+###
+### CONFIG_INPUT_LEDS=y
+
+###
+### Support for memoryless force-feedback devices
+###
+### CONFIG_INPUT_FF_MEMLESS is not set
+
+###
+### Polled input device skeleton
+###
+### CONFIG_INPUT_POLLDEV is not set
+
+###
+### Sparse keymap support library
+###
+### CONFIG_INPUT_SPARSEKMAP is not set
+
+###
+### Matrix keymap support library
+###
+### CONFIG_INPUT_MATRIXKMAP is not set
+
+###
+### Userland interfaces
+###
+
+###
+### Mouse interface
+###
+### CONFIG_INPUT_MOUSEDEV is not set
+
+###
+### Provide legacy /dev/psaux device
+###
+### CONFIG_INPUT_MOUSEDEV_PSAUX is not set
+
+###
+### Joystick interface
+###
+### CONFIG_INPUT_JOYDEV is not set
+
+###
+### Event interface
+###
+CONFIG_INPUT_EVDEV=y
+
+###
+### Event debugging
+###
+### CONFIG_INPUT_EVBUG is not set
+
+###
+### Input Device Drivers
+###
+
+###
+### Keyboards
+###
+### CONFIG_INPUT_KEYBOARD=y
+### CONFIG_KEYBOARD_ADC is not set
+### CONFIG_KEYBOARD_ADP5520 is not set
+### CONFIG_KEYBOARD_ADP5588 is not set
+### CONFIG_KEYBOARD_ADP5589 is not set
+### CONFIG_KEYBOARD_ATKBD=y
+### CONFIG_KEYBOARD_QT1050 is not set
+### CONFIG_KEYBOARD_QT1070 is not set
+### CONFIG_KEYBOARD_QT2160 is not set
+### CONFIG_KEYBOARD_DLINK_DIR685 is not set
+### CONFIG_KEYBOARD_LKKBD is not set
+CONFIG_KEYBOARD_GPIO=y
+CONFIG_KEYBOARD_GPIO_POLLED=y
+### CONFIG_KEYBOARD_TCA6416 is not set
+### CONFIG_KEYBOARD_TCA8418 is not set
+### CONFIG_KEYBOARD_MATRIX is not set
+### CONFIG_KEYBOARD_LM8323 is not set
+### CONFIG_KEYBOARD_LM8333 is not set
+### CONFIG_KEYBOARD_MAX7359 is not set
+### CONFIG_KEYBOARD_MCS is not set
+### CONFIG_KEYBOARD_MPR121 is not set
+### CONFIG_KEYBOARD_NEWTON is not set
+### CONFIG_KEYBOARD_OPENCORES is not set
+### CONFIG_KEYBOARD_SAMSUNG is not set
+### CONFIG_KEYBOARD_STOWAWAY is not set
+### CONFIG_KEYBOARD_SUNKBD is not set
+### CONFIG_KEYBOARD_OMAP4 is not set
+### CONFIG_KEYBOARD_TM2_TOUCHKEY is not set
+### CONFIG_KEYBOARD_XTKBD is not set
+### CONFIG_KEYBOARD_CAP11XX is not set
+### CONFIG_KEYBOARD_BCM is not set
+### end of Keyboards
+
+###
+### Mice
+###
+### CONFIG_INPUT_MOUSE=y
+### CONFIG_MOUSE_PS2=y
+### CONFIG_MOUSE_PS2_ALPS=y
+### CONFIG_MOUSE_PS2_BYD=y
+### CONFIG_MOUSE_PS2_LOGIPS2PP=y
+### CONFIG_MOUSE_PS2_SYNAPTICS=y
+### CONFIG_MOUSE_PS2_SYNAPTICS_SMBUS=y
+### CONFIG_MOUSE_PS2_CYPRESS=y
+### CONFIG_MOUSE_PS2_TRACKPOINT=y
+### CONFIG_MOUSE_PS2_ELANTECH is not set
+### CONFIG_MOUSE_PS2_SENTELIC is not set
+### CONFIG_MOUSE_PS2_TOUCHKIT is not set
+### CONFIG_MOUSE_PS2_FOCALTECH=y
+### CONFIG_MOUSE_PS2_SMBUS=y
+### CONFIG_MOUSE_SERIAL is not set
+### CONFIG_MOUSE_APPLETOUCH is not set
+### CONFIG_MOUSE_BCM5974 is not set
+### CONFIG_MOUSE_CYAPA is not set
+### CONFIG_MOUSE_ELAN_I2C is not set
+### CONFIG_MOUSE_VSXXXAA is not set
+### CONFIG_MOUSE_GPIO is not set
+### CONFIG_MOUSE_SYNAPTICS_I2C is not set
+### CONFIG_MOUSE_SYNAPTICS_USB is not set
+### end of Mice
+
+###
+### Joysticks/Gamepads
+###
+### CONFIG_INPUT_JOYSTICK is not set
+
+###
+### Tablets
+###
+### CONFIG_INPUT_TABLET is not set
+
+###
+### Touchscreens
+###
+### CONFIG_INPUT_TOUCHSCREEN is not set
+
+###
+### Miscellaneous devices
+###
+### CONFIG_INPUT_MISC is not set
+
+###
+### Synaptics RMI4 bus support
+###
+### CONFIG_RMI4_CORE is not set
+
+###
+### Hardware I/O ports
+###
+
+####
+#### Serial I/O support
+####
+#### CONFIG_SERIO=y
+
+####
+#### Serial port line discipline
+####
+#### CONFIG_SERIO_SERPORT=y
+
+####
+#### AMBA KMI keyboard controller
+####
+#### CONFIG_SERIO_AMBAKMI is not set
+
+####
+#### PCI PS/2 keyboard and PS/2 mouse controller
+####
+#### CONFIG_SERIO_PCIPS2 is not set
+
+####
+#### PS/2 driver library
+####
+#### CONFIG_SERIO_LIBPS2=y
+
+####
+#### Raw access to serio ports
+####
+#### CONFIG_SERIO_RAW is not set
+
+####
+#### Altera UP PS/2 controller
+####
+#### CONFIG_SERIO_ALTERA_PS2 is not set
+
+####
+#### TQC PS/2 multiplexer
+####
+#### CONFIG_SERIO_PS2MULT is not set
+
+####
+#### ARC PS/2 support
+####
+#### CONFIG_SERIO_ARC_PS2 is not set
+
+####
+#### GRLIB APBPS2 PS/2 keyboard/mouse controller
+####
+#### CONFIG_SERIO_APBPS2 is not set
+
+####
+#### GPIO PS/2 bit banging driver
+####
+#### CONFIG_SERIO_GPIO_PS2 is not set
+
+####
+#### User space serio port driver support
+####
+#### CONFIG_USERIO is not set
+
+####
+#### Gameport support
+####
+#### CONFIG_GAMEPORT is not set
+
+### end of Hardware I/O ports
+
+## end of Input device support
+
+##
+## Character devices
+##
+
+###
+### Enable TTY
+###
+### CONFIG_TTY=y
+
+###
+### Virtual terminal
+###
+### CONFIG_VT=y
+
+###
+### Enable character translations in console
+###
+### CONFIG_CONSOLE_TRANSLATIONS=y
+
+###
+### Support for console on virtual terminal
+###
+### CONFIG_VT_CONSOLE=y
+### CONFIG_VT_CONSOLE_SLEEP=y
+### CONFIG_HW_CONSOLE=y
+
+###
+### Support for binding and unbinding console drivers
+###
+### CONFIG_VT_HW_CONSOLE_BINDING=y
+
+###
+### Unix98 PTY support
+###
+### CONFIG_UNIX98_PTYS=y
+
+###
+### Legacy (BSD) PTY support
+###
+### CONFIG_LEGACY_PTYS=y
+### CONFIG_LEGACY_PTY_COUNT=256
+
+###
+### Automatically load TTY Line Disciplines
+###
+### CONFIG_LDISC_AUTOLOAD=y
+
+###
+### Serial drivers
+###
+### CONFIG_SERIAL_EARLYCON=y
+
+####
+#### 8250/16550 and compatible serial support
+####
+CONFIG_SERIAL_8250=y
+
+####
+#### Support 8250_core.* kernel options (DEPRECATED)
+####
+#### CONFIG_SERIAL_8250_DEPRECATED_OPTIONS=y
+
+####
+#### Support for variants of the 16550A serial port
+####
+#### CONFIG_SERIAL_8250_16550A_VARIANTS=y
+
+####
+#### Support for Fintek F81216A LPC to 4 UART RS485 API
+####
+#### CONFIG_SERIAL_8250_FINTEK is not set
+
+####
+#### Console on 8250/16550 and compatible serial port
+####
+CONFIG_SERIAL_8250_CONSOLE=y
+
+####
+#### DMA support for 16550 compatible UART controllers
+####
+#### CONFIG_SERIAL_8250_DMA=y if CONFIG_SERIAL_8250=y
+
+####
+#### 8250/16550 PCI device support
+####
+#### CONFIG_SERIAL_8250_PCI=y if CONFIG_SERIAL_8250=y
+
+####
+#### 8250/16550 Exar/Commtech PCI/PCIe device support
+####
+#### CONFIG_SERIAL_8250_EXAR=y if CONFIG_SERIAL_8250=y
+
+####
+#### Maximum number of 8250/16550 serial ports
+####
+#### CONFIG_SERIAL_8250_NR_UARTS=4
+
+####
+#### Number of 8250/16550 serial ports to register at runtime
+####
+#### CONFIG_SERIAL_8250_RUNTIME_UARTS=4
+
+####
+#### Extended 8250/16550 serial driver options
+####
+#### CONFIG_SERIAL_8250_EXTENDED is not set
+
+####
+#### Support for Synopsys DesignWare 8250 quirks
+####
+#### CONFIG_SERIAL_8250_DW is not set
+
+####
+#### Ralink RT288x/RT305x/RT3662/RT3883 serial port support
+####
+#### CONFIG_SERIAL_8250_RT288X is not set
+
+####
+#### Devicetree based probing for 8250 ports
+####
+CONFIG_SERIAL_OF_PLATFORM=y
+
+####
+#### Non-8250 serial port support
+####
+
+####
+#### ARM AMBA PL010 serial port support
+####
+#### CONFIG_SERIAL_AMBA_PL010 is not set
+#### CONFIG_SERIAL_AMBA_PL010_CONSOLE is not set
+
+####
+#### ARM AMBA PL011 serial port support
+####
+#### CONFIG_SERIAL_AMBA_PL011 is not set
+#### CONFIG_SERIAL_AMBA_PL011_CONSOLE is not set
+
+####
+#### Early console using ARM semihosting
+####
+#### CONFIG_SERIAL_EARLYCON_ARM_SEMIHOST is not set
+
+####
+#### MAX3100 support
+####
+#### CONFIG_SERIAL_MAX3100 is not set
+
+####
+#### MAX310X support
+####
+CONFIG_SERIAL_MAX310X=y
+
+####
+#### Xilinx uartlite serial port support
+####
+CONFIG_SERIAL_UARTLITE=y
+
+####
+#### Support for console on Xilinx uartlite serial port
+####
+CONFIG_SERIAL_UARTLITE_CONSOLE=y
+
+####
+#### Maximum number of uartlite serial ports
+####
+#### CONFIG_SERIAL_UARTLITE_NR_UARTS=1
+
+####
+#### Digi International NEO and Classic PCI Support
+####
+#### CONFIG_SERIAL_JSM is not set
+
+####
+#### SiFive UART support
+####
+#### CONFIG_SERIAL_SIFIVE is not set
+
+####
+#### SCCNXP serial port support
+####
+#### CONFIG_SERIAL_SCCNXP is not set
+
+####
+#### SC16IS7xx serial support
+####
+#### CONFIG_SERIAL_SC16IS7XX is not set
+
+####
+#### Altera JTAG UART support
+####
+#### CONFIG_SERIAL_ALTERA_JTAGUART is not set
+
+####
+#### Altera UART support
+####
+#### CONFIG_SERIAL_ALTERA_UART is not set
+
+####
+#### SPI protocol driver for Infineon 6x60 modem (EXPERIMENTAL)
+####
+#### CONFIG_SERIAL_IFX6X60 is not set
+
+####
+#### Cadence (Xilinx Zynq) UART support
+####
+CONFIG_SERIAL_XILINX_PS_UART=y
+
+####
+#### Cadence UART console support
+####
+CONFIG_SERIAL_XILINX_PS_UART_CONSOLE=y
+
+####
+#### ARC UART driver support
+####
+#### CONFIG_SERIAL_ARC is not set
+
+####
+#### Comtrol RocketPort EXPRESS/INFINITY support
+####
+#### CONFIG_SERIAL_RP2 is not set
+
+####
+#### Freescale lpuart serial port support
+####
+#### CONFIG_SERIAL_FSL_LPUART is not set
+
+####
+#### Freescale LINFlexD UART serial port support
+####
+#### CONFIG_SERIAL_FSL_LINFLEXUART is not set
+
+####
+#### Conexant Digicolor CX92xxx USART serial port support
+####
+#### CONFIG_SERIAL_CONEXANT_DIGICOLOR is not set
+
+####
+#### Support for Spreadtrum serial
+####
+#### CONFIG_SERIAL_SPRD is not set
+
+### end of Serial drivers
+
+###
+### Non-standard serial port support
+###
+### CONFIG_SERIAL_NONSTANDARD is not set
+
+###
+### GSM MUX line discipline support (EXPERIMENTAL)
+###
+### CONFIG_N_GSM is not set
+
+###
+### HSDPA Broadband Wireless Data Card - Globe Trotter
+###
+### CONFIG_NOZOMI is not set
+
+###
+### NULL TTY driver
+###
+### CONFIG_NULL_TTY is not set
+
+###
+### Trace data router for MIPI P1149.7 cJTAG standard
+###
+### CONFIG_TRACE_ROUTER is not set
+
+###
+### ARM JTAG DCC console
+###
+### CONFIG_HVC_DCC is not set
+
+###
+### Serial device bus
+###
+CONFIG_SERIAL_DEV_BUS=y
+
+####
+#### Serial device TTY port controller
+####
+#### SERIAL_DEV_CTRL_TTYPORT=y if CONFIG_SERIAL_DEV_BUS=y
+
+### end of Serial device bus
+
+###
+### TTY driver to output user messages via printk
+###
+### CONFIG_TTY_PRINTK is not set
+### CONFIG_TTY_PRINTK_LEVEL=6
+
+###
+### Virtio console
+###
+### CONFIG_VIRTIO_CONSOLE is not set
+
+###
+### IPMI top-level message handler
+###
+### CONFIG_IPMI_HANDLER is not set
+
+###
+### IPMB Interface handler
+###
+### CONFIG_IPMB_DEVICE_INTERFACE is not set
+
+###
+### Hardware Random Number Generator Core support
+###
+### CONFIG_HW_RANDOM is not set
+
+###
+### Applicom intelligent fieldbus card support
+###
+### CONFIG_APPLICOM is not set
+
+###
+### /dev/mem virtual device support
+###
+### CONFIG_DEVMEM=y
+
+###
+### RAW driver (/dev/raw/rawN)
+###
+### CONFIG_RAW_DRIVER is not set
+
+###
+### /dev/port character device
+###
+### CONFIG_DEVPORT=y
+
+###
+### TPM Hardware Support
+###
+CONFIG_TCG_TPM=y
+### CONFIG_TCG_TIS is not set
+CONFIG_TCG_TIS_SPI=y
+### CONFIG_TCG_TIS_SPI_CR50 is not set
+### CONFIG_TCG_TIS_I2C_ATMEL is not set
+### CONFIG_TCG_TIS_I2C_INFINEON is not set
+### CONFIG_TCG_TIS_I2C_NUVOTON is not set
+### CONFIG_TCG_ATMEL is not set
+### CONFIG_TCG_VTPM_PROXY is not set
+### CONFIG_TCG_TIS_ST33ZP24_I2C is not set
+### CONFIG_TCG_TIS_ST33ZP24_SPI is not set
+### end of TPM Hardware Support
+
+###
+### Xillybus generic FPGA interface
+###
+### CONFIG_XILLYBUS is not set
+
+## end of Character devices
+
+# end of Device Drivers
+
+
+#########################################################################
+
+
+CONFIG_RPS=y
+CONFIG_RFS_ACCEL=y
+CONFIG_XPS=y
+CONFIG_NET_RX_BUSY_POLL=y
+CONFIG_BQL=y
+CONFIG_NET_FLOW_LIMIT=y
+
+CONFIG_I2C_CHARDEV=y
+CONFIG_I2C_MUX=y
+CONFIG_I2C_MUX_PCA954x=y
+CONFIG_I2C_CADENCE=y
+CONFIG_I2C_XILINX=y
+CONFIG_I2C_SLAVE=y
+CONFIG_I2C_SLAVE_EEPROM=y
+CONFIG_SPI=y
+CONFIG_SPI_CADENCE=y
+CONFIG_SPI_XILINX=y
+CONFIG_SPI_ZYNQMP_GQSPI=y
+CONFIG_PINCTRL=y
+CONFIG_GPIOLIB=y
+CONFIG_GPIO_SYSFS=y
+CONFIG_GPIO_XILINX=y
+CONFIG_GPIO_ZYNQ=y
+CONFIG_GPIO_ZYNQMP_MODEPIN=y
+CONFIG_GPIO_PCA953X=y
+CONFIG_GPIO_TPS65086=y
+CONFIG_POWER_RESET_LTC2952=y
+CONFIG_SENSORS_IIO_HWMON=y
+CONFIG_SENSORS_LM63=y
+CONFIG_PMBUS=y
+CONFIG_SENSORS_IRPS5401=y
+CONFIG_SENSORS_MAX20751=y
+CONFIG_WATCHDOG=y
+CONFIG_XILINX_WATCHDOG=y
+CONFIG_CADENCE_WATCHDOG=y
+CONFIG_MFD_TPS65086=y
+CONFIG_REGULATOR=y
+CONFIG_REGULATOR_FIXED_VOLTAGE=y
+CONFIG_REGULATOR_GPIO=y
+CONFIG_REGULATOR_TPS65086=y
+CONFIG_MEDIA_SUPPORT=y
+CONFIG_MEDIA_USB_SUPPORT=y
+CONFIG_USB_VIDEO_CLASS=y
+CONFIG_V4L_PLATFORM_DRIVERS=y
+CONFIG_VIDEO_XILINX=y
+CONFIG_VIDEO_XILINX_CSI2RXSS=y
+CONFIG_VIDEO_XILINX_AXI4S_SWITCH=y
+CONFIG_VIDEO_XILINX_CFA=y
+CONFIG_VIDEO_XILINX_CRESAMPLE=y
+CONFIG_VIDEO_XILINX_DEMOSAIC=y
+CONFIG_VIDEO_XILINX_GAMMA=y
+CONFIG_VIDEO_XILINX_HDMI21RXSS=y
+CONFIG_VIDEO_XILINX_HLS=y
+CONFIG_VIDEO_XILINX_REMAPPER=y
+CONFIG_VIDEO_XILINX_RGB2YUV=y
+CONFIG_VIDEO_XILINX_SCALER=y
+CONFIG_VIDEO_XILINX_MULTISCALER=y
+CONFIG_VIDEO_XILINX_SDIRXSS=y
+CONFIG_VIDEO_XILINX_SWITCH=y
+CONFIG_VIDEO_XILINX_TPG=y
+CONFIG_VIDEO_XILINX_VPSS_CSC=y
+CONFIG_VIDEO_XILINX_VPSS_SCALER=y
+CONFIG_VIDEO_XILINX_SCD=y
+CONFIG_VIDEO_XILINX_M2M=y
+CONFIG_VIDEO_XILINX_AXI4S_BROADCASTER=y
+CONFIG_VIDEO_AP1302=y
+CONFIG_VIDEO_IMX274=y
+# CONFIG_VGA_ARB is not set
+CONFIG_DRM=y
+CONFIG_DRM_FBDEV_LEAK_PHYS_SMEM=y
+CONFIG_DRM_ZYNQMP_DPSUB=y
+CONFIG_DRM_XLNX=y
+CONFIG_DRM_XLNX_BRIDGE=y
+CONFIG_DRM_XLNX_BRIDGE_DEBUG_FS=y
+CONFIG_DRM_XLNX_DSI=y
+CONFIG_DRM_XLNX_MIXER=y
+CONFIG_DRM_XLNX_PL_DISP=y
+CONFIG_DRM_XLNX_SDI=y
+CONFIG_DRM_XLNX_BRIDGE_CSC=y
+CONFIG_DRM_XLNX_BRIDGE_SCALER=y
+CONFIG_DRM_XLNX_BRIDGE_VTC=y
+CONFIG_FB_XILINX=y
+CONFIG_FRAMEBUFFER_CONSOLE=y
+CONFIG_SOUND=y
+CONFIG_SND=y
+# CONFIG_SND_DRIVERS is not set
+# CONFIG_SND_PCI is not set
+CONFIG_SND_USB_AUDIO=y
+CONFIG_SND_SOC=y
+CONFIG_SND_SOC_XILINX_DP=y
+CONFIG_SND_SOC_XILINX_AUDIO_FORMATTER=y
+CONFIG_SND_SOC_XILINX_SDI=y
+CONFIG_SND_SOC_XILINX_I2S=y
+CONFIG_SND_SOC_XILINX_SPDIF=y
+CONFIG_SND_SOC_XILINX_PL_SND_CARD=y
+CONFIG_USB=y
+CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
+CONFIG_USB_OTG=y
+CONFIG_USB_OTG_FSM=y
+CONFIG_USB_XHCI_HCD=y
+CONFIG_USB_STORAGE=y
+CONFIG_USB_UAS=y
+CONFIG_USB_DWC3=y
+CONFIG_USB_USB5744=y
+CONFIG_USB_GADGET=y
+CONFIG_USB_GADGET_XILINX=y
+CONFIG_USB_CONFIGFS=y
+CONFIG_USB_CONFIGFS_EEM=y
+CONFIG_USB_CONFIGFS_MASS_STORAGE=y
+CONFIG_USB_ETH=m
+CONFIG_USB_ETH_EEM=y
+CONFIG_USB_MASS_STORAGE=m
+CONFIG_MMC=y
+CONFIG_MMC_SDHCI=y
+CONFIG_MMC_SDHCI_PLTFM=y
+CONFIG_MMC_SDHCI_OF_ARASAN=y
+CONFIG_NEW_LEDS=y
+CONFIG_LEDS_CLASS=y
+CONFIG_LEDS_GPIO=y
+CONFIG_LEDS_TRIGGER_TIMER=y
+CONFIG_LEDS_TRIGGER_ONESHOT=y
+CONFIG_LEDS_TRIGGER_HEARTBEAT=y
+CONFIG_LEDS_TRIGGER_BACKLIGHT=y
+CONFIG_LEDS_TRIGGER_CPU=y
+CONFIG_LEDS_TRIGGER_GPIO=y
+CONFIG_LEDS_TRIGGER_DEFAULT_ON=y
+CONFIG_LEDS_TRIGGER_TRANSIENT=y
+CONFIG_LEDS_TRIGGER_CAMERA=y
+CONFIG_EDAC=y
+CONFIG_EDAC_SYNOPSYS=y
+CONFIG_EDAC_ZYNQMP_OCM=y
+CONFIG_RTC_CLASS=y
+CONFIG_RTC_DRV_ZYNQMP=y
+CONFIG_DMADEVICES=y
+CONFIG_XILINX_DMA=y
+CONFIG_XILINX_ZYNQMP_DMA=y
+CONFIG_DMATEST=y
+CONFIG_UIO=y
+CONFIG_UIO_PDRV_GENIRQ=m
+CONFIG_UIO_DMEM_GENIRQ=m
+CONFIG_UIO_XILINX_APM=y
+CONFIG_STAGING=y
+CONFIG_ION=y
+CONFIG_ION_SYSTEM_HEAP=y
+CONFIG_ION_CMA_HEAP=y
+CONFIG_XILINX_APF=y
+CONFIG_XILINX_DMA_APF=y
+CONFIG_XILINX_FCLK=y
+CONFIG_XLNX_SYNC=y
+CONFIG_COMMON_CLK_SI5341=y
+CONFIG_COMMON_CLK_SI570=y
+CONFIG_COMMON_CLK_SI5324=y
+CONFIG_COMMON_CLK_IDT8T49N24X=y
+CONFIG_COMMON_CLK_XLNX_CLKWZRD=y
+CONFIG_COMMON_CLK_ZYNQMP=y
+CONFIG_REMOTEPROC=y
+CONFIG_ZYNQMP_R5_REMOTEPROC=m
+CONFIG_RPMSG_CHAR=m
+CONFIG_XILINX_VCU=m
+CONFIG_IIO=y
+CONFIG_INA2XX_ADC=y
+CONFIG_INA260_ADC=y
+CONFIG_XILINX_XADC=y
+CONFIG_XILINX_AMS=y
+CONFIG_BME680=y
+CONFIG_BMG160=y
+CONFIG_BMC150_MAGN_SPI=y
+CONFIG_XILINX_INTC=y
+CONFIG_RESET_CONTROLLER=y
+CONFIG_RAS=y
+CONFIG_ANDROID=y
+CONFIG_NVMEM_ZYNQMP=y
+CONFIG_FPGA=y
+CONFIG_XILINX_AFI_FPGA=y
+CONFIG_FPGA_BRIDGE=y
+CONFIG_XILINX_PR_DECOUPLER=y
+CONFIG_FPGA_REGION=y
+CONFIG_OF_FPGA_REGION=y
+CONFIG_FPGA_MGR_ZYNQMP_FPGA=y
+CONFIG_EXT3_FS=y
+CONFIG_EXT4_FS_POSIX_ACL=y
+CONFIG_EXT4_FS_SECURITY=y
+CONFIG_BTRFS_FS=m
+CONFIG_BTRFS_FS_POSIX_ACL=y
+CONFIG_QUOTA=y
+CONFIG_QFMT_V2=y
+CONFIG_AUTOFS4_FS=y
+CONFIG_FUSE_FS=m
+CONFIG_OVERLAY_FS=m
+CONFIG_ISO9660_FS=y
+CONFIG_JOLIET=y
+CONFIG_ZISOFS=y
+CONFIG_MSDOS_FS=y
+CONFIG_VFAT_FS=y
+CONFIG_TMPFS=y
+CONFIG_TMPFS_POSIX_ACL=y
+CONFIG_HUGETLBFS=y
+CONFIG_ECRYPT_FS=y
+CONFIG_JFFS2_FS=y
+CONFIG_JFFS2_FS_XATTR=y
+CONFIG_JFFS2_COMPRESSION_OPTIONS=y
+CONFIG_JFFS2_LZO=y
+CONFIG_JFFS2_RUBIN=y
+CONFIG_UBIFS_FS=y
+CONFIG_CRAMFS=y
+CONFIG_NFS_FS=y
+CONFIG_NFS_V3_ACL=y
+CONFIG_NFS_V4=y
+CONFIG_NFS_V4_1=y
+CONFIG_NFS_V4_2=y
+CONFIG_ROOT_NFS=y
+CONFIG_CIFS=m
+CONFIG_CIFS_STATS2=y
+CONFIG_CIFS_ALLOW_INSECURE_LEGACY=y
+CONFIG_CIFS_XATTR=y
+CONFIG_CIFS_POSIX=y
+CONFIG_CIFS_DEBUG=y
+CONFIG_NLS_CODEPAGE_437=y
+CONFIG_NLS_ISO8859_1=y
+# CONFIG_CRYPTO_MANAGER_DISABLE_TESTS is not set
+CONFIG_CRYPTO_CRCT10DIF=y
+CONFIG_CRYPTO_USER_API_HASH=y
+CONFIG_CRYPTO_USER_API_SKCIPHER=y
+CONFIG_CRYPTO_DEV_ZYNQMP_SHA3=y
+CONFIG_CRYPTO_DEV_XILINX_RSA=y
+CONFIG_CRYPTO_DEV_ZYNQMP_AES_SKCIPHER=y
+CONFIG_DMA_CMA=y
+CONFIG_CMA_SIZE_MBYTES=256
+CONFIG_PRINTK_TIME=y
+CONFIG_DEBUG_INFO=y
+CONFIG_MAGIC_SYSRQ=y
+CONFIG_DEBUG_FS=y
+# CONFIG_SCHED_DEBUG is not set
+# CONFIG_FTRACE is not set
+# CONFIG_STRICT_DEVMEM is not set
+
+
+
+
+
+
+
+CONFIG_UCLAMP_TASK_GROUP=y
+
