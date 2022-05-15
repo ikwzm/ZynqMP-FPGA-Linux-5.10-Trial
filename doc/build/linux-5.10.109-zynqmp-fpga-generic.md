@@ -37,10 +37,10 @@ shell$ git add --update
 shell$ git commit -m "[patch] for linux-xlnx-v2021.1-zynqmp-fpga."
 ```
 
-### Patch for linux-xlnx-v2021.1-builddeb
+### Patch for linux-xlnx-v2021.1-zynqmp-fpga-builddeb
 
 ```console
-shell$ patch -p1 < ../files/linux-5.10.109-builddeb.diff
+shell$ patch -p1 < ../files/linux-5.10.109-zynqmp-fpga-builddeb.diff
 shell$ git add --update
 shell$ git commit -m "[update] scripts/package/builddeb to add tools/include and postinst script to header package."
 ```

@@ -19,9 +19,9 @@ patch -p1 < ../files/linux-5.10.109-zynqmp-fpga.diff
 git add --update
 git commit -m "[patch] for linux-xlnx-v2021.1-zynqmp-fpga."
 
-### Patch for linux-xlnx-v2021.1-builddeb
+### Patch for linux-xlnx-v2021.1-zynqmp-fpga-builddeb
 
-patch -p1 < ../files/linux-5.10.109-builddeb.diff
+patch -p1 < ../files/linux-5.10.109-zynqmp-fpga-builddeb.diff
 git add --update
 git commit -m "[update] scripts/package/builddeb to add tools/include and postinst script to header package."
 
