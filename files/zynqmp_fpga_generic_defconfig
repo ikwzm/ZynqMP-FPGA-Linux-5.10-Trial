@@ -408,7 +408,8 @@ CONFIG_EMBEDDED=y
 ###
 ### Disable heap randomization
 ###
-### CONFIG_COMPAT_BRK is not set
+### CONFIG_COMPAT_BRK=y
+CONFIG_COMPAT_BRK=n
 
 ###
 ### Choose SLAB allocator
@@ -679,7 +680,7 @@ CONFIG_COMPAT=y
 ###
 ### Enable support for SMBIOS (DMI) tables
 ###
-### CONFIG_DMI is not set
+### CONFIG_DMI=y
 
 ## end of Boot options
 
