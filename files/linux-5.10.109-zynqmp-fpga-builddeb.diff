@@ -1,5 +1,5 @@
 diff --git a/scripts/package/builddeb b/scripts/package/builddeb
-index 91a502bb9..638bcda59 100755
+index 91a502bb9..7bc680a65 100755
 --- a/scripts/package/builddeb
 +++ b/scripts/package/builddeb
 @@ -60,10 +60,10 @@ deploy_kernel_headers () {
@@ -9,7 +9,7 @@ index 91a502bb9..638bcda59 100755
 -		find . arch/$SRCARCH -maxdepth 1 -name Makefile\*
 -		find include scripts -type f -o -type l
 +		find . -name Makefile\* -o -name Kconfig\* -o -name \*.pl
-+		find include tools/include scripts -type f -o -type l
++		find include tools/include security/selinux/include scripts -type f -o -type l
  		find arch/$SRCARCH -name Kbuild.platforms -o -name Platform
 -		find $(find arch/$SRCARCH -name include -o -name scripts -type d) -type f
 +		find $(find arch/$SRCARCH -name include -o -name scripts -o -name tools -type d) -type f
