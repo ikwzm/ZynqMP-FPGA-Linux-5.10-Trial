@@ -777,12 +777,13 @@ CONFIG_CPU_IDLE=y
 #####
 ##### PSCI CPU idle Driver
 #####
-##### CONFIG_ARM_PSCI_CPUIDLE=y
+##### CONFIG_ARM_PSCI_CPUIDLE is not set
+CONFIG_ARM_PSCI_CPUIDLE=y
 
 #####
 ##### PSCI CPU idle Domain
 #####
-##### CONFIG_ARM_PSCI_CPUIDLE_DOMAIN=y
+##### CONFIG_ARM_PSCI_CPUIDLE_DOMAIN=y (if CONFIG_ARM_PSCI_CPUIDLE=y)
 
 #### end of ARM CPU Idle Drivers
 ### end of CPU Idle
@@ -4798,6 +4799,7 @@ CONFIG_AHCI_CEVA=y
 ### Multiple devices driver support (RAID and LVM)
 ###
 ### CONFIG_MD is not set
+CONFIG_MD=y
 
 ####
 #### RAID support
@@ -4812,7 +4814,122 @@ CONFIG_AHCI_CEVA=y
 ####
 #### Device mapper support
 ####
-#### CONFIG_BLK_DEV_DM is not set
+CONFIG_BLK_DEV_DM=m
+
+#####
+##### Device mapper debugging support
+#####
+##### CONFIG_DM_DEBUG is not set
+
+#####
+##### Unstriped target
+#####
+##### CONFIG_DM_UNSTRIPED is not set
+
+#####
+##### Crypt target support
+#####
+##### CONFIG_DM_CRYPT is not set
+
+#####
+##### Snapshot target
+#####
+##### CONFIG_DM_SNAPSHOT is not set
+
+#####
+##### Thin provisioning target
+#####
+##### CONFIG_DM_THIN_PROVISIONING is not set
+
+#####
+##### Cache target (EXPERIMENTAL)
+#####
+##### CONFIG_DM_CACHE is not set
+
+#####
+##### Writecache target
+#####
+##### CONFIG_DM_WRITECACHE is not set
+
+#####
+##### Emulated block size target (EXPERIMENTAL)
+#####
+##### CONFIG_DM_EBS is not set
+
+#####
+##### Era target (EXPERIMENTAL)
+#####
+##### CONFIG_DM_ERA is not set
+
+#####
+##### Clone target (EXPERIMENTAL)
+#####
+##### CONFIG_DM_CLONE is not set
+
+#####
+##### Mirror target
+#####
+##### CONFIG_DM_MIRROR is not set
+
+#####
+##### RAID 1/4/5/6/10 target
+#####
+##### CONFIG_DM_RAID is not set
+
+#####
+##### Zero target
+#####
+##### CONFIG_DM_ZERO is not set
+
+#####
+##### Multipath target
+#####
+##### CONFIG_DM_MULTIPATH is not set
+CONFIG_DM_MULTIPATH=m
+
+######
+###### I/O Path Selector based on the number of in-flight I/Os
+######
+###### CONFIG_DM_MULTIPATH_QL is not set
+
+######
+###### I/O Path Selector based on the service time
+######
+###### CONFIG_DM_MULTIPATH_ST is not set
+
+######
+###### I/O Path Selector based on historical service time
+######
+###### CONFIG_DM_MULTIPATH_HST is not set
+
+##### end of Multipath target
+
+#####
+##### I/O delaying target
+#####
+##### CONFIG_DM_DELAY is not set
+
+#####
+##### Bad sector simulation target
+#####
+##### CONFIG_DM_DUST is not set
+
+#####
+##### DM uevents
+#####
+##### CONFIG_DM_UEVENT is not set
+
+#####
+##### Flakey target
+#####
+##### CONFIG_DM_FLAKEY is not set
+
+#####
+##### Verity target support
+#####
+##### CONFIG_DM_VERITY is not set
+
+#### end of Device mapper support
 
 ### end of Multiple devices driver support (RAID and LVM)
 
