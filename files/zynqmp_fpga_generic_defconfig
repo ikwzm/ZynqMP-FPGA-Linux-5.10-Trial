@@ -6124,6 +6124,7 @@ CONFIG_USB_NET_AQC111=m
 ####
 #### Wireless LAN
 ####
+#### CONFIG_WLAN=y
 
 #####
 ##### mac80211-based legacy WDS support
@@ -6140,34 +6141,212 @@ CONFIG_USB_NET_AQC111=m
 ##### Atheros/Qualcomm devices
 #####
 ##### CONFIG_WLAN_VENDOR_ATH=y
-##### CONFIG_ATH_DEBUG is not set
-##### CONFIG_ATH_REG_DYNAMIC_USER_REG_HINTS is not set
-##### CONFIG_ATH5K is not set
-##### CONFIG_ATH5K_PCI is not set
-##### CONFIG_ATH9K is not set
-##### CONFIG_ATH9K_HTC is not set
-##### CONFIG_CARL9170 is not set
-##### CONFIG_ATH6KL is not set
-##### CONFIG_AR5523 is not set
-##### CONFIG_WIL6210 is not set
-##### CONFIG_ATH10K is not set
-##### CONFIG_WCN36XX is not set
+
+######
+###### Atheros wireless debugging
+######
+###### CONFIG_ATH_DEBUG is not set
+
+######
+###### Atheros dynamic user regulatory hints
+######
+###### CONFIG_ATH_REG_DYNAMIC_USER_REG_HINTS is not set
+
+######
+###### Atheros 5xxx wireless cards support
+######
+###### CONFIG_ATH5K is not set
+
+######
+###### Atheros 802.11n wireless cards support
+######
+###### CONFIG_ATH9K is not set
+
+######
+###### Atheros HTC based wireless cards support
+######
+###### CONFIG_ATH9K_HTC is not set
+CONFIG_ATH9K_HTC=m
+
+######
+###### Linux Community AR9170 802.11n USB support
+###### 
+CONFIG_CARL9170=m
+
+#######
+####### SoftLED Support
+#######
+####### CONFIG_CARL9170_LEDS=y
+
+#######
+####### DebugFS Support
+#######
+####### CONFIG_CARL9170_DEBUGFS is not set
+
+#######
+####### Random number generator
+#######
+####### CONFIG_CARL9170_HWRNG=n
+CONFIG_CARL9170_HWRNG=y
+
+###### end of Linux Community AR9170 802.11n USB support
+
+######
+###### Atheros mobile chipsets support
+######
+###### CONFIG_ATH6KL is not set
+CONFIG_ATH6KL=m
+
+#######
+####### Atheros ath6kl SDIO support
+#######
+CONFIG_ATH6KL_SDIO=m
+
+#######
+####### Atheros ath6kl USB support
+#######
+CONFIG_ATH6KL_USB=m
+
+#######
+####### Atheros ath6kl debugging
+#######
+####### CONFIG_ATH6KL_DEBUG is not set
+
+#######
+####### Atheros ath6kl tracing support
+#######
+####### CONFIG_ATH6KL_TRACING is not set
+
+#######
+####### Atheros ath6kl regdomain support
+#######
+####### CONFIG_ATH6KL_REGDOMAIN is not set
+
+###### end of Atheros mobile chipsets support
+
+######
+###### Atheros AR5523 wireless driver support
+######
+###### CONFIG_AR5523 is not set
+CONFIG_AR5523=m
+
+######
+###### Wilocity 60g WiFi card wil6210 support
+######
+###### CONFIG_WIL6210 is not set
+
+######
+###### Atheros 802.11ac wireless cards support
+######
+###### CONFIG_ATH10K is not set
+CONFIG_ATH10K=m
+
+#######
+####### Atheros ath10k SDIO support
+#######
+CONFIG_ATH10K_SDIO=m
+
+#######
+####### Atheros ath10k USB support (EXPERIMENTAL)
+#######
+CONFIG_ATH10K_USB=m
+
+#######
+####### Atheros ath10k debugging
+#######
+####### CONFIG_ATH10K_DEBUG is not set
+
+#######
+####### Atheros ath10k debugfs support
+#######
+####### CONFIG_ATH10K_DEBUGFS is not set
+
+#######
+####### Atheros ath10k tracing support
+#######
+####### CONFIG_ATH10K_TRACING is not set
+
+#######
+####### Atheros DFS support for certified platforms
+#######
+####### ATH10K_DFS_CERTIFIED is not set
+
+###### end of Atheros 802.11ac wireless cards support
+
+######
+###### Qualcomm Atheros WCN3660/3680 support
+######
+###### CONFIG_WCN36XX is not set
+
+##### end of Atheros/Qualcomm devices
 
 #####
 ##### Atmel devices
 #####
 ##### CONFIG_WLAN_VENDOR_ATMEL=y
-##### CONFIG_ATMEL is not set
-##### CONFIG_AT76C50X_USB is not set
+
+######
+###### Atmel at76c50x chipset  802.11b support
+######
+###### CONFIG_ATMEL is not set
+
+######
+###### Atmel at76c506 PCI cards
+######
+###### CONFIG_PCI_ATMEL is not set
+
+######
+###### Atmel at76c503/at76c505/at76c505a USB cards
+######
+###### CONFIG_AT76C50X_USB is not set
+CONFIG_AT76C50X_USB=m
+
+##### end of Atmel devices
 
 #####
 ##### Broadcom devices
 #####
 ##### CONFIG_WLAN_VENDOR_BROADCOM=y
-##### CONFIG_B43 is not set
-##### CONFIG_B43LEGACY is not set
-##### CONFIG_BRCMSMAC is not set
-##### CONFIG_BRCMFMAC is not set
+
+######
+###### Broadcom 43xx wireless support (mac80211 stack)
+######
+###### CONFIG_B43 is not set
+
+######
+###### Broadcom 43xx-legacy wireless support (mac80211 stack)
+######
+###### CONFIG_B43LEGACY is not set
+
+######
+###### Broadcom IEEE802.11n PCIe SoftMAC WLAN driver
+######
+###### CONFIG_BRCMSMAC is not set
+
+######
+###### Broadcom FullMAC WLAN driver
+######
+###### CONFIG_BRCMFMAC is not set
+CONFIG_BRCMFMAC=m
+
+######
+###### SDIO bus interface support for FullMAC driver
+######
+###### CONFIG_BRCMFMAC_SDIO=y (if CONFIG_BRCMFMAC)
+CONFIG_BRCMFMAC_SDIO=y
+
+######
+###### USB bus interface support for FullMAC driver
+######
+###### CONFIG_BRCMFMAC_USB is not set
+CONFIG_BRCMFMAC_USB=y
+
+######
+###### PCIE bus interface support for FullMAC driver
+######
+###### CONFIG_BRCMFMAC_PCIE is not set
+
+##### end of Broadcom devices
 
 #####
 ##### Cisco devices
@@ -6178,75 +6357,447 @@ CONFIG_USB_NET_AQC111=m
 ##### Intel devices
 #####
 ##### CONFIG_WLAN_VENDOR_INTEL=y
-##### CONFIG_IPW2100 is not set
-##### CONFIG_IPW2200 is not set
-##### CONFIG_IWL4965 is not set
-##### CONFIG_IWL3945 is not set
-##### CONFIG_IWLWIFI is not set
+
+######
+###### Intel PRO/Wireless 2100 Network Connection
+######
+###### CONFIG_IPW2100 is not set
+
+######
+###### Intel PRO/Wireless 2200BG and 2915ABG Network Connection
+######
+###### CONFIG_IPW2200 is not set
+
+######
+###### Intel Wireless WiFi 4965AGN (iwl4965)
+######
+###### CONFIG_IWL4965 is not set
+
+######
+###### Intel PRO/Wireless 3945ABG/BG Network Connection (iwl3945)
+######
+###### CONFIG_IWL3945 is not set
+
+######
+###### Intel Wireless WiFi Next Gen AGN - Wireless-N/Advanced-N/Ultimate-N (iwlwifi)
+######
+###### CONFIG_IWLWIFI is not set
+
+##### end of Intel devices
 
 #####
 ##### Intersil devices
 #####
 ##### CONFIG_WLAN_VENDOR_INTERSIL=y
-##### CONFIG_HOSTAP is not set
-##### CONFIG_HERMES is not set
-##### CONFIG_P54_COMMON is not set
-##### CONFIG_PRISM54 is not set
+
+######
+###### IEEE 802.11 for Host AP (Prism2/2.5/3 and WEP/TKIP/CCMP)
+######
+###### CONFIG_HOSTAP is not set
+
+######
+###### Hermes chipset 802.11b support (Orinoco/Prism2/Symbol)
+######
+###### CONFIG_HERMES is not set
+CONFIG_HERMES=m
+
+#######
+####### Support Prism 2/2.5 chipset
+#######
+####### CONFIG_HERMES_PRISM is not set
+
+#######
+####### Cache Hermes firmware on driver initialisation
+#######
+####### CONFIG_HERMES_CACHE_FW_ON_INIT=y
+
+#######
+####### Hermes in PLX9052 based PCI adaptor support (Netgear MA301 etc.)
+#######
+####### CONFIG_PLX_HERMES is not set
+
+#######
+####### Hermes in TMD7160 based PCI adaptor support
+#######
+####### CONFIG_TMD_HERMES is not set
+
+#######
+####### Nortel emobility PCI adaptor support
+#######
+####### CONFIG_NORTEL_HERMES is not set
+
+#######
+####### Prism 2.5 PCI 802.11b adaptor support
+#######
+####### CONFIG_PCI_HERMES is not set
+
+#######
+####### Agere Orinoco USB support
+#######
+####### CONFIG_ORINOCO_USB is not set
+CONFIG_ORINOCO_USB=m
+
+###### end of Hermes chipset 802.11b support (Orinoco/Prism2/Symbol)
+
+######
+###### Softmac Prism54 support
+######
+###### CONFIG_P54_COMMON is not set
+CONFIG_P54_COMMON=m
+
+#######
+####### Prism54 USB support
+#######
+CONFIG_P54_USB=m
+
+#######
+####### Prism54 PCI support
+#######
+####### CONFIG_P54_PCI is not set
+
+#######
+####### Prism54 SPI (stlc45xx) support
+#######
+CONFIG_P54_SPI=m
+
+#######
+####### Include fallback EEPROM blob
+#######
+####### CONFIG_P54_SPI_DEFAULT_EEPROM is not set
+
+###### end of Softmac Prism54 support
+
+######
+###### Intersil Prism GT/Duette/Indigo PCI/Cardbus (DEPRECATED)
+######
+###### CONFIG_PRISM54 is not set
+
+##### end of Intersil devices
 
 #####
 ##### Marvell devices
 #####
 ##### CONFIG_WLAN_VENDOR_MARVELL=y
-##### CONFIG_LIBERTAS is not set
-##### CONFIG_LIBERTAS_THINFIRM is not set
-##### CONFIG_MWIFIEX is not set
-##### CONFIG_MWL8K is not set
+
+######
+###### Marvell 8xxx Libertas WLAN driver support
+######
+###### CONFIG_LIBERTAS is not set
+CONFIG_LIBERTAS=m
+
+#######
+####### Marvell Libertas 8388 USB 802.11b/g cards
+#######
+CONFIG_LIBERTAS_USB=m
+
+#######
+####### Marvell Libertas 8385 CompactFlash 802.11b/g cards
+#######
+####### CONFIG_LIBERTAS_CS is not set
+
+#######
+####### Marvell Libertas 8385/8686/8688 SDIO 802.11b/g cards
+#######
+CONFIG_LIBERTAS_SDIO=m
+
+#######
+####### Marvell Libertas 8686 SPI 802.11b/g cards
+#######
+CONFIG_LIBERTAS_SPI=m
+
+#######
+####### Enable full debugging output in the Libertas module.
+#######
+####### CONFIG_LIBERTAS_DEBUG is not set
+
+#######
+####### Enable mesh support
+#######
+####### CONFIG_LIBERTAS_MESH is not set
+
+###### end of Marvell 8xxx Libertas WLAN driver support
+
+######
+###### Marvell 8xxx Libertas WLAN driver support with thin firmware
+######
+###### CONFIG_LIBERTAS_THINFIRM is not set
+CONFIG_LIBERTAS_THINFIRM=m
+
+#######
+####### Enable full debugging output in the Libertas thin firmware module.
+#######
+####### CONFIG_LIBERTAS_THINFIRM_DEBUG is not set
+
+#######
+####### Marvell Libertas 8388 USB 802.11b/g cards with thin firmware
+#######
+CONFIG_LIBERTAS_THINFIRM_USB=m
+
+###### end of Marvell 8xxx Libertas WLAN driver support with thin firmware
+
+######
+###### Marvell WiFi-Ex Driver
+######
+###### CONFIG_MWIFIEX is not set
+CONFIG_MWIFIEX=m
+
+#######
+####### Marvell WiFi-Ex Driver for SD8786/SD8787/SD8797/SD8887/SD8897/SD8977/SD8987/SD8997
+#######
+CONFIG_MWIFIEX_SDIO=m
+
+#######
+####### Marvell WiFi-Ex Driver for PCIE 8766/8897/8997
+#######
+####### CONFIG_MWIFIEX_PCIE not set
+
+#######
+####### Marvell WiFi-Ex Driver for USB8766/8797/8997
+#######
+CONFIG_MWIFIEX_USB is not set
+
+###### end of Marvell WiFi-Ex Driver
+
+######
+###### Marvell 88W8xxx PCI/PCIe Wireless support
+######
+###### CONFIG_MWL8K is not set
+
+##### end of Marvell devices
 
 #####
 ##### MediaTek devices
 #####
 ##### CONFIG_WLAN_VENDOR_MEDIATEK=y
-##### CONFIG_MT7601U is not set
-##### CONFIG_MT76x0U is not set
-##### CONFIG_MT76x0E is not set
-##### CONFIG_MT76x2E is not set
-##### CONFIG_MT76x2U is not set
-##### CONFIG_MT7603E is not set
-##### CONFIG_MT7615E is not set
+
+######
+###### MediaTek MT7601U (USB) support
+######
+###### CONFIG_MT7601U is not set
+CONFIG_MT7601U=m
+
+######
+###### MediaTek MT76x0U (USB) support
+######
+CONFIG_MT76x0U=m
+
+######
+###### MediaTek MT76x0E (PCIe) support
+######
+###### CONFIG_MT76x0E is not set
+
+######
+###### MediaTek MT76x2E (PCIe) support
+######
+###### CONFIG_MT76x2E is not set
+
+######
+###### MediaTek MT76x2U (USB) support
+######
+CONFIG_MT76x2U=m
+
+######
+###### MediaTek MT7603E (PCIe) and MT76x8 WLAN support
+######
+###### CONFIG_MT7603E is not set
+
+######
+###### MediaTek MT7615E and MT7663E (PCIe) support
+######
+###### CONFIG_MT7615E is not set
+
+######
+###### MediaTek MT7663U (USB) support
+######
+CONFIG_MT7663U=m
+
+######
+###### MediaTek MT7663S (SDIO) support
+######
+CONFIG_MT7663S=m
+
+######
+###### MediaTek MT7915E (PCIe) support
+######
+###### CONFIG_MT7915E is not set
+
+##### end of MediaTek devices
 
 #####
 ##### Microchip devices
 #####
 ##### CONFIG_WLAN_VENDOR_MICROCHIP=y
-##### CONFIG_WILC1000_SDIO is not set
-##### CONFIG_WILC1000_SPI is not set
-##### 
+
+######
+###### Atmel WILC1000 SDIO (WiFi only)
+######
+###### CONFIG_WILC1000_SDIO is not set
+
+######
+###### Atmel WILC1000 SPI (WiFi only)
+######
+###### CONFIG_WILC1000_SPI is not set
+
+##### end of Microchip devices
 
 #####
 ##### Ralink devices
 #####
 ##### CONFIG_WLAN_VENDOR_RALINK=y
-##### CONFIG_RT2X00 is not set
+
+######
+###### Ralink driver support
+######
+###### CONFIG_RT2X00 is not set
+CONFIG_RT2X00=m
+
+######
+###### Ralink rt2400 (PCI/PCMCIA) support
+######
+###### CONFIG_RT2400PCI is not set
+
+######
+###### Ralink rt2500 (PCI/PCMCIA) support
+######
+###### CONFIG_RT2500PCI is not set
+
+######
+###### Ralink rt2501/rt61 (PCI/PCMCIA) support
+######
+###### CONFIG_RT61PCI is not set
+
+######
+###### Ralink rt27xx/rt28xx/rt30xx (PCI/PCIe/PCMCIA) support
+######
+###### CONFIG_RT2800PCI is not set
+
+######
+###### Ralink rt2500 (USB) support
+######
+CONFIG_RT2500USB=m
+
+######
+###### Ralink rt2501/rt73 (USB) support
+######
+CONFIG_RT73USB=m
+
+######
+###### Ralink rt27xx/rt28xx/rt30xx (USB) support
+######
+CONFIG_RT2800USB=m
+
+######
+###### Ralink debug output
+######
+###### CONFIG_RT2X00_DEBUG is not set
+
+##### end of Ralink devices
 
 #####
 ##### Realtek devices
 #####
 ##### CONFIG_WLAN_VENDOR_REALTEK=y
-##### CONFIG_RTL8180 is not set
-##### CONFIG_RTL8187 is not set
-#####
-##### CONFIG_RTL_CARDS=y
-##### CONFIG_RTL8192CE is not set
-##### CONFIG_RTL8192SE is not set
-##### CONFIG_RTL8192DE is not set
-##### CONFIG_RTL8723AE is not set
-##### CONFIG_RTL8723BE is not set
-##### CONFIG_RTL8188EE is not set
-##### CONFIG_RTL8192EE is not set
-##### CONFIG_RTL8821AE is not set
-##### CONFIG_RTL8192CU is not set
-##### CONFIG_RTL8XXXU is not set
-##### CONFIG_RTW88 is not set
+
+######
+###### Realtek 8180/8185/8187SE PCI support
+######
+###### CONFIG_RTL8180 is not set
+
+######
+###### Realtek 8187 and 8187B USB support
+######
+CONFIG_RTL8187=m
+
+######
+###### Realtek rtlwifi family of devices
+######
+CONFIG_RTL_CARDS=m
+
+#######
+####### Realtek RTL8192CE/RTL8188CE Wireless Network Adapter
+#######
+####### CONFIG_RTL8192CE is not set
+
+#######
+####### Realtek RTL8192SE/RTL8191SE PCIe Wireless Network Adapter
+#######
+####### CONFIG_RTL8192SE is not set
+
+#######
+####### Realtek RTL8192DE/RTL8188DE PCIe Wireless Network Adapter
+#######
+####### CONFIG_RTL8192DE is not set
+
+#######
+####### Realtek RTL8723AE PCIe Wireless Network Adapter
+#######
+####### CONFIG_RTL8723AE is not set
+
+#######
+####### Realtek RTL8723BE PCIe Wireless Network Adapter
+#######
+####### CONFIG_RTL8723BE is not set
+
+#######
+####### Realtek RTL8188EE Wireless Network Adapter
+#######
+####### CONFIG_RTL8188EE is not set
+
+#######
+####### Realtek RTL8192EE Wireless Network Adapter
+#######
+####### CONFIG_RTL8192EE is not set
+
+#######
+####### Realtek RTL8821AE/RTL8812AE Wireless Network Adapter
+#######
+####### CONFIG_RTL8821AE is not set
+
+#######
+####### Realtek RTL8192CU/RTL8188CU USB Wireless Network Adapter
+#######
+CONFIG_RTL8192CU=m
+
+#######
+####### Debugging output for rtlwifi driver family
+#######
+####### CONFIG_RTLWIFI_DEBUG=y
+
+###### end of Realtek rtlwifi family of devices
+
+######
+###### RTL8723AU/RTL8188[CR]U/RTL819[12]CU (mac80211) support
+######
+###### CONFIG_RTL8XXXU is not set
+
+######
+###### Realtek 802.11ac wireless chips support
+######
+###### CONFIG_RTW88 is not set
+
+#######
+####### Realtek 8822BE PCI wireless network adapter
+#######
+####### CONFIG_RTW88_8822BE is not set
+
+#######
+####### Realtek 8822CE PCI wireless network adapter
+#######
+####### CONFIG_RTW88_8822CE is not set
+
+#######
+####### Realtek 8723DE PCI wireless network adapter
+#######
+####### CONFIG_RTW88_8723DE is not set
+
+#######
+####### Realtek 8821CE PCI wireless network adapter
+#######
+####### CONFIG_RTW88_8821CE is not set
+
+###### end of Realtek 802.11ac wireless chips support
+
+##### end of Realtek devices
 
 #####
 ##### Redpine Signals Inc devices
@@ -6264,18 +6815,53 @@ CONFIG_USB_NET_AQC111=m
 ##### Texas Instrument devices
 #####
 ##### CONFIG_WLAN_VENDOR_TI=y
-##### CONFIG_WL1251 is not set
-##### CONFIG_WL12XX is not set
+
+######
+###### TI wl1251 driver support
+######
+###### CONFIG_WL1251 is not set
+
+######
+###### TI wl12xx support
+######
+###### CONFIG_WL12XX is not set
+CONFIG_WL12XX=y
+
+######
+###### TI wl18xx support
+######
+###### CONFIG_WL18XX is not set
 CONFIG_WL18XX=y
+
+######
+###### TI wlcore SPI support
+######
 CONFIG_WLCORE_SPI=y
+
+######
+###### TI wlcore SDIO support
+######
 CONFIG_WLCORE_SDIO=y
+
+##### end of Texas Instrument devices
 
 #####
 ##### ZyDAS devices
 #####
 ##### CONFIG_WLAN_VENDOR_ZYDAS=y
-##### CONFIG_USB_ZD1201 is not set
-##### CONFIG_ZD1211RW is not set
+
+######
+###### USB ZD1201 based Wireless device support
+######
+###### CONFIG_USB_ZD1201 is not set
+CONFIG_USB_ZD1201=m
+
+######
+###### ZyDAS ZD1211/ZD1211B USB-wireless support
+######
+CONFIG_ZD1211RW=m
+
+##### end of ZyDAS devices
 
 #####
 ##### Quantenna wireless cards support
