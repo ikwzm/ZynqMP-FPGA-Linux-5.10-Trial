@@ -11090,6 +11090,7 @@ CONFIG_USB_GADGET=y
 ##### Serial gadget console support
 #####
 ##### CONFIG_U_SERIAL_CONSOLE=y (if CONFIG_USB_U_SERIAL)
+CONFIG_U_SERIAL_CONSOLE=y
 
 #####
 ##### USB Peripheral Controller
@@ -11282,11 +11283,13 @@ CONFIG_USB_CONFIGFS_MASS_STORAGE=y
 ###### Gadget Zero (DEVELOPMENT)
 ######
 ###### CONFIG_USB_ZERO is not set
+CONFIG_USB_ZERO=m
 
 ######
 ###### Audio Gadget
 ######
 ###### CONFIG_USB_AUDIO is not set
+CONFIG_USB_AUDIO=m
 
 ######
 ###### Ethernet Gadget (with CDC Ethernet support)
@@ -11298,7 +11301,6 @@ CONFIG_USB_ETH=m
 ######
 ###### CONFIG_USB_ETH_RNDIS=y
 
-
 ######
 ###### Ethernet Emulation Model (EEM) support
 ######
@@ -11308,16 +11310,34 @@ CONFIG_USB_ETH_EEM=y
 ###### Network Control Model (NCM) support
 ######
 ###### CONFIG_USB_G_NCM is not set
+CONFIG_USB_G_NCM=m
 
 ######
 ###### Gadget Filesystem
 ######
 ###### CONFIG_USB_GADGETFS is not set
+CONFIG_USB_GADGETFS=m
 
 ######
 ###### Function Filesystem
 ######
 ###### CONFIG_USB_FUNCTIONFS is not set
+CONFIG_USB_FUNCTIONFS=m
+
+######
+###### Include configuration with CDC ECM (Ethernet)
+######
+CONFIG_USB_FUNCTIONFS_ETH=y
+
+######
+###### Include configuration with RNDIS (Ethernet)
+######
+CONFIG_USB_FUNCTIONFS_RNDIS=y
+
+######
+###### Include 'pure' configuration
+######
+CONFIG_USB_FUNCTIONFS_GENERIC=y
 
 ######
 ###### Mass Storage Gadget
@@ -11328,26 +11348,31 @@ CONFIG_USB_MASS_STORAGE=m
 ###### Serial Gadget (with CDC ACM and CDC OBEX support)
 ######
 ###### CONFIG_USB_G_SERIAL is not set
+CONFIG_USB_G_SERIAL=m
 
 ######
 ###### MIDI Gadget
 ######
 ###### CONFIG_USB_MIDI_GADGET is not set
+CONFIG_USB_MIDI_GADGET=m
 
 ######
 ###### Printer Gadget
 ######
 ###### CONFIG_USB_G_PRINTER is not set
+CONFIG_USB_G_PRINTER=m
 
 ######
 ###### CDC Composite Device (Ethernet and ACM)
 ######
 ###### CONFIG_USB_CDC_COMPOSITE is not set
+CONFIG_USB_CDC_COMPOSITE=m
 
 ######
 ###### CDC Composite Device (ACM and mass storage)
 ######
 ###### CONFIG_USB_G_ACM_MS is not set
+CONFIG_USB_G_ACM_MS=m
 
 ######
 ###### Multifunction Composite Gadget
@@ -11358,16 +11383,25 @@ CONFIG_USB_MASS_STORAGE=m
 ###### HID Gadget
 ######
 ###### CONFIG_USB_G_HID is not set
+CONFIG_USB_G_HID=m
 
 ######
 ###### EHCI Debug Device Gadget
 ######
 ###### CONFIG_USB_G_DBGP is not set
+CONFIG_USB_G_DBGP=m
+
+######
+###### EHCI Debug Device mode
+######
+CONFIG_USB_G_DBGP_PRINTK=n
+CONFIG_USB_G_DBGP_SERIAL=y
 
 ######
 ###### USB Webcam Gadget
 ######
 ###### CONFIG_USB_G_WEBCAM is not set
+CONFIG_USB_G_WEBCAM=m
 
 ######
 ###### USB Raw Gadget
