@@ -681,6 +681,7 @@ CONFIG_COMPAT=y
 ### Enable support for SMBIOS (DMI) tables
 ###
 ### CONFIG_DMI=y
+CONFIG_DMI=n
 
 ## end of Boot options
 
