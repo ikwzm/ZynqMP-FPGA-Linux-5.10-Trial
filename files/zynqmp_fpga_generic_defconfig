@@ -10832,11 +10832,13 @@ CONFIG_USB_UAS=y
 ##### USB Mustek MDC800 Digital Camera support
 #####
 ##### CONFIG_USB_MDC800 is not set
+CONFIG_USB_MDC800=m
 
 #####
 ##### Microtek X6USB scanner support
 #####
 ##### CONFIG_USB_MICROTEK is not set
+CONFIG_USB_MICROTEK=m
 
 #### end of USB Imaging devices
 
@@ -10844,6 +10846,29 @@ CONFIG_USB_UAS=y
 #### USB/IP support
 ####
 #### CONFIG_USBIP_CORE is not set
+CONFIG_USBIP_CORE=m
+
+#####
+##### VHCI hcd
+#####
+CONFIG_USBIP_VHCI_HCD=m
+
+#####
+##### Host driver
+#####
+CONFIG_USBIP_HOST=m
+
+#####
+##### VUDC driver
+#####
+CONFIG_USBIP_VUDC=m
+
+#####
+##### Debug messages for USB/IP
+#####
+##### CONFIG_USBIP_DEBUG is not set
+
+#### end of USB/IP support
 
 ####
 #### Cadence USB3 Dual-Role Controller
