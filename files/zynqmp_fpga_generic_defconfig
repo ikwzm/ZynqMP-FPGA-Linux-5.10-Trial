@@ -11028,26 +11028,31 @@ CONFIG_USB_CHAOSKEY=m
 #### USB Physical Layer drivers
 ####
 #### CONFIG_USB_PHY=y
+CONFIG_USB_PHY=y
 
 #####
 ##### NOP USB Transceiver Driver
 #####
 ##### CONFIG_NOP_USB_XCEIV is not set
+CONFIG_NOP_USB_XCEIV=m
 
 #####
 ##### GPIO based peripheral-only VBUS sensing 'transceiver'
 #####
 ##### CONFIG_USB_GPIO_VBUS is not set
+CONFIG_USB_GPIO_VBUS=m
 
 #####
 ##### NXP ISP1301 USB transceiver support
 #####
 ##### CONFIG_USB_ISP1301 is not set
+CONFIG_USB_ISP1301=m
 
 #####
 ##### Generic ULPI Transceiver Driver
 #####
 ##### CONFIG_USB_ULPI is not set
+CONFIG_USB_ULPI=y
 
 #### end of USB Physical Layer drivers
 
@@ -11416,6 +11421,86 @@ CONFIG_USB_G_WEBCAM=m
 #### USB Type-C Support
 ####
 #### CONFIG_TYPEC is not set
+CONFIG_TYPEC=m
+
+#####
+##### USB Type-C Port Controller Manager
+#####
+CONFIG_TYPEC_TCPM=m
+
+######
+###### Type-C Port Controller Interface driver
+######
+CONFIG_TYPEC_TCPCI=m
+
+######
+###### Richtek RT1711H Type-C chip driver
+######
+CONFIG_TYPEC_RT1711H=m
+
+######
+###### Maxim TCPCI based Type-C chip driver
+######
+CONFIG_TYPEC_TCPCI_MAXIM=m
+
+######
+###### Fairchild FUSB302 Type-C chip driver
+######
+CONFIG_TYPEC_FUSB302=m
+
+##### end of USB Type-C Port Controller Manager
+
+#####
+##### USB Type-C Connector System Software Interface driver
+#####
+CONFIG_TYPEC_UCSI=m
+
+#####
+##### UCSI Interface Driver for Cypress CCGx
+#####
+CONFIG_UCSI_CCG=m
+
+#####
+##### TI HD3SS3220 Type-C DRP Port controller driver
+#####
+CONFIG_TYPEC_HD3SS3220=m
+
+#####
+##### TI TPS6598x USB Power Delivery controller driver
+#####
+CONFIG_TYPEC_TPS6598X=m
+
+#####
+##### STMicroelectronics STUSB160x Type-C controller driver
+#####
+CONFIG_TYPEC_STUSB160X=m
+
+#####
+##### USB Type-C Multiplexer/DeMultiplexer Switch support
+#####
+
+######
+###### Pericom PI3USB30532 Type-C cross switch driver
+######
+CONFIG_TYPEC_MUX_PI3USB30532=m
+
+##### end of USB Type-C Multiplexer/DeMultiplexer Switch support
+
+#####
+##### USB Type-C Alternate Mode drivers
+#####
+
+#####
+##### DisplayPort Alternate Mode driver
+#####
+CONFIG_TYPEC_DP_ALTMODE=m
+
+#####
+##### NVIDIA Alternate Mode driver
+#####
+CONFIG_TYPEC_NVIDIA_ALTMODE=m
+
+##### end of USB Type-C Alternate Mode drivers
 
 #### end of USB Type-C Support
 
