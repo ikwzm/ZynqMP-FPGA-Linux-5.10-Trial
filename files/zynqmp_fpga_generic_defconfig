@@ -10719,21 +10719,25 @@ CONFIG_USB_XHCI_PLATFORM=y
 ##### USB Modem (CDC ACM) support
 #####
 ##### CONFIG_USB_ACM is not set
+CONFIG_USB_ACM=m
 
 #####
 ##### USB Printer support
 #####
 ##### CONFIG_USB_PRINTER is not set
+CONFIG_USB_PRINTER=m
 
 #####
 ##### USB Wireless Device Management support
 #####
 ##### CONFIG_USB_WDM is not set
+CONFIG_USB_WDM=m
 
 #####
 ##### USB Test and Measurement Class support
 #####
 ##### CONFIG_USB_TMC is not set
+CONFIG_USB_TMC=m
 
 #### end of USB Device Class drivers
 
