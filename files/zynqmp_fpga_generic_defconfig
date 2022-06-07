@@ -5857,6 +5857,24 @@ CONFIG_XILINX_GMII2RGMII=y
 #### SLIP (serial line) support
 ####
 #### CONFIG_SLIP is not set
+CONFIG_SLIP=m
+
+#####
+##### CSLIP compressed headers
+#####
+CONFIG_SLIP_COMPRESSED=y
+
+#####
+##### Keepalive and linefill
+#####
+CONFIG_SLIP_SMART=y
+
+#####
+##### Six bit SLIP encapsulation
+#####
+CONFIG_SLIP_MODE_SLIP6=y
+
+#### end of SLIP (serial line) support
 
 ####
 #### USB Network Adapters
