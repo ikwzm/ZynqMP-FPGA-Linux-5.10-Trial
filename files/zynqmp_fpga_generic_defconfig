@@ -5852,6 +5852,64 @@ CONFIG_XILINX_GMII2RGMII=y
 #### PPP (point-to-point protocol) support
 ####
 #### CONFIG_PPP is not set
+CONFIG_PPP=y
+
+#####
+##### PPP BSD-Compress compression
+#####
+CONFIG_PPP_BSDCOMP=m
+
+#####
+##### PPP Deflate compression
+#####
+CONFIG_PPP_DEFLATE=m
+
+#####
+##### PPP filtering
+#####
+CONFIG_PPP_FILTER=y
+
+#####
+##### PPP MPPE compression (encryption)
+#####
+CONFIG_PPP_MPPE=m
+
+#####
+##### PPP multilink support
+#####
+CONFIG_PPP_MULTILINK=y
+
+#####
+##### PPP over ATM
+#####
+CONFIG_PPPOATM=m
+
+#####
+##### PPP over Ethernet
+#####
+CONFIG_PPPOE=m
+
+#####
+##### PPP over IPv4 (PPTP)
+#####
+CONFIG_PPTP=m
+
+#####
+##### PPP over L2TP
+#####
+CONFIG_PPPOL2TP=m
+
+#####
+##### PPP support for async serial ports
+#####
+CONFIG_PPP_ASYNC=m
+
+#####
+##### PPP support for sync tty ports
+#####
+CONFIG_PPP_SYNC_TTY=m
+
+#### end of PPP (point-to-point protocol) support
 
 ####
 #### SLIP (serial line) support
