@@ -3047,7 +3047,7 @@ CONFIG_CAN_UCAN=m
 ###
 ### Bluetooth subsystem support
 ###
-CONFIG_BT=y
+CONFIG_BT=m
 
 ####
 #### Bluetooth Classic (BR/EDR) features
@@ -3057,7 +3057,7 @@ CONFIG_BT=y
 ####
 #### RFCOMM protocol support
 ####
-CONFIG_BT_RFCOMM=y
+CONFIG_BT_RFCOMM=m
 
 ####
 #### RFCOMM TTY support
@@ -3067,7 +3067,7 @@ CONFIG_BT_RFCOMM_TTY=y
 ####
 #### BNEP protocol support
 ####
-CONFIG_BT_BNEP=y
+CONFIG_BT_BNEP=m
 
 ####
 #### Multicast filter support
@@ -3082,12 +3082,12 @@ CONFIG_BT_BNEP_PROTO_FILTER=y
 ####
 #### CMTP protocol support
 ####
-#### CONFIG_BT_CMTP is not set
+CONFIG_BT_CMTP=m
 
 ####
 #### HIDP protocol support
 ####
-CONFIG_BT_HIDP=y
+CONFIG_BT_HIDP=m
 
 ####
 #### Bluetooth High Speed (HS) features
@@ -3103,6 +3103,7 @@ CONFIG_BT_LE=y
 #### Bluetooth 6LoWPAN support
 ####
 #### CONFIG_BT_6LOWPAN is not set
+CONFIG_BT_6LOWPAN=m
 
 ####
 #### Enable LED triggers
@@ -3133,12 +3134,13 @@ CONFIG_BT_DEBUGFS=y
 #####
 ##### HCI USB driver
 #####
-CONFIG_BT_HCIBTUSB=y
+CONFIG_BT_HCIBTUSB=m
 
 #####
 ##### Enable USB autosuspend for Bluetooth USB devices by default
 #####
 ##### CONFIG_BT_HCIBTUSB_AUTOSUSPEND is not set
+CONFIG_BT_HCIBTUSB_AUTOSUSPEND=y
 
 #####
 ##### Broadcom protocol support
@@ -3158,12 +3160,12 @@ CONFIG_BT_HCIBTUSB_RTL=y
 #####
 ##### HCI SDIO driver
 #####
-CONFIG_BT_HCIBTSDIO=y
+CONFIG_BT_HCIBTSDIO=m
 
 #####
 ##### HCI UART driver
 #####
-CONFIG_BT_HCIUART=y
+CONFIG_BT_HCIUART=m
 
 #####
 ##### UART (H4) protocol support
@@ -3218,27 +3220,27 @@ CONFIG_BT_HCIUART_QCA=y
 #####
 ##### Intel AG6XX protocol support
 #####
-##### CONFIG_BT_HCIUART_AG6XX is not set
+CONFIG_BT_HCIUART_AG6XX=y
 
 #####
 ##### Marvell protocol support
 #####
-##### CONFIG_BT_HCIUART_MRVL is not set
+CONFIG_BT_HCIUART_MRVL=y
 
 #####
 ##### HCI BCM203x USB driver
 #####
-CONFIG_BT_HCIBCM203X=y
+CONFIG_BT_HCIBCM203X=m
 
 #####
 ##### HCI BPA10x USB driver
 #####
-CONFIG_BT_HCIBPA10X=y
+CONFIG_BT_HCIBPA10X=m
 
 #####
 ##### HCI BlueFRITZ! USB driver
 #####
-CONFIG_BT_HCIBFUSB=y
+CONFIG_BT_HCIBFUSB=m
 
 #####
 ##### HCI DTL1 (PC Card) driver
@@ -3258,32 +3260,32 @@ CONFIG_BT_HCIBFUSB=y
 #####
 ##### HCI VHCI (Virtual HCI device) driver
 #####
-CONFIG_BT_HCIVHCI=y
+CONFIG_BT_HCIVHCI=m
 
 #####
 ##### Marvell Bluetooth driver support
 #####
-CONFIG_BT_MRVL=y
+CONFIG_BT_MRVL=m
 
 #####
 ##### Marvell BT-over-SDIO driver
 #####
-CONFIG_BT_MRVL_SDIO=y
+CONFIG_BT_MRVL_SDIO=m
 
 #####
 ##### Atheros firmware download driver
 #####
-CONFIG_BT_ATH3K=y
+CONFIG_BT_ATH3K=m
 
 #####
 ##### MediaTek HCI SDIO driver
 #####
-##### CONFIG_BT_MTKSDIO is not set
+CONFIG_BT_MTKSDIO=m
 
 #####
 ##### MediaTek HCI UART driver
 #####
-##### CONFIG_BT_MTKUART is not set
+CONFIG_BT_MTKUART=m
 
 #####
 ##### Qualcomm SMD based HCI support
