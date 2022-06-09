@@ -202,10 +202,33 @@ index 3626758b3..a319b1df3 100644
  err:
  	dev_err(&pdev->dev, "init %s fail, %d\n",
 diff --git a/drivers/usb/host/ehci-pci.c b/drivers/usb/host/ehci-pci.c
-index 638f03b89..4a47168e5 100644
+index 638f03b89..71ec30256 100644
 --- a/drivers/usb/host/ehci-pci.c
 +++ b/drivers/usb/host/ehci-pci.c
-@@ -306,9 +306,6 @@ static int ehci_pci_setup(struct usb_hcd *hcd)
+@@ -21,9 +21,6 @@ static const char hcd_name[] = "ehci-pci";
+ /* defined here to avoid adding to pci_ids.h for single instance use */
+ #define PCI_DEVICE_ID_INTEL_CE4100_USB	0x2e70
+ 
+-#define PCI_VENDOR_ID_ASPEED		0x1a03
+-#define PCI_DEVICE_ID_ASPEED_EHCI	0x2603
+-
+ /*-------------------------------------------------------------------------*/
+ #define PCI_DEVICE_ID_INTEL_QUARK_X1000_SOC		0x0939
+ static inline bool is_intel_quark_x1000(struct pci_dev *pdev)
+@@ -225,12 +222,6 @@ static int ehci_pci_setup(struct usb_hcd *hcd)
+ 			ehci->has_synopsys_hc_bug = 1;
+ 		}
+ 		break;
+-	case PCI_VENDOR_ID_ASPEED:
+-		if (pdev->device == PCI_DEVICE_ID_ASPEED_EHCI) {
+-			ehci_info(ehci, "applying Aspeed HC workaround\n");
+-			ehci->is_aspeed = 1;
+-		}
+-		break;
+ 	}
+ 
+ 	/* optional debug port, normally in the first BAR */
+@@ -306,9 +297,6 @@ static int ehci_pci_setup(struct usb_hcd *hcd)
  	if (pdev->vendor == PCI_VENDOR_ID_STMICRO
  	    && pdev->device == PCI_DEVICE_ID_STMICRO_USB_HOST)
  		;	/* ConneXT has no sbrn register */
@@ -890,7 +913,7 @@ index e8af0a125..fa59b242c 100644
  #define XHCI_STS_HALT		(1<<0)
  
 diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
-index 1eb3b5deb..f942241c5 100644
+index 1eb3b5deb..302d0d3de 100644
 --- a/drivers/usb/host/xhci-hub.c
 +++ b/drivers/usb/host/xhci-hub.c
 @@ -171,6 +171,7 @@ static void xhci_common_hub_descriptor(struct xhci_hcd *xhci,
@@ -925,7 +948,35 @@ index 1eb3b5deb..f942241c5 100644
  		if (retval)
  			xhci_err(xhci, "Failed to disable slot %d, %d. Enter test mode anyway\n",
  				 i, retval);
-@@ -1557,12 +1555,11 @@ int xhci_hub_status_data(struct usb_hcd *hcd, char *buf)
+@@ -676,7 +674,7 @@ static int xhci_exit_test_mode(struct xhci_hcd *xhci)
+ 	}
+ 	pm_runtime_allow(xhci_to_hcd(xhci)->self.controller);
+ 	xhci->test_mode = 0;
+-	return xhci_reset(xhci, XHCI_RESET_SHORT_USEC);
++	return xhci_reset(xhci);
+ }
+ 
+ void xhci_set_link_state(struct xhci_hcd *xhci, struct xhci_port *port,
+@@ -1002,9 +1000,6 @@ static void xhci_get_usb2_port_status(struct xhci_port *port, u32 *status,
+ 		if (link_state == XDEV_U2)
+ 			*status |= USB_PORT_STAT_L1;
+ 		if (link_state == XDEV_U0) {
+-			if (bus_state->resume_done[portnum])
+-				usb_hcd_end_port_resume(&port->rhub->hcd->self,
+-							portnum);
+ 			bus_state->resume_done[portnum] = 0;
+ 			clear_bit(portnum, &bus_state->resuming_ports);
+ 			if (bus_state->suspended_ports & (1 << portnum)) {
+@@ -1348,7 +1343,7 @@ int xhci_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
+ 				}
+ 				spin_unlock_irqrestore(&xhci->lock, flags);
+ 				if (!wait_for_completion_timeout(&bus_state->u3exit_done[wIndex],
+-								 msecs_to_jiffies(500)))
++								 msecs_to_jiffies(100)))
+ 					xhci_dbg(xhci, "missing U0 port change event for port %d-%d\n",
+ 						 hcd->self.busnum, wIndex + 1);
+ 				spin_lock_irqsave(&xhci->lock, flags);
+@@ -1557,12 +1552,11 @@ int xhci_hub_status_data(struct usb_hcd *hcd, char *buf)
  	 * Inform the usbcore about resume-in-progress by returning
  	 * a non-zero value even if there are no status changes.
  	 */
@@ -939,7 +990,7 @@ index 1eb3b5deb..f942241c5 100644
  	/* For each port, did anything change?  If so, set that bit in buf. */
  	for (i = 0; i < max_ports; i++) {
  		temp = readl(ports[i]->addr);
-@@ -1718,10 +1715,6 @@ int xhci_bus_suspend(struct usb_hcd *hcd)
+@@ -1718,10 +1712,6 @@ int xhci_bus_suspend(struct usb_hcd *hcd)
  	hcd->state = HC_STATE_SUSPENDED;
  	bus_state->next_statechange = jiffies + msecs_to_jiffies(10);
  	spin_unlock_irqrestore(&xhci->lock, flags);
@@ -950,7 +1001,7 @@ index 1eb3b5deb..f942241c5 100644
  	return 0;
  }
  
-@@ -1842,6 +1835,13 @@ int xhci_bus_resume(struct usb_hcd *hcd)
+@@ -1842,6 +1832,13 @@ int xhci_bus_resume(struct usb_hcd *hcd)
  		}
  	}
  
@@ -965,7 +1016,7 @@ index 1eb3b5deb..f942241c5 100644
  	for_each_set_bit(port_index, &bus_state->bus_suspended, BITS_PER_LONG) {
  		sret = xhci_handshake(ports[port_index]->addr, PORT_PLC,
 diff --git a/drivers/usb/host/xhci-mem.c b/drivers/usb/host/xhci-mem.c
-index 024e8911d..e91b41d4e 100644
+index 024e8911d..7884d83a8 100644
 --- a/drivers/usb/host/xhci-mem.c
 +++ b/drivers/usb/host/xhci-mem.c
 @@ -694,6 +694,16 @@ struct xhci_stream_info *xhci_alloc_stream_info(struct xhci_hcd *xhci,
@@ -1030,6 +1081,15 @@ index 024e8911d..e91b41d4e 100644
  	for (i = 0; i < HCS_MAX_PORTS(xhci->hcs_params1); i++) {
  		if (xhci->hw_ports[i].rhub != rhub ||
  		    xhci->hw_ports[i].hcd_portnum == DUPLICATE_ENTRY)
+@@ -2595,7 +2596,7 @@ int xhci_mem_init(struct xhci_hcd *xhci, gfp_t flags)
+ 
+ fail:
+ 	xhci_halt(xhci);
+-	xhci_reset(xhci, XHCI_RESET_SHORT_USEC);
++	xhci_reset(xhci);
+ 	xhci_mem_cleanup(xhci);
+ 	return -ENOMEM;
+ }
 diff --git a/drivers/usb/host/xhci-mtk-sch.c b/drivers/usb/host/xhci-mtk-sch.c
 index 8950d1f10..45c54d56e 100644
 --- a/drivers/usb/host/xhci-mtk-sch.c
@@ -2008,7 +2068,7 @@ index 9888ba7d8..1bc4fe7b8 100644
  	if (attr)
  		quirks = (uintptr_t)attr->data;
 diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index fa3a7ac15..7ee224709 100644
+index fa3a7ac15..b6e9df625 100644
 --- a/drivers/usb/host/xhci-ring.c
 +++ b/drivers/usb/host/xhci-ring.c
 @@ -342,29 +342,16 @@ static void xhci_handle_stopped_cmd_ring(struct xhci_hcd *xhci,
@@ -2389,7 +2449,16 @@ index fa3a7ac15..7ee224709 100644
  	/* Look for common error cases */
  	switch (trb_comp_code) {
  	/* Skip codes that require special handling depending on
-@@ -3007,8 +3026,6 @@ static void queue_trb(struct xhci_hcd *xhci, struct xhci_ring *ring,
+@@ -2969,8 +2988,6 @@ irqreturn_t xhci_irq(struct usb_hcd *hcd)
+ 		if (event_loop++ < TRBS_PER_SEGMENT / 2)
+ 			continue;
+ 		xhci_update_erst_dequeue(xhci, event_ring_deq);
+-		event_ring_deq = xhci->event_ring->dequeue;
+-
+ 		event_loop = 0;
+ 	}
+ 
+@@ -3007,8 +3024,6 @@ static void queue_trb(struct xhci_hcd *xhci, struct xhci_ring *ring,
  	trb->field[0] = cpu_to_le32(field1);
  	trb->field[1] = cpu_to_le32(field2);
  	trb->field[2] = cpu_to_le32(field3);
@@ -2398,7 +2467,7 @@ index fa3a7ac15..7ee224709 100644
  	trb->field[3] = cpu_to_le32(field4);
  
  	trace_xhci_queue_trb(ring, trb);
-@@ -3352,16 +3369,12 @@ static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
+@@ -3352,16 +3367,12 @@ static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
  
  	/* create a max max_pkt sized bounce buffer pointed to by last trb */
  	if (usb_urb_dir_out(urb)) {
@@ -2421,7 +2490,7 @@ index fa3a7ac15..7ee224709 100644
  		seg->bounce_dma = dma_map_single(dev, seg->bounce_buf,
  						 max_pkt, DMA_TO_DEVICE);
  	} else {
-@@ -3537,6 +3550,15 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
+@@ -3537,6 +3548,15 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
  	}
  
  	check_trb_math(urb, enqd_len);
