@@ -1,30 +1,3 @@
-diff --git a/Documentation/devicetree/bindings/usb/ehci-xilinx.txt b/Documentation/devicetree/bindings/usb/ehci-xilinx.txt
-new file mode 100644
-index 000000000..4df7ad6e3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/ehci-xilinx.txt
-@@ -0,0 +1,21 @@
-+Xilinx USB EHCI controller
-+
-+Required properties:
-+- compatible: must be "xlnx,xps-usb-host-1.00.a"
-+- reg: physical base address of the controller and length of memory mapped
-+  region.
-+- interrupts: The EHCI interrupt
-+
-+Optional properties:
-+- xlnx,ext-vbus-valid: Use external VBUS
-+- xlnx,support-usb-fs: Support for Full Speed USB
-+- xlnx,use-phy-bus-pwr: Use phy bus power in USB
-+
-+Example:
-+
-+	xps_usb_host_0: usb@82400000 {
-+		compatible = "xlnx,xps-usb-host-1.00.a";
-+		interrupt-parent = <&xps_intc_0>;
-+		interrupts = < 0 2 >;
-+		reg = < 0x82400000 0x200 >;
-+	} ;
 diff --git a/drivers/usb/dwc3/Kconfig b/drivers/usb/dwc3/Kconfig
 index 7a2304565..ae67286f7 100644
 --- a/drivers/usb/dwc3/Kconfig
@@ -1201,7 +1174,7 @@ index 3ebe3e6c2..5e5518953 100644
  }
  
 diff --git a/drivers/usb/dwc3/drd.c b/drivers/usb/dwc3/drd.c
-index 0a96f44cc..cbb8a8f04 100644
+index 0a96f44cc..08179860f 100644
 --- a/drivers/usb/dwc3/drd.c
 +++ b/drivers/usb/dwc3/drd.c
 @@ -443,7 +443,7 @@ static struct extcon_dev *dwc3_get_extcon(struct dwc3 *dwc)
@@ -1213,6 +1186,28 @@ index 0a96f44cc..cbb8a8f04 100644
  
  	if (device_property_read_bool(dev, "extcon"))
  		return extcon_get_edev_by_phandle(dev, 0);
+@@ -568,15 +568,16 @@ int dwc3_drd_init(struct dwc3 *dwc)
+ {
+ 	int ret, irq;
+ 
+-	if (ROLE_SWITCH &&
+-	    device_property_read_bool(dwc->dev, "usb-role-switch"))
+-		return dwc3_setup_role_switch(dwc);
+-
+ 	dwc->edev = dwc3_get_extcon(dwc);
+ 	if (IS_ERR(dwc->edev))
+ 		return PTR_ERR(dwc->edev);
+ 
+-	if (dwc->edev) {
++	if (ROLE_SWITCH &&
++	    device_property_read_bool(dwc->dev, "usb-role-switch")) {
++		ret = dwc3_setup_role_switch(dwc);
++		if (ret < 0)
++			return ret;
++	} else if (dwc->edev) {
+ 		dwc->edev_nb.notifier_call = dwc3_drd_notifier;
+ 		ret = extcon_register_notifier(dwc->edev, EXTCON_USB_HOST,
+ 					       &dwc->edev_nb);
 diff --git a/drivers/usb/dwc3/dwc3-meson-g12a.c b/drivers/usb/dwc3/dwc3-meson-g12a.c
 index d0f9b7c29..417e05381 100644
 --- a/drivers/usb/dwc3/dwc3-meson-g12a.c
@@ -1294,9 +1289,18 @@ index e62ecd22b..71fd620c5 100644
  	{ .compatible = "sprd,sc9860-dwc3" },
  	{ .compatible = "allwinner,sun50i-h6-dwc3" },
 diff --git a/drivers/usb/dwc3/dwc3-omap.c b/drivers/usb/dwc3/dwc3-omap.c
-index efaf0db59..c924ef53e 100644
+index efaf0db59..3db17806e 100644
 --- a/drivers/usb/dwc3/dwc3-omap.c
 +++ b/drivers/usb/dwc3/dwc3-omap.c
+@@ -242,7 +242,7 @@ static void dwc3_omap_set_mailbox(struct dwc3_omap *omap,
+ 		break;
+ 
+ 	case OMAP_DWC3_ID_FLOAT:
+-		if (omap->vbus_reg && regulator_is_enabled(omap->vbus_reg))
++		if (omap->vbus_reg)
+ 			regulator_disable(omap->vbus_reg);
+ 		val = dwc3_omap_read_utmi_ctrl(omap);
+ 		val |= USBOTGSS_UTMI_OTG_CTRL_IDDIG;
 @@ -437,13 +437,8 @@ static int dwc3_omap_extcon_register(struct dwc3_omap *omap)
  
  		if (extcon_get_state(edev, EXTCON_USB) == true)
