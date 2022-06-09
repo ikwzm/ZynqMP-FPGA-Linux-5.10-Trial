@@ -142,6 +142,7 @@ git commit -m "[update] drivers/net/ethernet/cadence"
 
 echo patch  $PATCH_DIR/032_drivers-net-ethernet-xilinx.patch
 patch -p1 < $PATCH_DIR/032_drivers-net-ethernet-xilinx.patch
+
 git add --all
 git commit -m "[update] drivers/net/ethernet/xilinx"
 
