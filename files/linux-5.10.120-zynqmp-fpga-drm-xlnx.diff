@@ -1,0 +1,86 @@
+diff --git a/drivers/gpu/drm/xlnx/Kconfig b/drivers/gpu/drm/xlnx/Kconfig
+index 2daeba487..62e1d3c85 100644
+--- a/drivers/gpu/drm/xlnx/Kconfig
++++ b/drivers/gpu/drm/xlnx/Kconfig
+@@ -24,6 +24,21 @@ config DRM_XLNX
+ 	  provides the kernel mode setting functionalities
+ 	  for Xilinx display drivers.
+ 
++config DRM_XLNX_GEM_ALIGNMENT_DEFAULT_SIZE
++	int "Xilinx DRM GEM Alignment Default Size"
++	range 0 4096
++	default 0
++	depends on DRM_XLNX
++	help
++	  This specifies the default value for GEM alignment size of
++	  the Xilinx DRM Driver. The GEM alignment size can also be set
++	  in the module parameter. If not set by module parameter, this
++	  value will be set to GEM alignment size.
++	  If 0 is specified for the GEM alignment size, Xilinx DRM forces
++	  the alignment size to 256, which is the ZYNQMP_DPDMA alignment size.
++	  When used with the Lima DRM driver, the GEM alignment size must
++	  be set to 8.
++
+ config DRM_XLNX_BRIDGE
+ 	tristate "Xilinx DRM KMS bridge"
+ 	depends on DRM_XLNX
+@@ -122,3 +137,4 @@ config DRM_XLNX_BRIDGE_VTC
+ 	  Currently the support is added to the Xilinx Video Mixer and
+ 	  Xilinx PL display CRTC drivers. This driver provides ability
+ 	  to generate timings through the bridge layer.
++
+diff --git a/drivers/gpu/drm/xlnx/xlnx_gem.c b/drivers/gpu/drm/xlnx/xlnx_gem.c
+index 23fd1f743..1b1be7106 100644
+--- a/drivers/gpu/drm/xlnx/xlnx_gem.c
++++ b/drivers/gpu/drm/xlnx/xlnx_gem.c
+@@ -22,6 +22,28 @@
+ #include "xlnx_drv.h"
+ #include "xlnx_gem.h"
+ 
++#include <linux/moduleparam.h>
++/*
++ * gem_alignment_size module parameter
++ */
++#ifdef CONFIG_DRM_XLNX_GEM_ALIGNMENT_DEFAULT_SIZE
++static uint       gem_alignment_size = CONFIG_DRM_XLNX_GEM_ALIGNMENT_DEFAULT_SIZE;
++#else
++static uint       gem_alignment_size = 0;
++#endif
++module_param(     gem_alignment_size , uint, S_IRUGO);
++MODULE_PARM_DESC( gem_alignment_size , "xlnx gem alignment size");
++
++/*
++ * Argment for dumb scanout buffer creation
++ */
++#define XLNX_BO_SCANOUT_BIT          (0)
++#define XLNX_BO_SCANOUT_MASK         (1 << XLNX_BO_SCANOUT_BIT)
++#define XLNX_BO_SCANOUT              (1 << XLNX_BO_SCANOUT_BIT)
++#define XLNX_BO_NON_SCANOUT          (0 << XLNX_BO_SCANOUT_BIT)
++#define IS_XLNX_BO_SCANOUT(args)     (((args) & XLNX_BO_SCANOUT_MASK) == XLNX_BO_SCANOUT    )
++#define IS_XLNX_BO_NON_SCANOUT(args) (((args) & XLNX_BO_SCANOUT_MASK) == XLNX_BO_NON_SCANOUT)
++
+ /*
+  * xlnx_gem_cma_dumb_create - (struct drm_driver)->dumb_create callback
+  * @file_priv: drm_file object
+@@ -37,11 +59,18 @@
+ int xlnx_gem_cma_dumb_create(struct drm_file *file_priv, struct drm_device *drm,
+ 			     struct drm_mode_create_dumb *args)
+ {
+-	int pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
+-	unsigned int align = xlnx_get_align(drm);
++	unsigned int align;
+ 
++	if ((gem_alignment_size == 0) || (IS_XLNX_BO_SCANOUT(args->flags)))
++		align = xlnx_get_align(drm);
++	else
++		align = gem_alignment_size;
++            
+ 	if (!args->pitch || !IS_ALIGNED(args->pitch, align))
+-		args->pitch = ALIGN(pitch, align);
++		args->pitch = ALIGN(DIV_ROUND_UP(args->width * args->bpp, 8), align);
+ 
++	DRM_DEBUG("width=%d, height=%d, bpp=%d, pitch=%d, align=%d\n",
++                  args->width, args->height, args->bpp, args->pitch, align);
++                  
+ 	return drm_gem_cma_dumb_create_internal(file_priv, drm, args);
+ }
