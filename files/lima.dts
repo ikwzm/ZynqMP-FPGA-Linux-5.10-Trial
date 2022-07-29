@@ -1,0 +1,21 @@
+/dts-v1/; /plugin/;
+/ {
+	fragment@0 {
+		target-path = "/axi";
+		__overlay__ {
+			#address-cells = <2>;
+			#size-cells = <2>;
+			lima: lima@fd4b0000 {
+				status = "ok";
+				compatible = "arm,lima-400";
+				reg = <0x0 0xfd4b0000 0x0 0x10000>;
+				interrupt-parent = <&gic>;
+				interrupts = <0 132 4>, <0 132 4>, <0 132 4>, <0 132 4>, <0 132 4>, <0 132 4>;
+				interrupt-names = "gp", "gpmmu", "pp0", "ppmmu0", "pp1", "ppmmu1";
+				clocks = <&zynqmp_clk 25>, <&zynqmp_clk 26>, <&zynqmp_clk 24>;
+				clock-names = "gpu_pp0", "gpu_pp1", "gpu";
+				power-domains = <&zynqmp_firmware 58>;
+			};
+		};
+	};
+};
