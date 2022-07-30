@@ -16,15 +16,15 @@ index fa1d4f5df..76e80014b 100644
 +
 +
 diff --git a/drivers/gpu/drm/lima/lima_drv.c b/drivers/gpu/drm/lima/lima_drv.c
-index ab460121f..f90467074 100644
+index ab460121f..43cc1c0f1 100644
 --- a/drivers/gpu/drm/lima/lima_drv.c
 +++ b/drivers/gpu/drm/lima/lima_drv.c
 @@ -460,9 +460,15 @@ static int lima_pdev_remove(struct platform_device *pdev)
  	return 0;
  }
  
-+#ifdef DRM_LIMA_OF_ID_PREFIX
-+#define OF_ID_PREFIX DRM_LIMA_OF_ID_PREFIX
++#ifdef CONFIG_DRM_LIMA_OF_ID_PREFIX
++#define OF_ID_PREFIX CONFIG_DRM_LIMA_OF_ID_PREFIX
 +#else
 +#define OF_ID_PREFIX "arm,mali-"
 +#endif
