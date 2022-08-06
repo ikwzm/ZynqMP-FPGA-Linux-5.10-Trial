@@ -3,7 +3,7 @@
 CURRENT_DIR=`pwd`
 KERNEL_VERSION=5.10.120
 LOCAL_VERSION=zynqmp-fpga-trial
-BUILD_VERSION=5
+BUILD_VERSION=8
 KERNEL_RELEASE=$KERNEL_VERSION-$LOCAL_VERSION
 LINUX_BUILD_DIR=linux-$KERNEL_RELEASE
 
@@ -98,7 +98,7 @@ git commit -m "[change] clk of lima_device to use clk_bulk."
 
 patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-drm-xlnx.diff
 git add --update
-git commit -m "[add] GEM Alignment Size to Xilinx DRM KMS Driver for Lima support."
+git commit -m "[add] Dumb Buffer Alignment Size to Xilinx DRM KMS Driver for Lima support."
 
 ### Add zynqmp_fpga_trial_defconfig
 
