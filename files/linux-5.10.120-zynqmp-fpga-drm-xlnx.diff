@@ -1,25 +1,25 @@
 diff --git a/drivers/gpu/drm/xlnx/Kconfig b/drivers/gpu/drm/xlnx/Kconfig
-index 2daeba487..62e1d3c85 100644
+index 2daeba487..452a5133c 100644
 --- a/drivers/gpu/drm/xlnx/Kconfig
 +++ b/drivers/gpu/drm/xlnx/Kconfig
 @@ -24,6 +24,21 @@ config DRM_XLNX
  	  provides the kernel mode setting functionalities
  	  for Xilinx display drivers.
  
-+config DRM_XLNX_GEM_ALIGNMENT_DEFAULT_SIZE
-+	int "Xilinx DRM GEM Alignment Default Size"
++config DRM_XLNX_DUMB_ALIGNMENT_DEFAULT_SIZE
++	int "Xilinx DRM Dumb Buffer Alignment Default Size"
 +	range 0 4096
 +	default 0
 +	depends on DRM_XLNX
 +	help
-+	  This specifies the default value for GEM alignment size of
-+	  the Xilinx DRM Driver. The GEM alignment size can also be set
-+	  in the module parameter. If not set by module parameter, this
-+	  value will be set to GEM alignment size.
-+	  If 0 is specified for the GEM alignment size, Xilinx DRM forces
-+	  the alignment size to 256, which is the ZYNQMP_DPDMA alignment size.
-+	  When used with the Lima DRM driver, the GEM alignment size must
-+	  be set to 8.
++	  This specifies the default value for dumb buffer alignment size 
++	  of the Xilinx DRM Driver. The dumb buffer alignment size can 
++	  also be set in the module parameter. If not set by module 
++	  parameter, this value will be set to dumb buffer alignment size.
++	  If 0 is specified for the dumb buffer alignment size, Xilinx 
++	  DRM forces the alignment size to 256, which is the ZYNQMP_DPDMA 
++	  alignment size. When used with the Lima DRM driver, the dumb 
++	  buffer alignment size must be set to 8.
 +
  config DRM_XLNX_BRIDGE
  	tristate "Xilinx DRM KMS bridge"
@@ -30,7 +30,7 @@ index 2daeba487..62e1d3c85 100644
  	  to generate timings through the bridge layer.
 +
 diff --git a/drivers/gpu/drm/xlnx/xlnx_drv.c b/drivers/gpu/drm/xlnx/xlnx_drv.c
-index c6e5be3ac..141a221db 100644
+index c6e5be3ac..56f2d2037 100644
 --- a/drivers/gpu/drm/xlnx/xlnx_drv.c
 +++ b/drivers/gpu/drm/xlnx/xlnx_drv.c
 @@ -26,6 +26,7 @@
@@ -57,13 +57,13 @@ index c6e5be3ac..141a221db 100644
  MODULE_PARM_DESC(fbdev_vres,
  		 "fbdev virtual resolution multiplier for fb (default: 2)");
  
-+#ifdef CONFIG_DRM_XLNX_GEM_ALIGNMENT_DEFAULT_SIZE
-+static uint       xlnx_gem_alignment_size = CONFIG_DRM_XLNX_GEM_ALIGNMENT_DEFAULT_SIZE;
++#ifdef CONFIG_DRM_XLNX_DUMB_ALIGNMENT_DEFAULT_SIZE
++static uint       xlnx_dumb_alignment_size = CONFIG_DRM_XLNX_DUMB_ALIGNMENT_DEFAULT_SIZE;
 +#else
-+static uint       xlnx_gem_alignment_size = 0;
++static uint       xlnx_dumb_alignment_size = 0;
 +#endif
-+module_param_named(gem_alignment_size, xlnx_gem_alignment_size, uint, S_IRUGO);
-+MODULE_PARM_DESC(  gem_alignment_size, "xlnx gem alignment size");
++module_param_named(dumb_alignment_size, xlnx_dumb_alignment_size, uint, S_IRUGO);
++MODULE_PARM_DESC(  dumb_alignment_size, "xlnx dumb buffer alignment size");
 +
  /**
   * struct xlnx_drm - Xilinx DRM private data
@@ -72,7 +72,7 @@ index c6e5be3ac..141a221db 100644
   * @master: logical master device for pipeline
   * @suspend_state: atomic state for suspend / resume
   * @master_count: Counter to track number of fake master instances
-+ * @gpu_buf_alignment_size: GPU buffer alignment size
++ * @dumb_alignment_size: Dumb buffer alignment size
   */
  struct xlnx_drm {
  	struct drm_device *drm;
@@ -80,7 +80,7 @@ index c6e5be3ac..141a221db 100644
  	struct platform_device *master;
  	struct drm_atomic_state *suspend_state;
  	u32 master_count;
-+	int gpu_buf_alignment_size;
++	int dumb_alignment_size;
 +};
 +
 +static int xlnx_ioctl_get_param(struct drm_device *drm, void *data, struct drm_file *file)
@@ -98,8 +98,8 @@ index c6e5be3ac..141a221db 100644
 +	case DRM_XLNX_PARAM_SCANOUT_ALIGNMENT_SIZE:
 +		args->value = (__u64)xlnx_crtc_helper_get_align(xlnx_drm->crtc);
 +		break;
-+	case DRM_XLNX_PARAM_GPU_BUF_ALIGNMENT_SIZE:
-+		args->value = (__u64)xlnx_drm->gpu_buf_alignment_size;
++	case DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE:
++		args->value = (__u64)xlnx_drm->dumb_alignment_size;
 +		break;
 +	default:
 +		return -EINVAL;
@@ -117,8 +117,8 @@ index c6e5be3ac..141a221db 100644
 +		return -EINVAL;
 +
 +	switch (args->param) {
-+	case DRM_XLNX_PARAM_GPU_BUF_ALIGNMENT_SIZE:
-+		xlnx_drm->gpu_buf_alignment_size = (int)args->value;
++	case DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE:
++		xlnx_drm->dumb_alignment_size = (int)args->value;
 +		break;
 +	default:
 +		return -EINVAL;
@@ -147,10 +147,10 @@ index c6e5be3ac..141a221db 100644
  	struct xlnx_drm *xlnx_drm = drm->dev_private;
  
 -	return xlnx_crtc_helper_get_align(xlnx_drm->crtc);
-+	if (scanout || xlnx_drm->gpu_buf_alignment_size == 0)
++	if (scanout || xlnx_drm->dumb_alignment_size == 0)
 +		return xlnx_crtc_helper_get_align(xlnx_drm->crtc);
 +	else
-+		return xlnx_drm->gpu_buf_alignment_size;
++		return xlnx_drm->dumb_alignment_size;
  }
  
  /**
@@ -167,7 +167,7 @@ index c6e5be3ac..141a221db 100644
  	drm->dev_private = xlnx_drm;
  	xlnx_drm->drm = drm;
  	xlnx_drm->master = master;
-+	xlnx_drm->gpu_buf_alignment_size = xlnx_gem_alignment_size;
++	xlnx_drm->dumb_alignment_size = xlnx_dumb_alignment_size;
  	drm_kms_helper_poll_init(drm);
  	platform_set_drvdata(master, xlnx_drm);
  
@@ -225,7 +225,7 @@ index 23fd1f743..f080cedc2 100644
  }
 diff --git a/include/uapi/drm/xlnx_drm.h b/include/uapi/drm/xlnx_drm.h
 new file mode 100644
-index 000000000..913a2af96
+index 000000000..b9186c9a4
 --- /dev/null
 +++ b/include/uapi/drm/xlnx_drm.h
 @@ -0,0 +1,76 @@
@@ -257,7 +257,7 @@ index 000000000..913a2af96
 +enum drm_xlnx_param {
 +	DRM_XLNX_PARAM_DRIVER_IDENTIFIER      = 0,
 +	DRM_XLNX_PARAM_SCANOUT_ALIGNMENT_SIZE = 1,
-+	DRM_XLNX_PARAM_GPU_BUF_ALIGNMENT_SIZE = 2,
++	DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE    = 2,
 +};
 +
 +/**

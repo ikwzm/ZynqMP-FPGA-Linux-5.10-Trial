@@ -9873,9 +9873,9 @@ CONFIG_DRM_ZYNQMP_DPSUB=y
 CONFIG_DRM_XLNX=y
 
 ####
-#### Xilinx DRM GEM Alignment Default Size
+#### Xilinx DRM Dumb Buffer Alignment Default Size
 ####
-CONFIG_DRM_XLNX_GEM_ALIGNMENT_DEFAULT_SIZE=8
+CONFIG_DRM_XLNX_DUMB_ALIGNMENT_DEFAULT_SIZE=8
 
 ####
 #### Xilinx DRM KMS bridge
