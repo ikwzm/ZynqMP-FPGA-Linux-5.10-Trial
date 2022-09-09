@@ -3,7 +3,7 @@
 CURRENT_DIR=`pwd`
 KERNEL_VERSION=5.10.120
 LOCAL_VERSION=zynqmp-fpga-trial
-BUILD_VERSION=9
+BUILD_VERSION=10
 KERNEL_RELEASE=$KERNEL_VERSION-$LOCAL_VERSION
 LINUX_BUILD_DIR=linux-$KERNEL_RELEASE
 
@@ -90,7 +90,8 @@ git commit -m "[add] Xilinx APF driver."
 
 patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-lima-drv.diff
 git add --update
-git commit -m "[add] CONFIG_DRM_LIMA_OF_ID_PREFIX to drivers/gpu/drm/lima/Kconfig and lima_drv.c"
+git commit -m "[add] CONFIG_DRM_LIMA_OF_ID_PREFIX to drivers/gpu/drm/lima/Kconfig and lima_drv.c" \
+           -m "[add] CONFIG_DRM_LIMA_OF_ID_PARAMETERIZE to drivers/gpu/drm/lima/Kconfig and lima_drv.c"
 
 patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-lima-clk.diff
 git add --update
