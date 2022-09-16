@@ -3,7 +3,7 @@
 CURRENT_DIR=`pwd`
 KERNEL_VERSION=5.10.120
 LOCAL_VERSION=zynqmp-fpga-trial
-BUILD_VERSION=10
+BUILD_VERSION=12
 KERNEL_RELEASE=$KERNEL_VERSION-$LOCAL_VERSION
 LINUX_BUILD_DIR=linux-$KERNEL_RELEASE
 
@@ -102,8 +102,12 @@ git add --update
 git commit -m "[change] lima_device to be able to specify multiple IRQ names."
 
 patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-drm-xlnx.diff
-git add --update
+git add --all
 git commit -m "[add] Dumb Buffer Alignment Size to Xilinx DRM KMS Driver for Lima support."
+
+patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-drm-xlnx-gem.diff
+git add --all
+git commit -m "[update] Xilinx DRM KMS Driver to enable data cache for Lima support."
 
 ### Add zynqmp_fpga_trial_defconfig
 
