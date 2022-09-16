@@ -25,7 +25,7 @@ index 452a5133c..1a170ee33 100644
  	tristate "Xilinx DRM KMS bridge"
  	depends on DRM_XLNX
 diff --git a/drivers/gpu/drm/xlnx/xlnx_drv.c b/drivers/gpu/drm/xlnx/xlnx_drv.c
-index 56f2d2037..54652197b 100644
+index a2a62ada5..fe648f863 100644
 --- a/drivers/gpu/drm/xlnx/xlnx_drv.c
 +++ b/drivers/gpu/drm/xlnx/xlnx_drv.c
 @@ -23,9 +23,11 @@
@@ -41,24 +41,33 @@ index 56f2d2037..54652197b 100644
  #include <drm/xlnx_drm.h>
  
  #include <linux/component.h>
+@@ -44,7 +46,7 @@
+ 
+ #define DRIVER_NAME	"xlnx"
+ #define DRIVER_DESC	"Xilinx DRM KMS Driver"
+-#define DRIVER_DATE	"20200801"
++#define DRIVER_DATE	"20200917"
+ #define DRIVER_MAJOR	1
+ #define DRIVER_MINOR	1
+ 
 @@ -63,6 +65,14 @@ static uint       xlnx_dumb_alignment_size = 0;
- module_param_named(dumb_alignment_size, xlnx_dumb_alignment_size, uint, S_IRUGO);
+ module_param_named(dumb_alignment_size, xlnx_dumb_alignment_size, uint, S_IRUGO|S_IWUSR);
  MODULE_PARM_DESC(  dumb_alignment_size, "xlnx dumb buffer alignment size");
  
 +#ifdef CONFIG_DRM_XLNX_DUMB_CACHE_DEFAULT_MODE
-+       uint       xlnx_dumb_cache_default_mode = CONFIG_DRM_XLNX_DUMB_CACHE_DEFAULT_MODE;
++static uint       xlnx_dumb_cache_default_mode = CONFIG_DRM_XLNX_DUMB_CACHE_DEFAULT_MODE;
 +#else
-+       uint       xlnx_dumb_cache_default_mode = 0;
++static uint       xlnx_dumb_cache_default_mode = 0;
 +#endif
-+module_param_named(dumb_cache_default_mode, xlnx_dumb_cache_default_mode, uint, S_IRUGO);
++module_param_named(dumb_cache_default_mode, xlnx_dumb_cache_default_mode, uint, S_IRUGO|S_IWUSR);
 +MODULE_PARM_DESC(  dumb_cache_default_mode, "xlnx dumb buffer cache default mode on=1/off=0");
 +
  /**
   * struct xlnx_drm - Xilinx DRM private data
   * @drm: DRM core
-@@ -101,6 +111,12 @@ static int xlnx_ioctl_get_param(struct drm_device *drm, void *data, struct drm_f
+@@ -99,6 +109,12 @@ static int xlnx_ioctl_get_param(struct drm_device *drm, void *data, struct drm_f
  	case DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE:
- 		args->value = (__u64)xlnx_drm->dumb_alignment_size;
+ 		args->value = (__u64)xlnx_dumb_alignment_size;
  		break;
 +	case DRM_XLNX_PARAM_DUMB_CACHE_AVALABLE:
 +		args->value = 1;
@@ -69,9 +78,9 @@ index 56f2d2037..54652197b 100644
  	default:
  		return -EINVAL;
  	}
-@@ -120,6 +136,9 @@ static int xlnx_ioctl_set_param(struct drm_device *drm, void *data, struct drm_f
+@@ -117,6 +133,9 @@ static int xlnx_ioctl_set_param(struct drm_device *drm, void *data, struct drm_f
  	case DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE:
- 		xlnx_drm->dumb_alignment_size = (int)args->value;
+ 		xlnx_dumb_alignment_size = (uint)args->value;
  		break;
 +        case DRM_XLNX_PARAM_DUMB_CACHE_DEFAULT_MODE:
 +		xlnx_dumb_cache_default_mode = (uint)args->value;
@@ -79,7 +88,26 @@ index 56f2d2037..54652197b 100644
  	default:
  		return -EINVAL;
  	}
-@@ -247,7 +266,7 @@ static const struct file_operations xlnx_fops = {
+@@ -159,6 +178,18 @@ unsigned int xlnx_get_align(struct drm_device *drm, bool scanout)
+ 		return xlnx_dumb_alignment_size;
+ }
+ 
++/**
++ * xlnx_get_dumb_cache_default_mode - Return the xlnx_dumb_cache_default_mode
++ * @drm: DRM device
++ * @scanout: SCANOUT 
++ *
++ * Return: the alignment requirement
++ */
++unsigned int xlnx_get_dumb_cache_default_mode(struct drm_device *drm)
++{
++	return xlnx_dumb_cache_default_mode;
++}
++
+ /**
+  * xlnx_get_format - Return the current format of CRTC
+  * @drm: DRM device
+@@ -244,7 +275,7 @@ static const struct file_operations xlnx_fops = {
  	.open		= drm_open,
  	.release	= xlnx_drm_release,
  	.unlocked_ioctl	= drm_ioctl,
@@ -88,7 +116,7 @@ index 56f2d2037..54652197b 100644
  	.poll		= drm_poll,
  	.read		= drm_read,
  #ifdef CONFIG_COMPAT
-@@ -256,6 +275,8 @@ static const struct file_operations xlnx_fops = {
+@@ -253,6 +284,8 @@ static const struct file_operations xlnx_fops = {
  	.llseek		= noop_llseek,
  };
  
@@ -97,7 +125,7 @@ index 56f2d2037..54652197b 100644
  static struct drm_driver xlnx_drm_driver = {
  	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
  					  DRIVER_ATOMIC,
-@@ -266,14 +287,14 @@ static struct drm_driver xlnx_drm_driver = {
+@@ -263,14 +296,14 @@ static struct drm_driver xlnx_drm_driver = {
  	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
  	.gem_prime_export		= drm_gem_prime_export,
  	.gem_prime_import		= drm_gem_prime_import,
@@ -120,8 +148,20 @@ index 56f2d2037..54652197b 100644
  	.dumb_destroy			= drm_gem_dumb_destroy,
  	.ioctls	                        = xlnx_drm_driver_ioctls,
  	.num_ioctls                     = ARRAY_SIZE(xlnx_drm_driver_ioctls),
+diff --git a/drivers/gpu/drm/xlnx/xlnx_drv.h b/drivers/gpu/drm/xlnx/xlnx_drv.h
+index a262d192e..265aeff0c 100644
+--- a/drivers/gpu/drm/xlnx/xlnx_drv.h
++++ b/drivers/gpu/drm/xlnx/xlnx_drv.h
+@@ -27,6 +27,7 @@ void xlnx_drm_pipeline_exit(struct platform_device *pipeline);
+ 
+ uint32_t xlnx_get_format(struct drm_device *drm);
+ unsigned int xlnx_get_align(struct drm_device *drm, bool scanout);
++unsigned int xlnx_get_dumb_cache_default_mode(struct drm_device *drm);
+ struct xlnx_crtc_helper *xlnx_get_crtc_helper(struct drm_device *drm);
+ struct xlnx_bridge_helper *xlnx_get_bridge_helper(struct drm_device *drm);
+ 
 diff --git a/drivers/gpu/drm/xlnx/xlnx_gem.c b/drivers/gpu/drm/xlnx/xlnx_gem.c
-index f080cedc2..939086bd4 100644
+index f080cedc2..85d8a434b 100644
 --- a/drivers/gpu/drm/xlnx/xlnx_gem.c
 +++ b/drivers/gpu/drm/xlnx/xlnx_gem.c
 @@ -1,6 +1,6 @@
@@ -132,7 +172,7 @@ index f080cedc2..939086bd4 100644
   *
   *  Copyright (C) 2015 - 2018 Xilinx, Inc.
   *
-@@ -16,15 +16,498 @@
+@@ -16,15 +16,496 @@
   * GNU General Public License for more details.
   */
  
@@ -624,8 +664,6 @@ index f080cedc2..939086bd4 100644
 +	return ERR_PTR(ret);
 +}
 +
-+extern uint xlnx_dumb_cache_default_mode;
-+
 +struct drm_mode_create_dumb;
  /*
 - * xlnx_gem_cma_dumb_create - (struct drm_driver)->dumb_create callback
@@ -633,7 +671,7 @@ index f080cedc2..939086bd4 100644
   * @file_priv: drm_file object
   * @drm: DRM object
   * @args: info for dumb buffer creation
-@@ -35,17 +518,43 @@
+@@ -35,17 +516,43 @@
   *
   * Return: The return value from drm_gem_cma_dumb_create()
   */
@@ -669,7 +707,7 @@ index f080cedc2..939086bd4 100644
 +            cache = true;
 +            break;
 +        case DRM_XLNX_GEM_DUMB_CACHE_DEFAULT:
-+            cache = (xlnx_dumb_cache_default_mode != 0);
++            cache = (xlnx_get_dumb_cache_default_mode(drm) != 0);
 +            break;
 +        default:
 +            cache = false;

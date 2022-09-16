@@ -30,7 +30,7 @@ index 2daeba487..452a5133c 100644
  	  to generate timings through the bridge layer.
 +
 diff --git a/drivers/gpu/drm/xlnx/xlnx_drv.c b/drivers/gpu/drm/xlnx/xlnx_drv.c
-index c6e5be3ac..eb5ef1c38 100644
+index c6e5be3ac..a2a62ada5 100644
 --- a/drivers/gpu/drm/xlnx/xlnx_drv.c
 +++ b/drivers/gpu/drm/xlnx/xlnx_drv.c
 @@ -26,6 +26,7 @@
@@ -68,7 +68,7 @@ index c6e5be3ac..eb5ef1c38 100644
  /**
   * struct xlnx_drm - Xilinx DRM private data
   * @drm: DRM core
-@@ -72,6 +81,55 @@ struct xlnx_drm {
+@@ -72,6 +81,54 @@ struct xlnx_drm {
  	u32 master_count;
  };
  
@@ -99,7 +99,6 @@ index c6e5be3ac..eb5ef1c38 100644
 +		
 +static int xlnx_ioctl_set_param(struct drm_device *drm, void *data, struct drm_file *file)
 +{
-+	struct xlnx_drm *xlnx_drm = drm->dev_private;
 +	struct drm_xlnx_set_param *args = data;
 +
 +	if (args->pad)
@@ -124,7 +123,7 @@ index c6e5be3ac..eb5ef1c38 100644
  /**
   * xlnx_get_crtc_helper - Return the crtc helper instance
   * @drm: DRM device
-@@ -88,14 +146,18 @@ struct xlnx_crtc_helper *xlnx_get_crtc_helper(struct drm_device *drm)
+@@ -88,14 +145,18 @@ struct xlnx_crtc_helper *xlnx_get_crtc_helper(struct drm_device *drm)
  /**
   * xlnx_get_align - Return the align requirement through CRTC helper
   * @drm: DRM device
@@ -145,7 +144,7 @@ index c6e5be3ac..eb5ef1c38 100644
  }
  
  /**
-@@ -211,6 +273,8 @@ static struct drm_driver xlnx_drm_driver = {
+@@ -211,6 +272,8 @@ static struct drm_driver xlnx_drm_driver = {
  	.gem_free_object_unlocked	= drm_gem_cma_free_object,
  	.dumb_create			= xlnx_gem_cma_dumb_create,
  	.dumb_destroy			= drm_gem_dumb_destroy,
