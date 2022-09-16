@@ -30,7 +30,7 @@ index 2daeba487..452a5133c 100644
  	  to generate timings through the bridge layer.
 +
 diff --git a/drivers/gpu/drm/xlnx/xlnx_drv.c b/drivers/gpu/drm/xlnx/xlnx_drv.c
-index c6e5be3ac..56f2d2037 100644
+index c6e5be3ac..eb5ef1c38 100644
 --- a/drivers/gpu/drm/xlnx/xlnx_drv.c
 +++ b/drivers/gpu/drm/xlnx/xlnx_drv.c
 @@ -26,6 +26,7 @@
@@ -62,27 +62,16 @@ index c6e5be3ac..56f2d2037 100644
 +#else
 +static uint       xlnx_dumb_alignment_size = 0;
 +#endif
-+module_param_named(dumb_alignment_size, xlnx_dumb_alignment_size, uint, S_IRUGO);
++module_param_named(dumb_alignment_size, xlnx_dumb_alignment_size, uint, S_IRUGO|S_IWUSR);
 +MODULE_PARM_DESC(  dumb_alignment_size, "xlnx dumb buffer alignment size");
 +
  /**
   * struct xlnx_drm - Xilinx DRM private data
   * @drm: DRM core
-@@ -62,6 +71,7 @@ MODULE_PARM_DESC(fbdev_vres,
-  * @master: logical master device for pipeline
-  * @suspend_state: atomic state for suspend / resume
-  * @master_count: Counter to track number of fake master instances
-+ * @dumb_alignment_size: Dumb buffer alignment size
-  */
- struct xlnx_drm {
- 	struct drm_device *drm;
-@@ -70,6 +80,56 @@ struct xlnx_drm {
- 	struct platform_device *master;
- 	struct drm_atomic_state *suspend_state;
+@@ -72,6 +81,55 @@ struct xlnx_drm {
  	u32 master_count;
-+	int dumb_alignment_size;
-+};
-+
+ };
+ 
 +static int xlnx_ioctl_get_param(struct drm_device *drm, void *data, struct drm_file *file)
 +{
 +	struct xlnx_drm *xlnx_drm = drm->dev_private;
@@ -99,7 +88,7 @@ index c6e5be3ac..56f2d2037 100644
 +		args->value = (__u64)xlnx_crtc_helper_get_align(xlnx_drm->crtc);
 +		break;
 +	case DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE:
-+		args->value = (__u64)xlnx_drm->dumb_alignment_size;
++		args->value = (__u64)xlnx_dumb_alignment_size;
 +		break;
 +	default:
 +		return -EINVAL;
@@ -118,7 +107,7 @@ index c6e5be3ac..56f2d2037 100644
 +
 +	switch (args->param) {
 +	case DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE:
-+		xlnx_drm->dumb_alignment_size = (int)args->value;
++		xlnx_dumb_alignment_size = (uint)args->value;
 +		break;
 +	default:
 +		return -EINVAL;
@@ -130,10 +119,12 @@ index c6e5be3ac..56f2d2037 100644
 +static const struct drm_ioctl_desc xlnx_drm_driver_ioctls[] = {
 +	DRM_IOCTL_DEF_DRV(XLNX_GET_PARAM, xlnx_ioctl_get_param, DRM_RENDER_ALLOW),
 +	DRM_IOCTL_DEF_DRV(XLNX_SET_PARAM, xlnx_ioctl_set_param, DRM_RENDER_ALLOW),
- };
- 
++};
++
  /**
-@@ -88,14 +148,18 @@ struct xlnx_crtc_helper *xlnx_get_crtc_helper(struct drm_device *drm)
+  * xlnx_get_crtc_helper - Return the crtc helper instance
+  * @drm: DRM device
+@@ -88,14 +146,18 @@ struct xlnx_crtc_helper *xlnx_get_crtc_helper(struct drm_device *drm)
  /**
   * xlnx_get_align - Return the align requirement through CRTC helper
   * @drm: DRM device
@@ -147,14 +138,14 @@ index c6e5be3ac..56f2d2037 100644
  	struct xlnx_drm *xlnx_drm = drm->dev_private;
  
 -	return xlnx_crtc_helper_get_align(xlnx_drm->crtc);
-+	if (scanout || xlnx_drm->dumb_alignment_size == 0)
++	if (scanout || xlnx_dumb_alignment_size == 0)
 +		return xlnx_crtc_helper_get_align(xlnx_drm->crtc);
 +	else
-+		return xlnx_drm->dumb_alignment_size;
++		return xlnx_dumb_alignment_size;
  }
  
  /**
-@@ -211,6 +275,8 @@ static struct drm_driver xlnx_drm_driver = {
+@@ -211,6 +273,8 @@ static struct drm_driver xlnx_drm_driver = {
  	.gem_free_object_unlocked	= drm_gem_cma_free_object,
  	.dumb_create			= xlnx_gem_cma_dumb_create,
  	.dumb_destroy			= drm_gem_dumb_destroy,
@@ -162,14 +153,6 @@ index c6e5be3ac..56f2d2037 100644
 +	.num_ioctls                     = ARRAY_SIZE(xlnx_drm_driver_ioctls),
  
  	.fops				= &xlnx_fops,
- 
-@@ -254,6 +320,7 @@ static int xlnx_bind(struct device *dev)
- 	drm->dev_private = xlnx_drm;
- 	xlnx_drm->drm = drm;
- 	xlnx_drm->master = master;
-+	xlnx_drm->dumb_alignment_size = xlnx_dumb_alignment_size;
- 	drm_kms_helper_poll_init(drm);
- 	platform_set_drvdata(master, xlnx_drm);
  
 diff --git a/drivers/gpu/drm/xlnx/xlnx_drv.h b/drivers/gpu/drm/xlnx/xlnx_drv.h
 index d016e169f..a262d192e 100644
