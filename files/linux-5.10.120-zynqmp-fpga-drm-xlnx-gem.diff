@@ -1,7 +1,16 @@
 diff --git a/drivers/gpu/drm/xlnx/Kconfig b/drivers/gpu/drm/xlnx/Kconfig
-index 452a5133c..1a170ee33 100644
+index 452a5133c..88b07ecef 100644
 --- a/drivers/gpu/drm/xlnx/Kconfig
 +++ b/drivers/gpu/drm/xlnx/Kconfig
+@@ -16,7 +16,7 @@ config DRM_XLNX
+ 	depends on DRM && OF
+ 	select DRM_KMS_HELPER
+ 	select DRM_KMS_CMA_HELPER
+-	select DRM_GEM_CMA_HELPER
++	select DRM_GEM_CACMA_HELPER
+ 	help
+ 	  Xilinx DRM KMS driver. Choose this option if you have
+ 	  a Xilinx SoCs with hardened display pipeline or soft
 @@ -39,6 +39,21 @@ config DRM_XLNX_DUMB_ALIGNMENT_DEFAULT_SIZE
  	  alignment size. When used with the Lima DRM driver, the dumb 
  	  buffer alignment size must be set to 8.
@@ -25,14 +34,15 @@ index 452a5133c..1a170ee33 100644
  	tristate "Xilinx DRM KMS bridge"
  	depends on DRM_XLNX
 diff --git a/drivers/gpu/drm/xlnx/xlnx_drv.c b/drivers/gpu/drm/xlnx/xlnx_drv.c
-index a2a62ada5..fe648f863 100644
+index a2a62ada5..06af316c0 100644
 --- a/drivers/gpu/drm/xlnx/xlnx_drv.c
 +++ b/drivers/gpu/drm/xlnx/xlnx_drv.c
-@@ -23,9 +23,11 @@
+@@ -23,9 +23,12 @@
  #include <drm/drm_atomic_helper.h>
  #include <drm/drm_crtc_helper.h>
  #include <drm/drm_fb_helper.h>
 -#include <drm/drm_gem_cma_helper.h>
++#include <drm/drm_gem_cacma_helper.h>
  #include <drm/drm_of.h>
  #include <drm/drm_probe_helper.h>
 +#include <drm/drm_ioctl.h>
@@ -41,16 +51,7 @@ index a2a62ada5..fe648f863 100644
  #include <drm/xlnx_drm.h>
  
  #include <linux/component.h>
-@@ -44,7 +46,7 @@
- 
- #define DRIVER_NAME	"xlnx"
- #define DRIVER_DESC	"Xilinx DRM KMS Driver"
--#define DRIVER_DATE	"20200801"
-+#define DRIVER_DATE	"20200917"
- #define DRIVER_MAJOR	1
- #define DRIVER_MINOR	1
- 
-@@ -63,6 +65,14 @@ static uint       xlnx_dumb_alignment_size = 0;
+@@ -63,6 +66,14 @@ static uint       xlnx_dumb_alignment_size = 0;
  module_param_named(dumb_alignment_size, xlnx_dumb_alignment_size, uint, S_IRUGO|S_IWUSR);
  MODULE_PARM_DESC(  dumb_alignment_size, "xlnx dumb buffer alignment size");
  
@@ -65,7 +66,7 @@ index a2a62ada5..fe648f863 100644
  /**
   * struct xlnx_drm - Xilinx DRM private data
   * @drm: DRM core
-@@ -99,6 +109,12 @@ static int xlnx_ioctl_get_param(struct drm_device *drm, void *data, struct drm_f
+@@ -99,6 +110,12 @@ static int xlnx_ioctl_get_param(struct drm_device *drm, void *data, struct drm_f
  	case DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE:
  		args->value = (__u64)xlnx_dumb_alignment_size;
  		break;
@@ -78,7 +79,7 @@ index a2a62ada5..fe648f863 100644
  	default:
  		return -EINVAL;
  	}
-@@ -117,6 +133,9 @@ static int xlnx_ioctl_set_param(struct drm_device *drm, void *data, struct drm_f
+@@ -117,6 +134,9 @@ static int xlnx_ioctl_set_param(struct drm_device *drm, void *data, struct drm_f
  	case DRM_XLNX_PARAM_DUMB_ALIGNMENT_SIZE:
  		xlnx_dumb_alignment_size = (uint)args->value;
  		break;
@@ -88,7 +89,7 @@ index a2a62ada5..fe648f863 100644
  	default:
  		return -EINVAL;
  	}
-@@ -159,6 +178,18 @@ unsigned int xlnx_get_align(struct drm_device *drm, bool scanout)
+@@ -159,6 +179,18 @@ unsigned int xlnx_get_align(struct drm_device *drm, bool scanout)
  		return xlnx_dumb_alignment_size;
  }
  
@@ -107,25 +108,25 @@ index a2a62ada5..fe648f863 100644
  /**
   * xlnx_get_format - Return the current format of CRTC
   * @drm: DRM device
-@@ -244,7 +275,7 @@ static const struct file_operations xlnx_fops = {
+@@ -244,7 +276,7 @@ static const struct file_operations xlnx_fops = {
  	.open		= drm_open,
  	.release	= xlnx_drm_release,
  	.unlocked_ioctl	= drm_ioctl,
 -	.mmap		= drm_gem_cma_mmap,
-+	.mmap		= xlnx_gem_file_mmap,
++	.mmap		= drm_gem_cacma_file_mmap,
  	.poll		= drm_poll,
  	.read		= drm_read,
  #ifdef CONFIG_COMPAT
-@@ -253,6 +284,8 @@ static const struct file_operations xlnx_fops = {
+@@ -253,6 +285,8 @@ static const struct file_operations xlnx_fops = {
  	.llseek		= noop_llseek,
  };
  
-+extern struct vm_operations_struct xlnx_gem_vm_ops;
++extern struct vm_operations_struct drm_gem_cacma_vm_ops;
 +
  static struct drm_driver xlnx_drm_driver = {
  	.driver_features		= DRIVER_MODESET | DRIVER_GEM |
  					  DRIVER_ATOMIC,
-@@ -263,14 +296,14 @@ static struct drm_driver xlnx_drm_driver = {
+@@ -263,14 +297,14 @@ static struct drm_driver xlnx_drm_driver = {
  	.prime_fd_to_handle		= drm_gem_prime_fd_to_handle,
  	.gem_prime_export		= drm_gem_prime_export,
  	.gem_prime_import		= drm_gem_prime_import,
@@ -137,13 +138,13 @@ index a2a62ada5..fe648f863 100644
 -	.gem_vm_ops			= &drm_gem_cma_vm_ops,
 -	.gem_free_object_unlocked	= drm_gem_cma_free_object,
 -	.dumb_create			= xlnx_gem_cma_dumb_create,
-+	.gem_prime_get_sg_table		= xlnx_gem_prime_get_sg_table,
-+	.gem_prime_import_sg_table	= xlnx_gem_prime_import_sg_table,
-+	.gem_prime_vmap			= xlnx_gem_prime_vmap,
-+	.gem_prime_vunmap		= xlnx_gem_prime_vunmap,
-+	.gem_prime_mmap			= xlnx_gem_prime_mmap,
-+	.gem_vm_ops			= &xlnx_gem_vm_ops,
-+	.gem_free_object_unlocked	= xlnx_gem_free_object,
++	.gem_prime_get_sg_table		= drm_gem_cacma_prime_get_sg_table,
++	.gem_prime_import_sg_table	= drm_gem_cacma_prime_import_sg_table_vmap,
++	.gem_prime_vmap			= drm_gem_cacma_prime_vmap,
++	.gem_prime_vunmap		= drm_gem_cacma_prime_vunmap,
++	.gem_prime_mmap			= drm_gem_cacma_prime_mmap,
++	.gem_vm_ops			= &drm_gem_cacma_vm_ops,
++	.gem_free_object_unlocked	= drm_gem_cacma_free_object,
 +	.dumb_create			= xlnx_gem_dumb_create,
  	.dumb_destroy			= drm_gem_dumb_destroy,
  	.ioctls	                        = xlnx_drm_driver_ioctls,
@@ -161,541 +162,55 @@ index a262d192e..265aeff0c 100644
  struct xlnx_bridge_helper *xlnx_get_bridge_helper(struct drm_device *drm);
  
 diff --git a/drivers/gpu/drm/xlnx/xlnx_gem.c b/drivers/gpu/drm/xlnx/xlnx_gem.c
-index f080cedc2..85d8a434b 100644
+index f080cedc2..54f8f33d5 100644
 --- a/drivers/gpu/drm/xlnx/xlnx_gem.c
 +++ b/drivers/gpu/drm/xlnx/xlnx_gem.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * Xilinx DRM KMS GEM helper
-+ * Xilinx DRM GEM helper
-  *
-  *  Copyright (C) 2015 - 2018 Xilinx, Inc.
-  *
-@@ -16,15 +16,496 @@
-  * GNU General Public License for more details.
-  */
+@@ -18,13 +18,13 @@
  
-+#include <linux/dma-buf.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/export.h>
-+#include <linux/mm.h>
-+#include <linux/mutex.h>
-+#include <linux/slab.h>
-+
-+#include <drm/drm.h>
-+#include <drm/drm_device.h>
  #include <drm/drm_drv.h>
  #include <drm/xlnx_drm.h>
 -#include <drm/drm_gem_cma_helper.h>
-+#include <drm/drm_vma_manager.h>
++#include <drm/drm_gem_cacma_helper.h>
  
  #include "xlnx_drv.h"
  #include "xlnx_gem.h"
  
-+#include <drm/drm_file.h>
-+#include <drm/drm_ioctl.h>
-+#include <drm/drm_gem.h>
-+
-+/**
-+ * struct xlnx_gem_object - Xilinx GEM object backed by CMA memory allocations
-+ * @base: base GEM object
-+ * @paddr: physical address of the backing memory
-+ * @sgt: scatter/gather table for imported PRIME buffers. 
-+ *       The table can have more than one entry but they are guaranteed to 
-+ *       have contiguous DMA addresses.
-+ * @vaddr: kernel virtual address of the backing memory
-+ * @cached: map object cached (instead of using writecombine).
-+ * @size: size of the backing memory
-+ */
-+struct xlnx_gem_object {
-+	struct drm_gem_object   base;
-+	dma_addr_t              paddr;
-+	void*                   vaddr;
-+	struct sg_table*        sgt;
-+	bool                    cached;
-+	size_t                  size;
-+};
-+
-+#define to_xlnx_gem_object(gem_obj) \
-+	container_of(gem_obj, struct xlnx_gem_object, base)
-+
-+/**
-+ * xlnx_gem_free_object() - free resources associated with a Xilinx GEM object
-+ * @gem_obj: GEM object to free
-+ *
-+ * This function frees the backing memory of the Xilinx GEM object, cleans up 
-+ * the GEM object state and frees the memory used to store the object itself.
-+ * If the buffer is imported and the virtual address is set, it is released.
-+ */
-+void xlnx_gem_free_object(struct drm_gem_object *gem_obj)
-+{
-+	struct xlnx_gem_object* xlnx_obj;
-+
-+	xlnx_obj = to_xlnx_gem_object(gem_obj);
-+
-+	if (gem_obj->import_attach) {
-+		if (xlnx_obj->vaddr) {
-+			dma_buf_vunmap(gem_obj->import_attach->dmabuf, xlnx_obj->vaddr);
-+			xlnx_obj->vaddr = NULL;
-+		}
-+		drm_prime_gem_destroy(gem_obj, xlnx_obj->sgt);
-+	} else {
-+		if (xlnx_obj->vaddr) {
-+			struct device* dev   = gem_obj->dev->dev;
-+			size_t         size  = xlnx_obj->size;
-+			void*          vaddr = xlnx_obj->vaddr;
-+			dma_addr_t     paddr = xlnx_obj->paddr;
-+			if (xlnx_obj->cached)
-+				dma_free_coherent(dev, size, vaddr, paddr);
-+			else
-+				dma_free_wc(      dev, size, vaddr, paddr);
-+			xlnx_obj->vaddr = NULL;
-+		}
-+	}
-+
-+	drm_gem_object_release(gem_obj);
-+
-+	kfree(xlnx_obj);
-+}
-+
-+/**
-+ * xlnx_gem_print_info() - Print &xlnx_gem_object info for debugfs
-+ * @p: DRM printer
-+ * @indent: Tab indentation level
-+ * @obj: GEM object
-+ *
-+ * This function can be used as the &drm_driver->gem_print_info callback.
-+ * It prints paddr and vaddr for use in e.g. debugfs output.
-+ */
-+static
-+void xlnx_gem_print_info(struct drm_printer *p,
-+			 unsigned int indent,
-+			 const struct drm_gem_object *obj)
-+{
-+	const struct xlnx_gem_object* xlnx_obj = to_xlnx_gem_object(obj);
-+
-+	drm_printf_indent(p, indent, "paddr=%pad\n", &xlnx_obj->paddr);
-+	drm_printf_indent(p, indent, "vaddr=%p\n"  ,  xlnx_obj->vaddr);
-+}
-+
-+/**
-+ * xlnx_gem_vm_fault() - Xilinx GEM object vm area fault operation.
-+ * @vfm:        Pointer to the vm fault structure.
-+ * Return:      VM_FAULT_RETURN_TYPE (Success(=0) or error status(!=0)).
-+ */
-+static
-+vm_fault_t xlnx_gem_vm_fault(struct vm_fault *vmf)
-+{
-+	struct vm_area_struct  *vma      = vmf->vma;
-+	struct drm_gem_object  *gem_obj  = vma->vm_private_data;
-+	struct xlnx_gem_object *xlnx_obj = to_xlnx_gem_object(gem_obj);
-+	unsigned long offset             = vmf->address - vma->vm_start;
-+	unsigned long virt_addr          = vmf->address;
-+	unsigned long phys_addr          = xlnx_obj->paddr + offset;
-+	unsigned long page_frame_num     = phys_addr  >> PAGE_SHIFT;
-+	unsigned long request_size       = 1          << PAGE_SHIFT;
-+	unsigned long available_size     = xlnx_obj->size - offset;
-+
-+	if (request_size > available_size)
-+	        return VM_FAULT_SIGBUS;
-+
-+	if (!pfn_valid(page_frame_num))
-+	        return VM_FAULT_SIGBUS;
-+
-+	return vmf_insert_pfn(vma, virt_addr, page_frame_num);
-+}
-+
-+/**
-+ * Xilinx GEM object vm operation table.
-+ */
-+const struct vm_operations_struct xlnx_gem_vm_ops = {
-+	.fault = xlnx_gem_vm_fault,
-+	.open  = drm_gem_vm_open,
-+	.close = drm_gem_vm_close,
-+};
-+
-+/**
-+ * xlnx_gem_mmap() - memory-map a Xilinx GEM object
-+ * @gem_obj: GEM object
-+ * @vma: VMA for the area to be mapped
-+ *
-+ * Returns:
-+ * 0 on success.
-+ */
-+static
-+int xlnx_gem_mmap(struct drm_gem_object *gem_obj, struct vm_area_struct *vma)
-+{
-+	struct xlnx_gem_object *xlnx_obj = to_xlnx_gem_object(gem_obj);
-+
-+        vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP;
-+	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
-+	if (!xlnx_obj->cached)
-+        	vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
-+	vma->vm_ops = &xlnx_gem_vm_ops;
-+	return 0;
-+}
-+
-+int xlnx_gem_file_mmap(struct file *filp, struct vm_area_struct *vma)
-+{
-+	struct drm_gem_object  *gem_obj;
-+	int ret;
-+
-+	ret = drm_gem_mmap(filp, vma);
-+	if (ret)
-+		return ret;
-+
-+	gem_obj  = vma->vm_private_data;
-+
-+	return xlnx_gem_mmap(gem_obj, vma);
-+}
-+
-+/**
-+ * xlnx_gem_prime_mmap() - memory-map a Xilinx GEM object by prime operation.
-+ * @obj: GEM object
-+ * @vma: VMA for the area to be mapped
-+ *
-+ */
-+int xlnx_gem_prime_mmap(struct drm_gem_object *gem_obj, struct vm_area_struct *vma)
-+{
-+	int ret;
-+
-+	ret = drm_gem_mmap_obj(gem_obj, gem_obj->size, vma);
-+	if (ret < 0)
-+		return ret;
-+
-+	return xlnx_gem_mmap(gem_obj, vma);
-+}
-+
-+/**
-+ * xlnx_gem_get_sg_table() - provide a scatter/gather table of pinned
-+ *     pages for a Xilinx GEM object
-+ * @gem_obj: GEM object
-+ *
-+ * This function exports a scatter/gather table suitable for PRIME usage by
-+ * calling the standard DMA mapping API. 
-+ *
-+ * Returns:
-+ * A pointer to the scatter/gather table of pinned pages or NULL on failure.
-+ */
-+struct sg_table *xlnx_gem_prime_get_sg_table(struct drm_gem_object *gem_obj)
-+{
-+	struct xlnx_gem_object* xlnx_obj = to_xlnx_gem_object(gem_obj);
-+	struct sg_table*        sgt;
-+	int ret;
-+
-+	sgt = kzalloc(sizeof(*sgt), GFP_KERNEL);
-+	if (!sgt)
-+		return ERR_PTR(-ENOMEM);
-+
-+	ret = dma_get_sgtable(
-+		gem_obj->dev->dev, /* struct device*   dev      */
-+		sgt              , /* struct sg_table* sgt      */
-+		xlnx_obj->vaddr  , /* void*            cpu_addr */
-+		xlnx_obj->paddr  , /* dma_addr_t       dma_addr */
-+		gem_obj->size      /* size_t           size     */
-+	      );
-+	if (ret < 0)
-+		goto out;
-+
-+	return sgt;
-+
-+out:
-+	kfree(sgt);
-+	return ERR_PTR(ret);
-+}
-+
-+/**
-+ * xlnx_gem_vmap() - map a Xilinx GEM object into the kernel's virtual
-+ *     address space
-+ * @gem_obj: GEM object
-+ *
-+ * This function maps a buffer exported via DRM PRIME into the kernel's
-+ * virtual address space. Since the CMA buffers are already mapped into the
-+ * kernel virtual address space this simply returns the cached virtual
-+ * address. 
-+ *
-+ * Returns:
-+ * The kernel virtual address of the Xilinx GEM object's backing store.
-+ */
-+void *xlnx_gem_prime_vmap(struct drm_gem_object *gem_obj)
-+{
-+	struct xlnx_gem_object *xlnx_obj = to_xlnx_gem_object(gem_obj);
-+
-+	return xlnx_obj->vaddr;
-+}
-+
-+
-+/**
-+ * xlnx_gem_vunmap() - unmap a Xilinx GEM object from the kernel's virtual
-+ *     address space
-+ * @gem_obj: GEM object
-+ * @vaddr: kernel virtual address where the CMA GEM object was mapped
-+ *
-+ * This function removes a buffer exported via DRM PRIME from the kernel's
-+ * virtual address space. This is a no-op because CMA buffers cannot be
-+ * unmapped from kernel space. 
-+ */
-+void xlnx_gem_prime_vunmap(struct drm_gem_object *gem_obj, void *vaddr)
-+{
-+	/* Nothing to do */
-+}
-+
-+/**
-+ * Xilinx GEM object function table.
-+ */
-+static const struct drm_gem_object_funcs xlnx_gem_funcs = {
-+    	.free         = xlnx_gem_free_object, 
-+    	.print_info   = xlnx_gem_print_info, 
-+    	.get_sg_table = xlnx_gem_prime_get_sg_table,
-+    	.vmap         = xlnx_gem_prime_vmap,
-+    	.vunmap       = xlnx_gem_prime_vunmap,
-+	.vm_ops       = &xlnx_gem_vm_ops,
-+    /* 	.mmap         = xlnx_gem_mmap, */
-+};
-+
-+/**
-+ * __xlnx_gem_create() - Create a Xilinx GEM object without allocating memory
-+ * @drm: DRM device
-+ * @size: size of the object to allocate
-+ *
-+ * This function creates and initializes a Xilinx GEM object of the given size,
-+ * but doesn't allocate any memory to back the object.
-+ *
-+ * Returns:
-+ * A struct xlnx_gem_object * on success or an ERR_PTR()-encoded negative
-+ * error code on failure.
-+ */
-+static
-+struct xlnx_gem_object* __xlnx_gem_create(struct drm_device *drm, size_t size)
-+{
-+	struct xlnx_gem_object* xlnx_obj;
-+	struct drm_gem_object*  gem_obj;
-+	int ret;
-+
-+	if (drm->driver->gem_create_object)
-+		gem_obj = drm->driver->gem_create_object(drm, size);
-+	else
-+		gem_obj = kzalloc(sizeof(*xlnx_obj), GFP_KERNEL);
-+
-+	if (!gem_obj)
-+		return ERR_PTR(-ENOMEM);
-+
-+	/* if (!gem_obj->funcs)
-+	 *	gem_obj->funcs = &xlnx_gem_funcs;
-+         */
-+
-+	ret = drm_gem_object_init(drm, gem_obj, size);
-+	if (ret)
-+		goto error;
-+
-+	ret = drm_gem_create_mmap_offset(gem_obj);
-+	if (ret) {
-+		drm_gem_object_release(gem_obj);
-+		goto error;
-+	}
-+
-+	xlnx_obj = to_xlnx_gem_object(gem_obj);
-+	xlnx_obj->paddr  = (dma_addr_t)NULL;
-+	xlnx_obj->vaddr  = NULL;
-+	xlnx_obj->size   = 0;
-+	xlnx_obj->cached = 0;
-+	
-+	return xlnx_obj;
-+
-+error:
-+	kfree(xlnx_obj);
-+	return ERR_PTR(ret);
-+}
-+
-+/**
-+ * xlnx_gem_create - Create a Xilinx GEM object with allocating memory
-+ * @drm: DRM device
-+ * @size: size of the object to allocate
-+ * @cache: cache mode
-+ *
-+ * This function creates a Xilinx GEM object and allocates a contiguous chunk of
-+ * memory as backing store. The backing memory has the writecombine attribute
-+ * set.
-+ *
-+ * Returns:
-+ * A struct xlnx_gem_object * on success or an ERR_PTR()-encoded negative
-+ * error code on failure.
-+ */
-+static
-+struct xlnx_gem_object* xlnx_gem_create_object(struct drm_device *drm, size_t size, bool cache)
-+{
-+	struct xlnx_gem_object* xlnx_obj;
-+	void*                   vaddr;
-+	dma_addr_t              paddr;
-+	int                     ret;
-+
-+	size = round_up(size, PAGE_SIZE);
-+
-+	xlnx_obj = __xlnx_gem_create(drm, size);
-+	if (IS_ERR(xlnx_obj))
-+		return xlnx_obj;
-+
-+	if (cache)
-+		vaddr = dma_alloc_coherent(drm->dev, size, &paddr, GFP_KERNEL | __GFP_NOWARN);
-+	else
-+		vaddr = dma_alloc_wc(      drm->dev, size, &paddr, GFP_KERNEL | __GFP_NOWARN);
-+	
-+	if (IS_ERR_OR_NULL(vaddr)) {
-+		ret = (IS_ERR(vaddr)) ? PTR_ERR(vaddr) : -ENOMEM;
-+		DRM_DEBUG("failed to allocate buffer with size %zu\n", size);
-+		goto error;
-+	}
-+
-+	xlnx_obj->paddr  = paddr;
-+	xlnx_obj->vaddr  = vaddr;
-+	xlnx_obj->size   = size;
-+	xlnx_obj->cached = cache;
-+
-+	return xlnx_obj;
-+
-+error:
-+	drm_gem_object_put(&xlnx_obj->base);
-+	return ERR_PTR(ret);
-+}
-+
-+/**
-+ * xlnx_gem_create_with_handle - allocate an object with the given size and
-+ *     return a GEM handle to it
-+ * @file_priv: DRM file-private structure to register the handle for
-+ * @drm: DRM device
-+ * @size: size of the object to allocate
-+ * @wc: use write-combine.
-+ * @handle: return location for the GEM handle
-+ *
-+ * This function creates a CMA GEM object, allocating a physically contiguous
-+ * chunk of memory as backing store. The GEM object is then added to the list
-+ * of object associated with the given file and a handle to it is returned.
-+ *
-+ * Returns:
-+ * A struct xlnx_gem_object * on success or an ERR_PTR()-encoded negative
-+ * error code on failure.
-+ */
-+static
-+struct xlnx_gem_object *
-+xlnx_gem_create_with_handle(struct drm_file *file_priv,
-+			    struct drm_device *drm, size_t size, bool wc, 
-+			    uint32_t *handle)
-+{
-+	struct xlnx_gem_object* xlnx_obj;
-+	struct drm_gem_object*  gem_obj;
-+	int ret;
-+
-+	xlnx_obj = xlnx_gem_create_object(drm, size, wc);
-+	if (IS_ERR(xlnx_obj))
-+		return xlnx_obj;
-+
-+	gem_obj = &xlnx_obj->base;
-+
-+	/*
-+	 * allocate a id of idr table where the obj is registered
-+	 * and handle has the id what user can see.
-+	 */
-+	ret = drm_gem_handle_create(file_priv, gem_obj, handle);
-+	/* drop reference from allocate - handle holds it now. */
-+	drm_gem_object_put(gem_obj);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	return xlnx_obj;
-+}
-+
-+/**
-+ * xlnx_gem_prime_import_sg_table - produce a CMA GEM object from another
-+ *     driver's scatter/gather table of pinned pages
-+ * @dev: device to import into
-+ * @attach: DMA-BUF attachment
-+ * @sgt: scatter/gather table of pinned pages
-+ *
-+ * This function imports a scatter/gather table exported via DMA-BUF by
-+ * another driver. Imported buffers must be physically contiguous in memory
-+ * (i.e. the scatter/gather table must contain a single entry). Drivers that
-+ * use the CMA helpers should set this as their
-+ * &drm_driver.gem_prime_import_sg_table callback.
-+ *
-+ * Returns:
-+ * A pointer to a newly created GEM object or an ERR_PTR-encoded negative
-+ * error code on failure.
-+ */
-+struct drm_gem_object *
-+xlnx_gem_prime_import_sg_table(struct drm_device *dev,
-+			       struct dma_buf_attachment *attach,
-+			       struct sg_table *sgt)
-+{
-+	struct xlnx_gem_object *xlnx_obj;
-+	int  ret;
-+	void *vaddr;
-+
-+	vaddr = dma_buf_vmap(attach->dmabuf);
-+	if (!vaddr) {
-+		DRM_ERROR("Failed to vmap PRIME buffer\n");
-+		ret = -ENOMEM;
-+		goto error;
-+	}
-+
-+	/* check if the entries in the sg_table are contiguous */
-+	if (drm_prime_get_contiguous_size(sgt) < attach->dmabuf->size) {
-+		ret = -EINVAL;
-+		goto error;
-+	}
-+
-+	/* Create a Xilinx GEM Object */
-+	xlnx_obj = __xlnx_gem_create(dev, attach->dmabuf->size);
-+	if (IS_ERR(xlnx_obj)) {
-+		ret = PTR_ERR(xlnx_obj);
-+		goto error;
-+	}
-+
-+	xlnx_obj->paddr = sg_dma_address(sgt->sgl);
-+	xlnx_obj->vaddr = vaddr;
-+	xlnx_obj->sgt   = sgt;
-+
-+	DRM_DEBUG_PRIME("dma_addr = %pad, size = %zu\n", &xlnx_obj->paddr, attach->dmabuf->size);
-+
-+	return &xlnx_obj->base;
-+error:
-+	if (vaddr)
-+		dma_buf_vunmap(attach->dmabuf, vaddr);
-+	return ERR_PTR(ret);
-+}
-+
-+struct drm_mode_create_dumb;
  /*
 - * xlnx_gem_cma_dumb_create - (struct drm_driver)->dumb_create callback
 + * xlnx_gem_dumb_create - (struct drm_driver)->dumb_create callback
   * @file_priv: drm_file object
   * @drm: DRM object
   * @args: info for dumb buffer creation
-@@ -35,17 +516,43 @@
+@@ -33,19 +33,47 @@
+  * it wraps around drm_gem_cma_dumb_create() and sets the pitch value
+  * by retrieving the value from the device.
   *
-  * Return: The return value from drm_gem_cma_dumb_create()
+- * Return: The return value from drm_gem_cma_dumb_create()
++ * Return: The return value from drm_gem_cacma_create_with_handle()
   */
 -int xlnx_gem_cma_dumb_create(struct drm_file *file_priv, struct drm_device *drm,
-+int xlnx_gem_dumb_create(struct drm_file *file_priv, struct drm_device *drm,
- 			     struct drm_mode_create_dumb *args)
+-			     struct drm_mode_create_dumb *args)
++int
++xlnx_gem_dumb_create(struct drm_file *file_priv,
++                     struct drm_device *drm,
++                     struct drm_mode_create_dumb *args)
  {
--	bool scanout = (((args->flags) & DRM_XLNX_GEM_DUMB_SCANOUT_MASK) == DRM_XLNX_GEM_DUMB_SCANOUT);
+ 	bool scanout = (((args->flags) & DRM_XLNX_GEM_DUMB_SCANOUT_MASK) == DRM_XLNX_GEM_DUMB_SCANOUT);
 -	int  align   = xlnx_get_align(drm, scanout);
-+	bool scanout   = (((args->flags) & DRM_XLNX_GEM_DUMB_SCANOUT_MASK) == DRM_XLNX_GEM_DUMB_SCANOUT);
 +        bool cache;
 +	int  align     = xlnx_get_align(drm, scanout);
 +	int  min_pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
-+	struct xlnx_gem_object* xlnx_obj;
++	struct drm_gem_object* gem_obj;
  
  	if (!args->pitch || !IS_ALIGNED(args->pitch, align))
 -		args->pitch = ALIGN(DIV_ROUND_UP(args->width * args->bpp, 8), align);
 +		args->pitch = ALIGN(min_pitch, align);
-+
-+	if (args->pitch < min_pitch)
-+		args->pitch = min_pitch;
  
 -	DRM_DEBUG("width=%d, height=%d, bpp=%d, pitch=%d, align=%d\n",
 -                  args->width, args->height, args->bpp, args->pitch, align);
++	if (args->pitch < min_pitch)
++		args->pitch = min_pitch;
++
 +	if (args->size < args->pitch * args->height)
 +		args->size = args->pitch * args->height;
 +
@@ -718,33 +233,24 @@ index f080cedc2..85d8a434b 100644
 +                  args->width, args->height, args->bpp, args->pitch, align, cache);
                    
 -	return drm_gem_cma_dumb_create_internal(file_priv, drm, args);
-+	xlnx_obj = xlnx_gem_create_with_handle(file_priv, drm, args->size, cache, &args->handle);
++	gem_obj = drm_gem_cacma_create_with_handle(file_priv, drm, args->size, cache, &args->handle);
 +
-+	return PTR_ERR_OR_ZERO(xlnx_obj);
++	return PTR_ERR_OR_ZERO(gem_obj);
  }
 diff --git a/drivers/gpu/drm/xlnx/xlnx_gem.h b/drivers/gpu/drm/xlnx/xlnx_gem.h
-index 2e178f67d..e2fa0e294 100644
+index 2e178f67d..4a8cffe87 100644
 --- a/drivers/gpu/drm/xlnx/xlnx_gem.h
 +++ b/drivers/gpu/drm/xlnx/xlnx_gem.h
-@@ -19,8 +19,17 @@
+@@ -19,8 +19,8 @@
  #ifndef _XLNX_GEM_H_
  #define _XLNX_GEM_H_
  
 -int xlnx_gem_cma_dumb_create(struct drm_file *file_priv,
 -			     struct drm_device *drm,
 -			     struct drm_mode_create_dumb *args);
-+int  xlnx_gem_dumb_create(struct drm_file *file_priv,
-+			  struct drm_device *drm,
-+			  struct drm_mode_create_dumb *args);
-+void xlnx_gem_free_object(struct drm_gem_object *gem_obj);
-+struct drm_gem_object *xlnx_gem_prime_import_sg_table(struct drm_device *dev,
-+                                                      struct dma_buf_attachment *attach,
-+                                                      struct sg_table *sgt);
-+int xlnx_gem_file_mmap(struct file *filp, struct vm_area_struct *vma);
-+int xlnx_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
-+struct sg_table *xlnx_gem_prime_get_sg_table(struct drm_gem_object *gem_obj);
-+void *xlnx_gem_prime_vmap(struct drm_gem_object *gem_obj);
-+void xlnx_gem_prime_vunmap(struct drm_gem_object *gem_obj, void *vaddr);
++int xlnx_gem_dumb_create(struct drm_file *file_priv,
++        		 struct drm_device *drm,
++			 struct drm_mode_create_dumb *args);
  
  #endif /* _XLNX_GEM_H_ */
 diff --git a/include/uapi/drm/xlnx_drm.h b/include/uapi/drm/xlnx_drm.h
