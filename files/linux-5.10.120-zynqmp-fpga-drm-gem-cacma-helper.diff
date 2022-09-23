@@ -29,10 +29,10 @@ index 81569009f..5faac9e9a 100644
  drm-$(CONFIG_OF) += drm_of.o
 diff --git a/drivers/gpu/drm/drm_gem_cacma_helper.c b/drivers/gpu/drm/drm_gem_cacma_helper.c
 new file mode 100644
-index 000000000..043f3d551
+index 000000000..09af23c41
 --- /dev/null
 +++ b/drivers/gpu/drm/drm_gem_cacma_helper.c
-@@ -0,0 +1,549 @@
+@@ -0,0 +1,575 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
 +/*
 + * Copyright 2022 Ichiro.Kawazome
@@ -53,26 +53,29 @@ index 000000000..043f3d551
 +#include <drm/drm_gem.h>
 +
 +/**
-+ * DOC: cacma helpers
++ * DOC: DRM GEM CACMA(Cache-able Contiguous Memory Allocator) helpers
 + *
-+ * The Contiguous Memory Allocator reserves a pool of memory at early boot
-+ * that is used to service requests for large blocks of contiguous memory.
++ * The DRM GEM CACMA helpers are means to provide buffer objects that are
++ * presented to the device as a contiguous chunk of memory.
 + *
-+ * The DRM GEM CACMA helpers use this allocator as a means to provide buffer
-+ * objects that are physically contiguous in memory. This is useful for
-+ * display drivers that are unable to map scattered buffers via an IOMMU.
++ * Despite the name, the DRM GEM/CACMA helpers are not hardwired to use the
++ * Contiguous Memory Allocator (CMA). CMA(Contiguous Memory Allocator) is a 
++ * memory allocator within the kernel which allows allocating large chunks 
++ * of memory with contiguous physical memory addresses.
++ *
++ * The DRM GEM CACMA helpers can enable CPU data cache when doing memory mapping.
 + */
 +
 +/**
 + * struct drm_gem_cacma_object - GEM object backed by CMA memory allocations
-+ * @base:   base GEM object
-+ * @paddr:  physical address of the backing memory
-+ * @vaddr:  kernel virtual address of the backing memory
-+ * @size:   size of the backing memory
-+ * @sgt:    scatter/gather table for imported PRIME buffers. 
-+ *          The table can have more than one entry but they are guaranteed to 
-+ *          have contiguous DMA addresses.
-+ * @cached: map object cached (instead of using writecombine).
++ * @base:      base GEM object
++ * @paddr:     physical address of the backing memory
++ * @vaddr:     kernel virtual address of the backing memory
++ * @size:      size of the backing memory
++ * @sgt:       scatter/gather table for imported PRIME buffers. 
++ *             The table can have more than one entry but they are guaranteed to 
++ *             have contiguous DMA addresses.
++ * @cached:    map object cached (instead of using writecombine).
 + */
 +struct drm_gem_cacma_object {
 +	struct drm_gem_object   base;
@@ -87,15 +90,15 @@ index 000000000..043f3d551
 +	container_of(gem_obj, struct drm_gem_cacma_object, base)
 +
 +/**
-+ * __drm_gem_cacma_create() - Create a CACMA-GEM object without allocating memory
-+ * @drm: DRM device
-+ * @size: size of the object to allocate
++ * __drm_gem_cacma_create() - Create a GEM object without allocating memory
++ * @drm:       DRM device
++ * @size:      size of the object to allocate
 + *
-+ * This function creates and initializes a CACMA-GEM object of the given size,
++ * This function creates and initializes a GEM object of the given size,
 + * but doesn't allocate any memory to back the object.
 + *
 + * Returns:
-+ * A struct drm_gem_cma_object* on success or an ERR_PTR()-encoded negative
++ * A struct drm_gem_cacma_object* on success or an ERR_PTR()-encoded negative
 + * error code on failure.
 + */
 +static struct drm_gem_cacma_object *
@@ -110,15 +113,21 @@ index 000000000..043f3d551
 +	else
 +		gem_obj = kzalloc(sizeof(*cma_obj), GFP_KERNEL);
 +
-+	if (!gem_obj)
-+		return ERR_PTR(-ENOMEM);
++	if (!gem_obj) {
++		ret = -ENOMEM;
++		DRM_DEV_ERROR(drm->dev, "failed to allocate gem object, return=%d", ret);
++		goto error;
++	}
 +
 +	ret = drm_gem_object_init(drm, gem_obj, size);
-+	if (ret)
++	if (ret) {
++		DRM_DEV_ERROR(drm->dev, "failed to initialize gem object, return=%d", ret);
 +		goto error;
++	}
 +
 +	ret = drm_gem_create_mmap_offset(gem_obj);
 +	if (ret) {
++		DRM_DEV_ERROR(drm->dev, "failed to create mmap offset, return=%d", ret);
 +		drm_gem_object_release(gem_obj);
 +		goto error;
 +	}
@@ -132,17 +141,18 @@ index 000000000..043f3d551
 +	return cma_obj;
 +
 +error:
-+	kfree(cma_obj);
++	if (gem_obj)
++		kfree(gem_obj);
 +	return ERR_PTR(ret);
 +}
 +
 +/**
-+ * drm_gem_cacma_create() - allocate a CACMA-GEM object with the given size
-+ * @drm: DRM device
-+ * @size: size of the object to allocate
-+ * @cache: cache mode
++ * drm_gem_cacma_create() - allocate a GEM object with the given size
++ * @drm:       DRM device
++ * @size:      size of the object to allocate
++ * @cache:     cache mode
 + *
-+ * This function creates a CACMA-GEM object and allocates a contiguous chunk of
++ * This function creates a GEM object and allocates a contiguous chunk of
 + * memory as backing store. The backing memory has the writecombine attribute
 + * set.
 + *
@@ -174,7 +184,7 @@ index 000000000..043f3d551
 +	
 +	if (IS_ERR_OR_NULL(vaddr)) {
 +		ret = (IS_ERR(vaddr)) ? PTR_ERR(vaddr) : -ENOMEM;
-+		DRM_DEBUG("failed to allocate buffer with size %zu\n", size);
++		DRM_ERROR("failed to allocate buffer with size=%zu, return=%d", size, ret);
 +		goto error;
 +	}
 +
@@ -192,15 +202,15 @@ index 000000000..043f3d551
 +EXPORT_SYMBOL_GPL(drm_gem_cacma_create);
 +
 +/**
-+ * drm_gem_cacma_create_with_handle - allocate a CACMA-GEM object with the given
++ * drm_gem_cacma_create_with_handle() - allocate a GEM object with the given
 + *      size and return a GEM handle to it
 + * @file_priv: DRM file-private structure to register the handle for
-+ * @drm: DRM device
-+ * @size: size of the object to allocate
-+ * @cache: cache mode
-+ * @handle: return location for the GEM handle
++ * @drm:       DRM device
++ * @size:      size of the object to allocate
++ * @cache:     cache mode
++ * @handle:    return location for the GEM handle
 + *
-+ * This function creates a CACMA-GEM object, allocating a physically contiguous
++ * This function creates a GEM object, allocating a physically contiguous
 + * chunk of memory as backing store. The GEM object is then added to the list
 + * of object associated with the given file and a handle to it is returned.
 + *
@@ -227,22 +237,22 @@ index 000000000..043f3d551
 +	ret = drm_gem_handle_create(file_priv, gem_obj, handle);
 +	/* drop reference from allocate - handle holds it now. */
 +	drm_gem_object_put(gem_obj);
-+	if (ret)
++	if (ret) {
++		DRM_ERROR("failed to create gem handle, return=%d", ret);
 +		return ERR_PTR(ret);
++	}
 +
 +	return gem_obj;
 +}
 +EXPORT_SYMBOL_GPL(drm_gem_cacma_create_with_handle);
 +
 +/**
-+ * drm_gem_cacma_free_object - free resources associated with a CACMA-GEM object
-+ * @gem_obj: GEM object to free
++ * drm_gem_cacma_free_object() - free resources associated with a GEM object
++ * @gem_obj:   GEM object to free
 + *
-+ * This function frees the backing memory of the CMA GEM object, cleans up the
++ * This function frees the backing memory of the GEM object, cleans up the
 + * GEM object state and frees the memory used to store the object itself.
 + * If the buffer is imported and the virtual address is set, it is released.
-+ * Drivers using the CMA helpers should set this as their
-+ * &drm_driver.gem_free_object_unlocked callback.
 + */
 +void
 +drm_gem_cacma_free_object(struct drm_gem_object *gem_obj)
@@ -278,9 +288,9 @@ index 000000000..043f3d551
 +EXPORT_SYMBOL_GPL(drm_gem_cacma_free_object);
 +
 +/**
-+ * drm_gem_cacma_vm_fault() - CACMA-GEM object vm area fault operation.
-+ * @vfm:        Pointer to the vm fault structure.
-+ * Return:      VM_FAULT_RETURN_TYPE (Success(=0) or error status(!=0)).
++ * drm_gem_cacma_vm_fault() - GEM object vm area fault operation.
++ * @vfm:       Pointer to the vm fault structure.
++ * Return:     VM_FAULT_RETURN_TYPE (Success(=0) or error status(!=0)).
 + */
 +static vm_fault_t
 +drm_gem_cacma_vm_fault(struct vm_fault *vmf)
@@ -314,33 +324,40 @@ index 000000000..043f3d551
 +};
 +
 +/**
-+ * __drm_gem_cacma_mmap() - memory-map a CACMA-GEM object
-+ * @gem_obj: GEM object
-+ * @vma: VMA for the area to be mapped
++ * __drm_gem_cacma_mmap() - memory-map a GEM object
++ * @gem_obj:   GEM object
++ * @vma:       VMA for the area to be mapped
 + *
-+ * Returns:
-+ * 0 on success.
++ * Returns:    0 on success.
 + */
 +static int
 +__drm_gem_cacma_mmap(struct drm_gem_object *gem_obj, struct vm_area_struct *vma)
 +{
 +	struct drm_gem_cacma_object* cma_obj = to_drm_gem_cacma_object(gem_obj);
 +
++	if (gem_obj->import_attach) {
++		/* Drop the reference drm_gem_mmap_obj() acquired.*/
++		drm_gem_object_put(gem_obj);
++		vma->vm_private_data = NULL;
++
++		return dma_buf_mmap(gem_obj->dma_buf, vma, 0);
++	}
++	
 +        vma->vm_flags |= VM_IO | VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP;
 +	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
 +	if (!cma_obj->cached)
 +        	vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
 +	vma->vm_ops = &drm_gem_cacma_vm_ops;
++
 +	return 0;
 +}
 +
 +/**
-+ * drm_gem_cacma_file_mmap() - memory-map a CACMA-GEM object by file operation.
-+ * @filp: file object
-+ * @vma: VMA for the area to be mapped
++ * drm_gem_cacma_file_mmap() - memory-map a GEM object by file operation.
++ * @filp:      file object
++ * @vma:       VMA for the area to be mapped
 + *
-+ * Returns:
-+ * 0 on success or a negative error code on failure.
++ * Returns:    0 on success or a negative error code on failure.
 + */
 +int
 +drm_gem_cacma_file_mmap(struct file *filp, struct vm_area_struct *vma)
@@ -359,12 +376,11 @@ index 000000000..043f3d551
 +EXPORT_SYMBOL_GPL(drm_gem_cacma_file_mmap);
 +
 +/**
-+ * drm_gem_cacma_prime_mmap() - memory-map a CACMA-GEM object by prime operation.
-+ * @obj: GEM object
-+ * @vma: VMA for the area to be mapped
++ * drm_gem_cacma_prime_mmap() - memory-map a GEM object by prime operation.
++ * @gem_obj:   GEM object
++ * @vma:       VMA for the area to be mapped
 + *
-+ * Returns:
-+ * 0 on success or a negative error code on failure.
++ * Returns:    0 on success or a negative error code on failure.
 + */
 +int
 +drm_gem_cacma_prime_mmap(struct drm_gem_object *gem_obj, struct vm_area_struct *vma)
@@ -380,10 +396,10 @@ index 000000000..043f3d551
 +EXPORT_SYMBOL_GPL(drm_gem_cacma_prime_mmap);
 +
 +/**
-+ * drm_gem_cacma_print_info() - Print CACMA-GEM Object info for debugfs
-+ * @p: DRM printer
-+ * @indent: Tab indentation level
-+ * @obj: GEM object
++ * drm_gem_cacma_print_info() - Print GEM Object info for debugfs
++ * @p:         DRM printer
++ * @indent:    Tab indentation level
++ * @obj:       GEM object
 + *
 + * This function can be used as the &drm_driver->gem_print_info callback.
 + * It prints paddr and vaddr for use in e.g. debugfs output.
@@ -402,8 +418,8 @@ index 000000000..043f3d551
 +
 +/**
 + * drm_gem_cacma_prime_get_sg_table() - provide a scatter/gather table of pinned
-+ *     pages for a CACMA-GEM object
-+ * @gem_obj: GEM object
++ *     pages for a GEM object
++ * @gem_obj:   GEM object
 + *
 + * This function exports a scatter/gather table suitable for PRIME usage by
 + * calling the standard DMA mapping API. 
@@ -429,8 +445,10 @@ index 000000000..043f3d551
 +		cma_obj->paddr   , /* dma_addr_t       dma_addr */
 +		gem_obj->size      /* size_t           size     */
 +	      );
-+	if (ret < 0)
++	if (ret < 0) {
++		DRM_ERROR("failed to get sgtable, return=%d", ret);
 +		goto out;
++	}
 +
 +	return sgt;
 +
@@ -441,16 +459,16 @@ index 000000000..043f3d551
 +EXPORT_SYMBOL_GPL(drm_gem_cacma_prime_get_sg_table);
 +
 +/**
-+ * drm_gem_cacma_prime_import_sg_table() - produce a CACMA-GEM object from another
++ * drm_gem_cacma_prime_import_sg_table() - produce a GEM object from another
 + *     driver's scatter/gather table of pinned pages
-+ * @dev: device to import into
-+ * @attach: DMA-BUF attachment
-+ * @sgt: scatter/gather table of pinned pages
++ * @dev:       device to import into
++ * @attach:    DMA-BUF attachment
++ * @sgt:       scatter/gather table of pinned pages
 + *
 + * This function imports a scatter/gather table exported via DMA-BUF by
 + * another driver. Imported buffers must be physically contiguous in memory
 + * (i.e. the scatter/gather table must contain a single entry). Drivers that
-+ * use the CMA helpers should set this as their
++ * use the CACMA helpers should set this as their
 + * &drm_driver.gem_prime_import_sg_table callback.
 + *
 + * Returns:
@@ -465,8 +483,10 @@ index 000000000..043f3d551
 +	struct drm_gem_cacma_object* cma_obj;
 +
 +	/* check if the entries in the sg_table are contiguous */
-+	if (drm_prime_get_contiguous_size(sgt) < attach->dmabuf->size)
++	if (drm_prime_get_contiguous_size(sgt) < attach->dmabuf->size) {
++		DRM_ERROR("buffer chunks must be mapped contiguously");
 +		return ERR_PTR(-EINVAL);
++	}
 +
 +	/* Create a CACMA-GEM Object. */
 +	cma_obj = __drm_gem_cacma_create(dev, attach->dmabuf->size);
@@ -485,12 +505,12 @@ index 000000000..043f3d551
 +/**
 + * drm_gem_cacma_prime_import_sg_table_vmap() - PRIME import another driver's
 + *	scatter/gather table and get the virtual address of the buffer
-+ * @dev: DRM device
-+ * @attach: DMA-BUF attachment
-+ * @sgt: Scatter/gather table of pinned pages
++ * @dev:       device to import into
++ * @attach:    DMA-BUF attachment
++ * @sgt:       Scatter/gather table of pinned pages
 + *
 + * This function imports a scatter/gather table using
-+ * drm_gem_cma_prime_import_sg_table() and uses dma_buf_vmap() to get the kernel
++ * drm_gem_cacma_prime_import_sg_table() and uses dma_buf_vmap() to get the kernel
 + * virtual address. This ensures that a CMA GEM object always has its virtual
 + * address set. This address is released when the object is freed.
 + *
@@ -513,7 +533,7 @@ index 000000000..043f3d551
 +
 +	vaddr = dma_buf_vmap(attach->dmabuf);
 +	if (!vaddr) {
-+		DRM_ERROR("Failed to vmap PRIME buffer\n");
++		DRM_ERROR("Failed to vmap PRIME buffer");
 +		return ERR_PTR(-ENOMEM);
 +	}
 +
@@ -531,9 +551,9 @@ index 000000000..043f3d551
 +EXPORT_SYMBOL(drm_gem_cacma_prime_import_sg_table_vmap);
 +
 +/**
-+ * drm_gem_cacma_prime_vmap() - map a CACMA-GEM object into the kernel's virtual
++ * drm_gem_cacma_prime_vmap() - map a GEM object into the kernel's virtual
 + *     address space
-+ * @gem_obj: GEM object
++ * @gem_obj:   GEM object
 + *
 + * This function maps a buffer exported via DRM PRIME into the kernel's
 + * virtual address space. Since the CMA buffers are already mapped into the
@@ -541,13 +561,19 @@ index 000000000..043f3d551
 + * address. 
 + *
 + * Returns:
-+ * The kernel virtual address of the CACMA-GEM object's backing store.
++ * The kernel virtual address of the GEM object's backing store.
 + */
 +void*
 +drm_gem_cacma_prime_vmap(struct drm_gem_object *gem_obj)
 +{
 +	struct drm_gem_cacma_object* cma_obj = to_drm_gem_cacma_object(gem_obj);
 +
++	if ((cma_obj->vaddr == NULL) && (gem_obj->import_attach)) {
++                void* vaddr = dma_buf_vmap(gem_obj->import_attach->dmabuf);
++        	if (!vaddr) 
++        		DRM_ERROR("Failed to vmap PRIME buffer");
++                cma_obj->vaddr = vaddr;
++        }
 +	return cma_obj->vaddr;
 +}
 +EXPORT_SYMBOL_GPL(drm_gem_cacma_prime_vmap);
@@ -555,8 +581,8 @@ index 000000000..043f3d551
 +/**
 + * drm_gem_cacma_prime_vunmap() - unmap a CACMA-GEM object from the kernel's virtual
 + *     address space
-+ * @gem_obj: GEM object
-+ * @vaddr: kernel virtual address where the CMA GEM object was mapped
++ * @gem_obj:   GEM object
++ * @vaddr:     kernel virtual address where the CMA GEM object was mapped
 + *
 + * This function removes a buffer exported via DRM PRIME from the kernel's
 + * virtual address space. This is a no-op because CMA buffers cannot be
