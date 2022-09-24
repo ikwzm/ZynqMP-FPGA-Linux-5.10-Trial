@@ -36,23 +36,9 @@ make deb-pkg
 cp arch/arm64/boot/Image.gz ../vmlinuz-$KERNEL_RELEASE-$BUILD_VERSION
 cp .config             ../files/config-$KERNEL_RELEASE-$BUILD_VERSION
 
-### Install devicetree to target/UltraZed-EG-IOCC/boot/
+### Install devicetree to this repository
 
-cp arch/arm64/boot/dts/xilinx/zynqmp-uz3eg-iocc.dtb ../devicetree-$KERNEL_RELEASE-uz3eg-iocc.dtb
-./scripts/dtc/dtc -I dtb -O dts --symbols -o ../devicetree-$KERNEL_RELEASE-uz3eg-iocc.dts ../devicetree-$KERNEL_RELEASE-uz3eg-iocc.dtb
-
-### Install devicetree to target/Ultra96/boot/
-
-cp arch/arm64/boot/dts/xilinx/avnet-ultra96-rev1.dtb ../devicetree-$KERNEL_RELEASE-ultra96.dtb
-./scripts/dtc/dtc -I dtb -O dts --symbols -o ../devicetree-$KERNEL_RELEASE-ultra96.dts ../devicetree-$KERNEL_RELEASE-ultra96.dtb
-
-### Install devicetree to target/Ultra96-V2/boot/
-
-cp arch/arm64/boot/dts/xilinx/avnet-ultra96v2-rev1.dtb ../devicetree-$KERNEL_RELEASE-ultra96v2.dtb
-./scripts/dtc/dtc -I dtb -O dts --symbols -o ../devicetree-$KERNEL_RELEASE-ultra96v2.dts ../devicetree-$KERNEL_RELEASE-ultra96v2.dtb
-
-### Install devicetree to target/Kv260/boot/
-
-cp arch/arm64/boot/dts/xilinx/zynqmp-kv260-revB.dtb ../devicetree-$KERNEL_RELEASE-kv260-revB.dtb
-./scripts/dtc/dtc -I dtb -O dts --symbols -o ../devicetree-$KERNEL_RELEASE-kv260-revB.dts ../devicetree-$KERNEL_RELEASE-kv260-revB.dtb
-
+install -d ../devicetrees/$KERNEL_RELEASE-$BUILD_VERSION
+cp arch/arm64/boot/dts/xilinx/*.dtsi ../devicetrees/$KERNEL_RELEASE-$BUILD_VERSION
+cp arch/arm64/boot/dts/xilinx/*.dts  ../devicetrees/$KERNEL_RELEASE-$BUILD_VERSION
+cp arch/arm64/boot/dts/xilinx/*.dtb  ../devicetrees/$KERNEL_RELEASE-$BUILD_VERSION
