@@ -88,22 +88,6 @@ shell$ git add --all
 shell$ git commit -m "[patch] for Kria KV260."
 ```
 
-### Patch for SMB3 and CIFS
-
-```console
-shell$ patch -p1 < ../files/linux-5.10.120-zynqmp-fpga-cifs.diff 
-shell$ git add --update
-shell$ git commit -m "[add] SMB3 and CIFS."
-```
-
-### Patch for Xilinx APF Driver
-
-```console
-shell$ patch -p1 < ../files/linux-5.10.120-zynqmp-fpga-apf.diff
-shell$ git add --update
-shell$ git commit -m "[add] Xilinx APF driver."
-```
-
 ### Patch for Lima
 
 ```console

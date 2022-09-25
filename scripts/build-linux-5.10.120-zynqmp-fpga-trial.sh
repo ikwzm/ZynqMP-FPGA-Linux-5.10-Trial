@@ -74,18 +74,6 @@ patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-kv260.diff
 git add --all
 git commit -m "[patch] for Kria KV260."
 
-### Patch for SMB3 and CIFS
-
-patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-cifs.diff 
-git add --update
-git commit -m "[add] SMB3 and CIFS."
-
-### Patch for Xilinx APF Driver
-
-patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-apf.diff
-git add --update
-git commit -m "[add] Xilinx APF driver."
-
 ### Patch for Lima
 
 patch -p1 < ../files/linux-$KERNEL_VERSION-zynqmp-fpga-lima-drv.diff
